@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgbti0rtpks3t"]
+
+[ext_resource type="Texture2D" uid="uid://cbmyc2bh0y7g" path="res://Shared/castle_map/asset/cloud_1.png" id="1_ocf2i"]
+
+[node name="awan kecil" type="Sprite2D"]
+modulate = Color(1, 1, 1, 0.705882)
+texture = ExtResource("1_ocf2i")
+centered = false

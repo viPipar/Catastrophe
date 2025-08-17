@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=3 uid="uid://bwkiyy1etxi2s"]
+
+[ext_resource type="Texture2D" uid="uid://bt32pbfaj2od2" path="res://Shared/castle_map/asset/fog.png" id="1_6q4oe"]
+
+[sub_resource type="Animation" id="Animation_nlqsf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_esu5g"]
+resource_name = "fog_movement"
+length = 50.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 50),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 120), Vector2(-2559, 120)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qisfc"]
+_data = {
+&"RESET": SubResource("Animation_nlqsf"),
+&"fog_movement": SubResource("Animation_esu5g")
+}
+
+[node name="fog" type="Sprite2D"]
+modulate = Color(1, 1, 1, 0.623529)
+texture = ExtResource("1_6q4oe")
+centered = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_qisfc")
+}
+autoplay = "fog_movement"
+speed_scale = 0.2
