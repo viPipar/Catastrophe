@@ -1,0 +1,92 @@
+[gd_scene load_steps=14 format=3 uid="uid://ds73wkflfnc3s"]
+
+[ext_resource type="Script" uid="uid://cctqi36wwfbmy" path="res://card.gd" id="1_1a434"]
+[ext_resource type="Texture2D" uid="uid://crfrvfsdpmbhv" path="res://assets/sprites/card/Card (Walk).png" id="2_buo6a"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6yphj"]
+atlas = ExtResource("2_buo6a")
+region = Rect2(0, 0, 1500, 1500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_23pqe"]
+atlas = ExtResource("2_buo6a")
+region = Rect2(1500, 0, 1500, 1500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_51tpa"]
+atlas = ExtResource("2_buo6a")
+region = Rect2(3000, 0, 1500, 1500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_isn0a"]
+atlas = ExtResource("2_buo6a")
+region = Rect2(0, 1500, 1500, 1500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x6flo"]
+atlas = ExtResource("2_buo6a")
+region = Rect2(1500, 1500, 1500, 1500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ky5s"]
+atlas = ExtResource("2_buo6a")
+region = Rect2(3000, 1500, 1500, 1500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_43adc"]
+atlas = ExtResource("2_buo6a")
+region = Rect2(0, 3000, 1500, 1500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vapw6"]
+atlas = ExtResource("2_buo6a")
+region = Rect2(1500, 3000, 1500, 1500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rytv5"]
+atlas = ExtResource("2_buo6a")
+region = Rect2(3000, 3000, 1500, 1500)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2owba"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6yphj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_23pqe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_51tpa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_isn0a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x6flo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ky5s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_43adc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vapw6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rytv5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 9.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1nkti"]
+size = Vector2(60, 73)
+
+[node name="Card_Spirit" type="CharacterBody2D"]
+script = ExtResource("1_1a434")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-54, -180)
+sprite_frames = SubResource("SpriteFrames_2owba")
+frame_progress = 0.328044
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 1
+position = Vector2(5, 7.5)
+shape = SubResource("RectangleShape2D_1nkti")
+disabled = true

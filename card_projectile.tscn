@@ -1,0 +1,84 @@
+[gd_scene load_steps=13 format=3 uid="uid://dbx0cw5vp2n52"]
+
+[ext_resource type="Script" uid="uid://dk7a3pu8vs5ii" path="res://card_projectile.gd" id="1_65mgt"]
+[ext_resource type="Texture2D" uid="uid://djs2jjh1hn0ug" path="res://assets/sprites/card/Card Projectile.png" id="2_4nuk2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qn8pd"]
+atlas = ExtResource("2_4nuk2")
+region = Rect2(0, 0, 1500, 1500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pufj3"]
+atlas = ExtResource("2_4nuk2")
+region = Rect2(1500, 0, 1500, 1500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t38ag"]
+atlas = ExtResource("2_4nuk2")
+region = Rect2(3000, 0, 1500, 1500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uukov"]
+atlas = ExtResource("2_4nuk2")
+region = Rect2(0, 1500, 1500, 1500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n4jjo"]
+atlas = ExtResource("2_4nuk2")
+region = Rect2(1500, 1500, 1500, 1500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b3qa7"]
+atlas = ExtResource("2_4nuk2")
+region = Rect2(3000, 1500, 1500, 1500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_62x4u"]
+atlas = ExtResource("2_4nuk2")
+region = Rect2(0, 3000, 1500, 1500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jcq2m"]
+atlas = ExtResource("2_4nuk2")
+region = Rect2(1500, 3000, 1500, 1500)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v5dbd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qn8pd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pufj3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t38ag")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uukov")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n4jjo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b3qa7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_62x4u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jcq2m")
+}],
+"loop": true,
+"name": &"default",
+"speed": 22.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n2mor"]
+size = Vector2(75.5, 60)
+
+[node name="CardProjectile" type="Area2D"]
+scale = Vector2(-0.1, -0.1)
+script = ExtResource("1_65mgt")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_v5dbd")
+autoplay = "default"
+frame_progress = 0.112344
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-7.75, 0)
+shape = SubResource("RectangleShape2D_n2mor")

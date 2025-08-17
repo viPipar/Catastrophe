@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdtkj37xjdj4k"]
+
+[ext_resource type="Texture2D" uid="uid://0253t5odcjyq" path="res://Shared/caveone_map/asset/cave_entrance_0.png" id="1_gml6u"]
+[ext_resource type="Texture2D" uid="uid://dksbuokrm3fpt" path="res://Shared/caveone_map/asset/cave_entrance_1.png" id="2_1n00e"]
+
+[node name="Cave" type="Sprite2D"]
+
+[node name="CaveEntrance0" type="Sprite2D" parent="."]
+texture = ExtResource("1_gml6u")
+
+[node name="CaveEntrance1" type="Sprite2D" parent="."]
+z_index = 101
+texture = ExtResource("2_1n00e")

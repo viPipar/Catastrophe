@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://d1vb3l1q4hj80"]
+
+[ext_resource type="Texture2D" uid="uid://gdjx8hs7q8tw" path="res://Shared/cavetwo_map/asset/cavetwo_00.png" id="1_nfrc6"]
+[ext_resource type="Texture2D" uid="uid://bdfeekx01ahvd" path="res://Shared/cavetwo_map/asset/cavetwo_1.png" id="2_pebdl"]
+[ext_resource type="Texture2D" uid="uid://dkpdyand2h34j" path="res://Shared/cavetwo_map/asset/cavetwo_2.png" id="3_kwdqy"]
+[ext_resource type="Texture2D" uid="uid://dbyxtoc7ac5hu" path="res://Shared/cavetwo_map/asset/cavetwo_3.png" id="4_hgdbm"]
+
+[node name="cavetwo_map" type="ParallaxBackground"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_nfrc6")
+centered = false
+
+[node name="cavetwo_1" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.2, 0.2)
+motion_mirroring = Vector2(1280, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="cavetwo_1"]
+texture = ExtResource("2_pebdl")
+centered = false
+
+[node name="cavetwo_2" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.6, 0.6)
+motion_mirroring = Vector2(1280, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="cavetwo_2"]
+texture = ExtResource("3_kwdqy")
+centered = false
+
+[node name="cavetwo_3" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0.9, 0.9)
+motion_mirroring = Vector2(1280, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="cavetwo_3"]
+texture = ExtResource("4_hgdbm")
+centered = false
