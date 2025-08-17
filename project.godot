@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="NoBrainDev_Revision"
+config/name="Catastrophe_Project"
 run/main_scene="uid://dflh43i41n3fx"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"

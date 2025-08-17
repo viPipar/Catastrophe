@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://bh6oxxak8bof7"]
 
 [ext_resource type="PackedScene" uid="uid://bjjjxnrku30bh" path="res://main_character.tscn" id="1_epypp"]
-[ext_resource type="PackedScene" path="res://enemy.tscn" id="4_0hol4"]
-[ext_resource type="PackedScene" path="res://barrel.tscn" id="5_d21ai"]
+[ext_resource type="PackedScene" uid="uid://bk551y5q1tl7q" path="res://enemy_mushi.tscn" id="4_0hol4"]
+[ext_resource type="PackedScene" uid="uid://c88j15co7s1ey" path="res://barrel.tscn" id="5_d21ai"]
 [ext_resource type="Texture2D" uid="uid://pjubu2i0rsy6" path="res://tileset/floor/Floor Tiles1.png" id="5_kdubu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wqmsq"]
@@ -1141,6 +1141,9 @@ sources/0 = SubResource("TileSetAtlasSource_wqmsq")
 
 [node name="Node2D" type="Node2D"]
 
+[node name="main_character" parent="." instance=ExtResource("1_epypp")]
+position = Vector2(62, -20)
+
 [node name="Barrel" parent="." instance=ExtResource("5_d21ai")]
 z_index = 1
 position = Vector2(9, -123)
@@ -1157,9 +1160,6 @@ position = Vector2(112, -11)
 z_index = 1
 position = Vector2(36, -11)
 
-[node name="main_character" parent="." instance=ExtResource("1_epypp")]
-position = Vector2(52, -15)
-
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_fkgk1")
 format = 2
@@ -1168,6 +1168,5 @@ layer_0/tile_data = PackedInt32Array(65535, 0, 24, 0, 65536, 24, 1, 196608, 24, 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
 
-[node name="Enemy" parent="." instance=ExtResource("4_0hol4")]
-position = Vector2(-137, -52)
-scale = Vector2(0.2, 0.2)
+[node name="Enemy_Mushi" parent="." instance=ExtResource("4_0hol4")]
+position = Vector2(-66, 20)

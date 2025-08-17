@@ -19,7 +19,7 @@ script/source = "extends CharacterBody2D
 @export var speed: float = 150.0
 @export var jump_velocity: float = -300.0
 @export var gravity: float = 900.0
-@export var dash_speed: float = 300.0
+@export var dash_speed: float = 900.0
 @export var dash_duration: float = 0.25
 var dash_timer: float = 0.0
 
@@ -33,7 +33,7 @@ var is_dashing = false
 var is_parrying = false
 var is_jumping = false
 var is_shooting = false
-var facing_dir: int = 1
+var facing_dir: int = -1
 
 # Attack settings
 var combo_step = 0
@@ -64,7 +64,14 @@ var attack_hitbox_frames = {
 	\"attack_3\": {\"on\": 3, \"off\": 8}
 }
 
+# Offsets supaya AttackArea & SpawnPoint bisa diputar sesuai arah
+var attack_area_offset: Vector2
+var spawn_point_offset: Vector2
+
 func _ready():
+	attack_area_offset = $AttackArea/CollisionShape2D.position
+	spawn_point_offset = spawn_point.position
+	
 	sprite.frame_changed.connect(_on_sprite_frame_changed)
 	sprite.animation_finished.connect(_on_animation_finished)
 	attack_timer.timeout.connect(_on_attack_timer_timeout)
@@ -184,12 +191,11 @@ func _physics_process(delta: float) -> void:
 				if velocity.x == 0 and sprite.animation != \"idle\":
 					sprite.play(\"idle\")
 
-	# flip visuals & flip attack area + spawnpoint horizontally
+	# flip visuals & mirror nodes
 	if dir != 0:
-		sprite.flip_h = dir < 0
-		var attack_x = abs($AttackArea/CollisionShape2D.position.x)
-		$AttackArea/CollisionShape2D.position.x = attack_x * facing_dir
-		spawn_point.position.x = abs(spawn_point.position.x) * facing_dir
+		sprite.flip_h = (facing_dir < 0)
+		$AttackArea/CollisionShape2D.position.x = attack_area_offset.x * facing_dir
+		spawn_point.position.x = spawn_point_offset.x * facing_dir
 
 	move_and_slide()
 

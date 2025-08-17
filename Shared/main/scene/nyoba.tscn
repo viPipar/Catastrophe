@@ -1,4 +1,4 @@
-[gd_scene load_steps=192 format=4 uid="uid://dflh43i41n3fx"]
+[gd_scene load_steps=194 format=4 uid="uid://dflh43i41n3fx"]
 
 [ext_resource type="PackedScene" uid="uid://cxn5ye76bwr53" path="res://Shared/castle_map/scene/castle_map.tscn" id="1_73oh0"]
 [ext_resource type="PackedScene" uid="uid://bo6npwwwietey" path="res://Shared/caveone_map/scene/caveone_map.tscn" id="2_13kap"]
@@ -19,6 +19,8 @@
 [ext_resource type="Texture2D" uid="uid://30f5g6ykwtam" path="res://Shared/castle_map/asset/Pine Trees.png" id="14_1te4i"]
 [ext_resource type="Texture2D" uid="uid://c2hka72fw7bjp" path="res://assets/sprites/GandalfHardcore Animated Water Tiles.png" id="14_r01o1"]
 [ext_resource type="Texture2D" uid="uid://clvkk3uk04i6y" path="res://Shared/castle_map/asset/Weeping Willow1.png" id="16_1te4i"]
+[ext_resource type="PackedScene" uid="uid://bk551y5q1tl7q" path="res://enemy_mushi.tscn" id="20_b5u7f"]
+[ext_resource type="PackedScene" uid="uid://bdqvhos4h542n" path="res://enemy_barkwing.tscn" id="21_sibvg"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_drqlo"]
 normal = Vector2(0.999822, -0.0188646)
@@ -5215,3 +5217,15 @@ dash_speed = 500.0
 limit_top = -600
 limit_right = 14592
 limit_bottom = 900
+
+[node name="Enemy_Mushi" parent="." instance=ExtResource("20_b5u7f")]
+position = Vector2(1027, 656)
+scale = Vector2(2, 2)
+
+[node name="Enemy_Mushi2" parent="." instance=ExtResource("20_b5u7f")]
+position = Vector2(1656, 528)
+scale = Vector2(2, 2)
+
+[node name="Enemy_Barkwing" parent="." instance=ExtResource("21_sibvg")]
+position = Vector2(1400, 384)
+scale = Vector2(2, 2)
