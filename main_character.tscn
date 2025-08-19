@@ -16,8 +16,8 @@
 script/source = "extends CharacterBody2D
 
 # Movement settings
-@export var speed: float = 150.0
-@export var jump_velocity: float = -300.0
+@export var speed: float = 1000.0
+@export var jump_velocity: float = -450.0
 @export var gravity: float = 900.0
 @export var dash_speed: float = 900.0
 @export var dash_duration: float = 0.25
@@ -1128,6 +1128,8 @@ size = Vector2(571.429, 1763.86)
 [node name="main_character" type="CharacterBody2D" groups=["player"]]
 scale = Vector2(-1.5, 1.5)
 script = SubResource("GDScript_wtcfe")
+speed = 500.0
+dash_speed = 500.0
 projectile_scene = ExtResource("1_qthh5")
 
 [node name="StateMachine" type="Node2D" parent="."]
@@ -1158,10 +1160,9 @@ disabled = true
 position = Vector2(31, -17)
 scale = Vector2(0.051, 0.051)
 sprite_frames = SubResource("SpriteFrames_gt76g")
-animation = &"projectile"
+animation = &"doublejump"
 autoplay = "idle"
-frame = 9
-frame_progress = 1.0
+frame_progress = 0.81241
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(35, -5)

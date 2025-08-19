@@ -1,11 +1,11 @@
-res://assets/sprites/enemy/barkwing
 res://
-res://assets/sprites/enemy/mushi
+res://Shared/castle_map/scene
 res://Shared/main/scene
+res://assets/sprites/enemy/barkwing
+res://assets/sprites/enemy/mushi
 res://assets/sprites
 res://assets/sprites/witch_shop
 res://Shared/castle_map/asset
-res://Shared/castle_map/scene
 res://Shared/cavethree_map/scene
 res://Shared/cavetwo_map/scene
 res://Shared/character_test/script

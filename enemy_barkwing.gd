@@ -24,7 +24,7 @@ func _process(delta: float) -> void:
 		else:
 			# idle kalau player jauh
 			velocity = Vector2.ZERO
-			anim.play("flyd")
+			anim.play("fly")
 
 		# arah animasi (flip)
 		if velocity.x != 0:

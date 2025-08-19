@@ -1,15 +1,10 @@
-res://Shared/main/scene/nyoba.tscn
-res://barrel.gd
-res://Shared/castle_map/scene/castle_map 2.tscn
+res://Shared/main/scene/Surface.tscn
+res://Shared/main/scene/Castle.tscn
+res://Shared/castle_map/scene/castle_map.tscn
 res://Shared/caveone_map/scene/caveone_map.tscn
 res://Shared/cavetwo_map/scene/cavetwo_map.tscn
 res://Shared/cavethree_map/scene/cavethree_map.tscn
 res://main_character.tscn
-res://Shared/castle_map/scene/castle_map.tscn
-res://Shared/castle_map/scene/awan_besar.tscn
-res://Shared/castle_map/scene/fog.tscn
-res://node_2d.tscn
-res://enemy_mushi.gd
 res://enemy_mushi.tscn
 res://enemy_barkwing.tscn
-res://enemy_barkwing.gd
+res://torch.tscn

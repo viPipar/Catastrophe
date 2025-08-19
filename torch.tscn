@@ -1,0 +1,48 @@
+[gd_scene load_steps=9 format=3 uid="uid://bxi5a758kwtxn"]
+
+[ext_resource type="Texture2D" uid="uid://chftmmd1klph2" path="res://Shared/main/asset/torch_big/torch_big_background.png" id="1_vkaj5"]
+[ext_resource type="Texture2D" uid="uid://cpf0rfhn23ikb" path="res://Shared/main/asset/torch_big/torch_big_1.png" id="1_wfdi7"]
+[ext_resource type="Texture2D" uid="uid://dniw5me5yqboi" path="res://Shared/main/asset/torch_big/torch_big_2.png" id="2_vkaj5"]
+[ext_resource type="Texture2D" uid="uid://bv50p5gktslog" path="res://Shared/main/asset/torch_big/torch_big_3.png" id="3_cfb3y"]
+[ext_resource type="Texture2D" uid="uid://cj1ihbrcs3142" path="res://Shared/main/asset/torch_big/torch_big_4.png" id="4_cfxwm"]
+[ext_resource type="Texture2D" uid="uid://1v4dk7ing8g7" path="res://Shared/main/asset/torch_big/torch_big_5.png" id="5_vsxk6"]
+[ext_resource type="Texture2D" uid="uid://donlofubg6vkv" path="res://Shared/main/asset/torch_big/torch_big_6.png" id="6_yjfty"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hm310"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_wfdi7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_vkaj5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_cfb3y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_cfxwm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_vsxk6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_yjfty")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[node name="Torch" type="Node2D"]
+
+[node name="TorchBigBackground" type="Sprite2D" parent="."]
+position = Vector2(0, 8)
+scale = Vector2(2, 2)
+texture = ExtResource("1_vkaj5")
+
+[node name="Torch" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_hm310")
+autoplay = "default"
+frame_progress = 0.135459
