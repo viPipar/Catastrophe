@@ -1,14 +1,14 @@
+AnimationPlayer
+ColorRect
+Node
 Node2D
 AnimatedSprite2D
 TileMapLayer
-AnimationPlayer
 AnimationTree
-ColorRect
 CanvasLayer
 CollisionShape2D
 Area2D
 Camera2D
-Node
 RayCast2D
 CharacterBody2D
 Sprite2D

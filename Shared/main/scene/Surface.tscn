@@ -5248,7 +5248,7 @@ frame_progress = 0.589033
 [node name="main_character" parent="." instance=ExtResource("19_qxoit")]
 z_index = 100
 z_as_relative = false
-position = Vector2(648, 664)
+position = Vector2(13608, 472)
 scale = Vector2(-2, 2)
 
 [node name="Camera2D2" type="Camera2D" parent="main_character"]
@@ -5283,13 +5283,13 @@ position = Vector2(1400, 384)
 scale = Vector2(2, 2)
 
 [node name="Area2D" type="Area2D" parent="."]
-position = Vector2(360, 678)
+position = Vector2(360, 792)
 rotation = 3.14159
 scale = Vector2(2, -2)
 script = ExtResource("22_pfod2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-6972, -12)
+position = Vector2(-6972, 16.0177)
 shape = SubResource("SegmentShape2D_pfod2")
 
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]

@@ -8,3 +8,13 @@ res://main_character.tscn
 res://enemy_mushi.tscn
 res://enemy_barkwing.tscn
 res://torch.tscn
+res://enemy_barkwing.gd
+res://enemy_mushi.gd
+res://Shared/main/scene/area_2d.gd
+res://barrel.gd
+res://Shared/castle_map/scene/parallax_2d_3.gd
+res://Shared/castle_map/scene/parallax_layer.gd
+res://Shared/character_test/script/player.gd
+res://Shared/main/scene/CaveOne.tscn
+res://Shared/main/scene/area_2d_castle.gd
+res://Shared/boss_room/scene/boss_room.tscn

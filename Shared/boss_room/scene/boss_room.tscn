@@ -1,0 +1,129 @@
+[gd_scene load_steps=16 format=3 uid="uid://x043dx4gljig"]
+
+[ext_resource type="Texture2D" uid="uid://df7p4eycnpxvp" path="res://Shared/boss_room/asset/boss_room_0.jpg" id="1_cscpj"]
+[ext_resource type="Script" uid="uid://cs0hora45fx67" path="res://Shared/boss_room/scene/parallax_layer.gd" id="2_1d563"]
+[ext_resource type="Texture2D" uid="uid://ilu4pnjasyxn" path="res://Shared/boss_room/asset/boss_room_1.png" id="2_8dfmu"]
+[ext_resource type="Texture2D" uid="uid://dsgusit3kusrf" path="res://Shared/boss_room/asset/boss_room_2.png" id="3_1d563"]
+[ext_resource type="Script" uid="uid://ci8esbcrgd7hm" path="res://Shared/boss_room/scene/parallax_layer_2.gd" id="4_u0kol"]
+[ext_resource type="Texture2D" uid="uid://bbc3o3i5k121t" path="res://Shared/boss_room/asset/boss_room_3.png" id="4_y8dpc"]
+[ext_resource type="Texture2D" uid="uid://cxy7pt1n45pyf" path="res://Shared/boss_room/asset/boss_room_4.png" id="5_u0kol"]
+[ext_resource type="Script" uid="uid://bs6mmdsnpoyxi" path="res://Shared/boss_room/scene/parallax_layer_3.gd" id="6_6gdj8"]
+[ext_resource type="Texture2D" uid="uid://cgf3qfhsgttld" path="res://Shared/boss_room/asset/boss_room_5.png" id="6_6yucl"]
+[ext_resource type="Script" uid="uid://ctupck51e2vax" path="res://Shared/boss_room/scene/parallax_layer_4.gd" id="8_2wu4j"]
+[ext_resource type="PackedScene" uid="uid://bjjjxnrku30bh" path="res://main_character.tscn" id="11_6yucl"]
+
+[sub_resource type="Animation" id="Animation_6yucl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_u0kol"]
+resource_name = "jatuh"
+length = 5.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 5),
+"transitions": PackedFloat32Array(1, 1, 2.46229),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 15), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6gdj8"]
+_data = {
+&"RESET": SubResource("Animation_6yucl"),
+&"jatuh": SubResource("Animation_u0kol")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6gdj8"]
+size = Vector2(20.1261, 20)
+
+[node name="boss_room" type="ParallaxBackground"]
+
+[node name="background" type="Sprite2D" parent="."]
+texture = ExtResource("1_cscpj")
+centered = false
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0, 0)
+motion_mirroring = Vector2(0, 720)
+script = ExtResource("2_1d563")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer"]
+texture = ExtResource("2_8dfmu")
+centered = false
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0, 0)
+motion_mirroring = Vector2(0, 720)
+script = ExtResource("4_u0kol")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer2"]
+texture = ExtResource("3_1d563")
+centered = false
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0, 0)
+motion_mirroring = Vector2(0, 720)
+script = ExtResource("6_6gdj8")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer3"]
+texture = ExtResource("4_y8dpc")
+centered = false
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0, 0)
+motion_mirroring = Vector2(0, 2160)
+script = ExtResource("8_2wu4j")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer4"]
+texture = ExtResource("5_u0kol")
+centered = false
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+texture = ExtResource("6_6yucl")
+centered = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="StaticBody2D/Sprite2D"]
+libraries = {
+&"": SubResource("AnimationLibrary_6gdj8")
+}
+autoplay = "jatuh"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(643.918, 505)
+rotation = -3.14159
+scale = Vector2(48.8835, -3.551)
+shape = SubResource("RectangleShape2D_6gdj8")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(1140, 243)
+rotation = -4.70765
+scale = Vector2(24.6697, -3.50687)
+shape = SubResource("RectangleShape2D_6gdj8")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(140, 254)
+rotation = -4.70765
+scale = Vector2(-25.4639, -3.35964)
+shape = SubResource("RectangleShape2D_6gdj8")
+
+[node name="main_character" parent="." instance=ExtResource("11_6yucl")]
+position = Vector2(288, 368)
