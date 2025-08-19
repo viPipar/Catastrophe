@@ -3358,7 +3358,7 @@ shape = SubResource("WorldBoundaryShape2D_lts38")
 
 [node name="main_character" parent="." instance=ExtResource("11_5rmo2")]
 z_index = 100
-position = Vector2(168, 664)
+position = Vector2(14304, 449)
 rotation = -3.14159
 scale = Vector2(2, -2)
 
@@ -3367,6 +3367,7 @@ position = Vector2(32, -1.78019e-05)
 rotation = 3.14159
 scale = Vector2(0.666667, -0.666667)
 limit_top = -1656
+limit_right = 18368
 limit_bottom = 900
 
 [node name="Faderlayer" type="CanvasLayer" parent="main_character"]
