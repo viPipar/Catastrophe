@@ -127,3 +127,6 @@ shape = SubResource("RectangleShape2D_6gdj8")
 
 [node name="main_character" parent="." instance=ExtResource("11_6yucl")]
 position = Vector2(288, 368)
+speed = 1000.0
+dash_speed = 900.0
+projectile_scene = null

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://pfrskb0jixxc"
-path="res://.godot/imported/Death.png-7bb05f0860c7ad8c5a5a8cb117cbc82b.ctex"
+uid="uid://cv8fqilrkvqbu"
+path="res://.godot/imported/ATTACK 1_Clover Knight.png-06810a01661dcb879e9c3ce03404e29d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/enemy/barkwing/Death.png"
-dest_files=["res://.godot/imported/Death.png-7bb05f0860c7ad8c5a5a8cb117cbc82b.ctex"]
+source_file="res://assets/sprites/enemy/cloverknight/ATTACK 1_Clover Knight.png"
+dest_files=["res://.godot/imported/ATTACK 1_Clover Knight.png-06810a01661dcb879e9c3ce03404e29d.ctex"]
 
 [params]
 

@@ -3232,21 +3232,6 @@ sources/4 = SubResource("TileSetAtlasSource_yygch")
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_lts38"]
 normal = Vector2(-0.999941, 0.010869)
 
-[sub_resource type="Animation" id="Animation_uqvjl"]
-resource_name = "fade_out"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_08hub"]
 length = 0.001
 tracks/0/type = "value"
@@ -3275,6 +3260,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_uqvjl"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qrkm8"]
@@ -3361,6 +3361,9 @@ z_index = 100
 position = Vector2(14304, 449)
 rotation = -3.14159
 scale = Vector2(2, -2)
+speed = 1000.0
+dash_speed = 900.0
+projectile_scene = null
 
 [node name="Camera2D" type="Camera2D" parent="main_character"]
 position = Vector2(32, -1.78019e-05)

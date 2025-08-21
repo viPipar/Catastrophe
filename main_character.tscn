@@ -1,7 +1,6 @@
-[gd_scene load_steps=126 format=3 uid="uid://bjjjxnrku30bh"]
+[gd_scene load_steps=127 format=3 uid="uid://bjjjxnrku30bh"]
 
 [ext_resource type="Texture2D" uid="uid://cy27knyrsv4tp" path="res://assets/sprites/main_character/Main Character (Combo Attack).png" id="1_2v62t"]
-[ext_resource type="PackedScene" uid="uid://dbx0cw5vp2n52" path="res://card_projectile.tscn" id="1_qthh5"]
 [ext_resource type="Texture2D" uid="uid://c32hmb1idobsh" path="res://assets/sprites/main_character/Main Character (Dash).png" id="2_wcpx6"]
 [ext_resource type="Texture2D" uid="uid://6kflqel1lcwi" path="res://assets/sprites/main_character/Main Character (Double Jump).png" id="3_u3evn"]
 [ext_resource type="Texture2D" uid="uid://bat2ppmmnxjqj" path="res://assets/sprites/main_character/Main Character (Fall).png" id="4_5q0wt"]
@@ -15,7 +14,7 @@
 [sub_resource type="GDScript" id="GDScript_wtcfe"]
 script/source = "extends CharacterBody2D
 
-# Movement settings
+# ========== CORE MOVEMENT / STATE ==========
 @export var speed: float = 1000.0
 @export var jump_velocity: float = -450.0
 @export var gravity: float = 900.0
@@ -23,11 +22,11 @@ script/source = "extends CharacterBody2D
 @export var dash_duration: float = 0.25
 var dash_timer: float = 0.0
 
-# Double jump settings
+# Double jump
 @export var max_jumps: int = 2
 var jump_count: int = 0
 
-# State flags
+# Flags
 var is_attacking = false
 var is_dashing = false
 var is_parrying = false
@@ -35,51 +34,117 @@ var is_jumping = false
 var is_shooting = false
 var facing_dir: int = -1
 
-# Attack settings
+# ========== HEALTH ==========
+@export var max_health: int = 100
+var current_health: int = max_health
+@onready var health_bar: TextureProgressBar = get_tree().current_scene.get_node(\"CanvasLayer/TextureProgressBar\")
+
+# Hurt/invuln (from TestArea)
+var is_hurt: bool = false
+var invulnerable: bool = false
+@export var invuln_time: float = 0.1
+var invuln_timer: float = 0.0
+@export var knockback_force: float = 200.0
+@export var knockback_up: float = -150.0
+
+# ========== ATTACK / COMBO ==========
 var combo_step = 0
 var max_combo = 3
 
-# Attack lunge
+# Lunge
 @export var lunge_force: float = 10.0
 @export var lunge_duration: float = 0.1
 var lunge_timer: float = 0.0
 
-# Projectile settings
+# Projectile
 @export var projectile_scene: PackedScene
 @onready var spawn_point: Node2D = $SpawnPoint
 var projectile_spawned: bool = false
 
-# Timers
+# Timers (adjust paths if your node structure differs)
 @onready var attack_timer: Timer = $StateMachine/AttackTimer
 @onready var attack_cooldown_timer: Timer = $StateMachine/AttackCooldownTimer
 @onready var attack_combo_timer: Timer = $StateMachine/AttackComboTimer
 
-# Sprite reference
+# Sprite + nodes
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var hurtbox: Area2D = $Hurtbox
+@onready var parry_area: CollisionShape2D = $ParryArea/CollisionShape2D
+@onready var attack_area: CollisionShape2D = $AttackArea/CollisionShape2D
 
-# Attack hitbox frames (sesuaikan index frame dengan spritesheet-mu)
+# store parents for robust world/local conversions
+var attack_parent: Node = null
+var parry_parent: Node = null
+
+# Attack hitbox frames mapping
 var attack_hitbox_frames = {
 	\"attack_1\": {\"on\": 3, \"off\": 5},
 	\"attack_2\": {\"on\": 1, \"off\": 5},
 	\"attack_3\": {\"on\": 3, \"off\": 8}
 }
 
-# Offsets supaya AttackArea & SpawnPoint bisa diputar sesuai arah
-var attack_area_offset: Vector2
-var spawn_point_offset: Vector2
+# Parry hitbox frames
+var parry_hitbox_frames = {
+	\"parry\": {\"on\": 4, \"off\": 8}
+}
+
+# local offsets stored at ready
+var attack_area_offset: Vector2 = Vector2.ZERO
+var spawn_point_offset: Vector2 = Vector2.ZERO
+var parry_area_offset: Vector2 = Vector2.ZERO
 
 func _ready():
-	attack_area_offset = $AttackArea/CollisionShape2D.position
-	spawn_point_offset = spawn_point.position
-	
+	# capture offsets
+	if attack_area:
+		attack_area_offset = attack_area.position
+		attack_parent = attack_area.get_parent()
+	if spawn_point:
+		spawn_point_offset = spawn_point.position
+	if parry_area:
+		parry_area_offset = parry_area.position
+		parry_parent = parry_area.get_parent()
+
+	# signals
 	sprite.frame_changed.connect(_on_sprite_frame_changed)
 	sprite.animation_finished.connect(_on_animation_finished)
 	attack_timer.timeout.connect(_on_attack_timer_timeout)
 	attack_cooldown_timer.timeout.connect(_on_attack_cooldown_timeout)
 	attack_combo_timer.timeout.connect(_on_attack_combo_timeout)
 
+	# connect hurtbox
+	if hurtbox:
+		hurtbox.area_entered.connect(_on_hurtbox_area_entered)
+
+	# init healthbar
+	if health_bar:
+		health_bar.max_value = max_health
+		health_bar.value = current_health
+
+	# ensure attack & parry shapes start disabled
+	if attack_area:
+		attack_area.disabled = true
+	if parry_area:
+		parry_area.disabled = true
+
 func _physics_process(delta: float) -> void:
-	# Parry locks input (gravity still applies)
+	# early out on death
+	if current_health <= 0:
+		return
+
+	# hurt state
+	if is_hurt:
+		if not is_on_floor():
+			velocity.y += gravity * delta
+		else:
+			velocity.y = 0
+		move_and_slide()
+		if invulnerable:
+			invuln_timer -= delta
+			if invuln_timer <= 0.0:
+				invulnerable = false
+		return
+
+	# parry state (freeze horizontal)
 	if is_parrying:
 		if not is_on_floor():
 			velocity.y += gravity * delta
@@ -89,7 +154,7 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 		return
 
-	# When shooting: lock movement so animation can finish uninterrupted
+	# shooting state (freeze horizontal)
 	if is_shooting:
 		if not is_on_floor():
 			velocity.y += gravity * delta
@@ -99,7 +164,7 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 		return
 
-	# Dash state
+	# dash
 	if is_dashing:
 		dash_timer -= delta
 		velocity.y = 0
@@ -111,7 +176,7 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 		return
 
-	# Gravity
+	# gravity & jump animations
 	if not is_on_floor():
 		velocity.y += gravity * delta
 		if velocity.y < 0:
@@ -127,7 +192,7 @@ func _physics_process(delta: float) -> void:
 			is_jumping = false
 		jump_count = 0
 
-	# Jump
+	# input
 	if Input.is_action_just_pressed(\"jump\") and not is_parrying:
 		if jump_count < max_jumps:
 			velocity.y = jump_velocity
@@ -138,34 +203,28 @@ func _physics_process(delta: float) -> void:
 			else:
 				sprite.play(\"doublejump\")
 
-	# Parry input
 	if Input.is_action_just_pressed(\"parry\") and not is_dashing and not is_attacking and not is_parrying and is_on_floor():
 		is_parrying = true
 		velocity.x = 0
 		sprite.play(\"parry\")
 
-	# Attack input
 	if Input.is_action_just_pressed(\"attack\") and not is_dashing and not is_parrying and not is_shooting:
 		try_attack()
 
-	# Projectile input
 	if Input.is_action_just_pressed(\"projectile\") and not is_dashing and not is_parrying and not is_attacking and not is_shooting:
 		is_shooting = true
 		projectile_spawned = false
 		sprite.play(\"projectile\")
 
-	# Movement input
 	var dir := 0.0
 	if Input.is_action_pressed(\"move_right\"):
 		dir += 1.0
 	if Input.is_action_pressed(\"move_left\"):
 		dir -= 1.0
 
-	# Update facing direction and flip related nodes
 	if dir != 0:
 		facing_dir = 1 if dir > 0 else -1
 
-	# Dash input (requires a direction)
 	if Input.is_action_just_pressed(\"dash\") and not is_dashing and not is_parrying and dir != 0:
 		is_dashing = true
 		dash_timer = dash_duration
@@ -174,8 +233,8 @@ func _physics_process(delta: float) -> void:
 		sprite.play(\"dash\")
 		return
 
-	# Attack lunge handling
-	elif is_attacking:
+	# attack lunge handling
+	if is_attacking:
 		if lunge_timer > 0:
 			lunge_timer -= delta
 			velocity.x = facing_dir * lunge_force
@@ -191,14 +250,95 @@ func _physics_process(delta: float) -> void:
 				if velocity.x == 0 and sprite.animation != \"idle\":
 					sprite.play(\"idle\")
 
-	# flip visuals & mirror nodes
+	# flip visuals & update hitboxes
 	if dir != 0:
 		sprite.flip_h = (facing_dir < 0)
-		$AttackArea/CollisionShape2D.position.x = attack_area_offset.x * facing_dir
-		spawn_point.position.x = spawn_point_offset.x * facing_dir
+
+		# --- AttackArea mirror (this is the source of truth and already works) ---
+		if attack_area:
+			# mirror the local X offset the same way as before
+			attack_area.position.x = attack_area_offset.x * facing_dir
+
+		# update spawn point similarly
+		if spawn_point:
+			spawn_point.position.x = spawn_point_offset.x * facing_dir
+
+		# --- ParryArea follow AttackArea (world-space copy) ---
+		# Goal: make ParryArea occupy the exact same world position as AttackArea after flip,
+		# so ParryArea will always visually match the AttackArea placement regardless of parents.
+		if attack_area and parry_area:
+			var attack_world_pos: Vector2
+			# prefer accurate parent-to-global conversion if parent exists
+			var a_parent := attack_area.get_parent()
+			if a_parent and a_parent is Node2D:
+				attack_world_pos = (a_parent as Node2D).to_global(attack_area.position)
+			else:
+				# fallback to using the collision shape's global position
+				attack_world_pos = attack_area.global_position
+
+			# now convert that world pos into parry parent's local coords and set parry_area position
+			var p_parent := parry_area.get_parent()
+			if p_parent and p_parent is Node2D:
+				var local_pos := (p_parent as Node2D).to_local(attack_world_pos)
+				parry_area.position = local_pos
+			else:
+				# no parent: fallback to local-offset mirror (maintain relative sign)
+				parry_area.position.x = parry_area_offset.x * facing_dir
 
 	move_and_slide()
 
+# ========== DAMAGE (TestArea) ==========
+func _on_hurtbox_area_entered(area: Area2D) -> void:
+	if invulnerable:
+		return
+	if area.name == \"TestArea\" or area.name == \"HitArea\":
+		var source: Node = null
+		if area.get_parent() and area.get_parent() is Node2D:
+			source = area.get_parent() as Node2D
+		else:
+			source = area
+		take_damage(3, source)
+
+func take_damage(amount: int, source: Node = null) -> void:
+	current_health -= amount
+	if current_health < 0:
+		current_health = 0
+	if health_bar:
+		health_bar.value = current_health
+	if sprite.animation != \"hurt\":
+		sprite.play(\"hurt\")
+	invulnerable = true
+	invuln_timer = invuln_time
+	is_hurt = true
+
+	var dir:int = 0
+	if source != null and source is Node2D:
+		dir = sign(global_position.x - (source as Node2D).global_position.x)
+		if dir == 0:
+			dir = 1
+	else:
+		dir = -facing_dir
+
+	velocity.x = dir * knockback_force
+	velocity.y = knockback_up
+
+	is_attacking = false
+	is_parrying = false
+	is_dashing = false
+	is_shooting = false
+	lunge_timer = 0.0
+
+	await sprite.animation_finished
+	is_hurt = false
+
+	if current_health <= 0:
+		die()
+
+func die() -> void:
+	if sprite.animation != \"death\":
+		sprite.play(\"death\")
+
+# ========== ATTACKS / PROJECTILES ==========
 func try_attack():
 	if attack_cooldown_timer.is_stopped():
 		if attack_combo_timer.is_stopped():
@@ -216,29 +356,31 @@ func try_attack():
 func spawn_projectile():
 	if projectile_scene:
 		var bullet = projectile_scene.instantiate()
-		get_parent().add_child(bullet)  # spawn sebagai sibling di scene
+		get_parent().add_child(bullet)
 		bullet.global_position = spawn_point.global_position
-		
-		# kasih arah sesuai player
 		bullet.direction = facing_dir
-
-		# flip sprite di projectile langsung (biar ngikut arah)
 		if bullet.has_node(\"AnimatedSprite2D\"):
 			var spr: AnimatedSprite2D = bullet.get_node(\"AnimatedSprite2D\")
 			spr.flip_h = (facing_dir < 0)
-			spr.play(\"default\")  # pastikan animasi projectile jalan
+			spr.play(\"default\")
 
+# ========== ANIM / FRAME EVENTS ==========
 func _on_sprite_frame_changed():
 	var anim_name = sprite.animation
-	# attack hitbox activation
 	if anim_name in attack_hitbox_frames:
 		var frame_data = attack_hitbox_frames[anim_name]
 		if sprite.frame == frame_data[\"on\"]:
-			$AttackArea/CollisionShape2D.disabled = false
+			attack_area.disabled = false
 		elif sprite.frame == frame_data[\"off\"]:
-			$AttackArea/CollisionShape2D.disabled = true
+			attack_area.disabled = true
 
-	# spawn projectile only once per animation (sesuaikan frame index)
+	if anim_name in parry_hitbox_frames:
+		var parry_data = parry_hitbox_frames[anim_name]
+		if sprite.frame == parry_data[\"on\"]:
+			parry_area.disabled = false
+		elif sprite.frame == parry_data[\"off\"]:
+			parry_area.disabled = true
+
 	if anim_name == \"projectile\" and sprite.frame == 4 and not projectile_spawned:
 		spawn_projectile()
 		projectile_spawned = true
@@ -246,13 +388,13 @@ func _on_sprite_frame_changed():
 func _on_animation_finished():
 	if sprite.animation == \"parry\":
 		is_parrying = false
+		parry_area.disabled = true
 	elif sprite.animation == \"projectile\":
-		# sekarang animasi benar-benar selesai → reset shooting
 		is_shooting = false
 		projectile_spawned = false
 
 func _on_attack_timer_timeout():
-	$AttackArea/CollisionShape2D.disabled = true
+	attack_area.disabled = true
 	is_attacking = false
 
 func _on_attack_cooldown_timeout():
@@ -921,9 +1063,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_dbwko")
 }],
-"loop": true,
+"loop": false,
 "name": &"hurt",
-"speed": 12.0
+"speed": 20.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1123,14 +1265,18 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1fr6y"]
-size = Vector2(571.429, 1763.86)
+size = Vector2(1015.87, 1763.86)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qthh5"]
+size = Vector2(18.3333, 36.6667)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1vudk"]
+size = Vector2(37.3333, 26.6667)
 
 [node name="main_character" type="CharacterBody2D" groups=["player"]]
 scale = Vector2(-1.5, 1.5)
+collision_layer = 2
 script = SubResource("GDScript_wtcfe")
-speed = 500.0
-dash_speed = 500.0
-projectile_scene = ExtResource("1_qthh5")
 
 [node name="StateMachine" type="Node2D" parent="."]
 position = Vector2(2, 14)
@@ -1149,6 +1295,7 @@ wait_time = 2.0
 [node name="AttackArea" type="Area2D" parent="." groups=["sword"]]
 position = Vector2(31, -17)
 scale = Vector2(0.051, 0.051)
+collision_mask = 65535
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
 position = Vector2(-343.137, 274.51)
@@ -1160,14 +1307,28 @@ disabled = true
 position = Vector2(31, -17)
 scale = Vector2(0.051, 0.051)
 sprite_frames = SubResource("SpriteFrames_gt76g")
-animation = &"doublejump"
+animation = &"parry"
 autoplay = "idle"
-frame_progress = 0.81241
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(35, -5)
-scale = Vector2(0.021, 0.021)
-shape = SubResource("RectangleShape2D_1fr6y")
+frame = 8
+frame_progress = 1.0
 
 [node name="SpawnPoint" type="Node2D" parent="."]
 position = Vector2(33.3333, 6.66667)
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(32, -5)
+scale = Vector2(0.021, 0.021)
+shape = SubResource("RectangleShape2D_1fr6y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(33.5, -5.33333)
+shape = SubResource("RectangleShape2D_qthh5")
+
+[node name="ParryArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ParryArea"]
+position = Vector2(16, -5.33333)
+shape = SubResource("RectangleShape2D_1vudk")

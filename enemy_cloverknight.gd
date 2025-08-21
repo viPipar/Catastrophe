@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+# === PARAMETER UMUM ===
 @export var speed: float = 150.0
 @export var gravity: float = 900.0
 @export var detection_range: float = 300.0
@@ -11,21 +12,25 @@ extends CharacterBody2D
 @export var chase_stop_distance: float = 20.0
 @export var attack_range: float = 32.0
 
-@export var max_health: int = 24
+# === STAT & DAMAGE ===
+@export var max_health: int = 50
 @export var knockback_force: float = 200.0
 @export var hitstun_time: float = 0.20
 @export var knockback_decel: float = 1200.0
 
+# === ATTACK HANDLING ===
 @export var attack_hard_timeout: float = 3.5
-@export var hit_enable_frame: int = 10
-@export var hit_disable_frame: int = 12
+@export var hit_frames: Array[Vector2i] = [
+	Vector2i(3, 6),   # aktif di frame 3–6
+	Vector2i(10, 12)  # aktif di frame 10–12
+]
 @export var hitarea_offset: float = 20.0
 
+# === STATE VAR ===
 var health: int
 var state: String = "patrol_move"
 var idle_timer: float = 0.0
 var facing_dir: int = 1
-
 var hitstun_timer: float = 0.0
 var invulnerable: bool = false
 
@@ -34,52 +39,48 @@ var patrol_left_x: float
 var patrol_right_x: float
 var current_target_x: float
 
+# Attack state helper
 var _attack_timer: float = -1.0
 var _attack_lock: bool = false
 
+# === NODE REFS ===
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var floor_check: RayCast2D = $RayCast2D
-@onready var player: Node2D = get_parent().get_node("main_character")
+@onready var player: Node2D = get_parent().get_node_or_null("main_character")
 @onready var hurtbox: Area2D = $Hurtbox
 @onready var hit_area: Area2D = $HitArea
 @onready var hit_shape: CollisionShape2D = $HitArea/CollisionShape2D
-@onready var parry_area: Area2D = $ParryAttack
-@onready var parry_shape: CollisionShape2D = $ParryAttack/CollisionShape2D
 
-# posisi dasar untuk mirror
+# backup posisi awal hitarea biar mirror konsisten
 var _hitarea_base_pos: Vector2 = Vector2.ZERO
 var _hitshape_base_pos: Vector2 = Vector2.ZERO
-var _hitarea_base_pos_set: bool = false
 
-var _parry_base_pos: Vector2 = Vector2.ZERO
-var _parry_base_pos_set: bool = false
-
-# ==================== READY ====================
 func _ready() -> void:
+	# initialize health & patrol bounds
 	health = max_health
 	patrol_center_x = global_position.x
 	patrol_left_x = patrol_center_x - patrol_distance
 	patrol_right_x = patrol_center_x + patrol_distance
 	current_target_x = patrol_right_x
 
-	hurtbox.area_entered.connect(_on_hurtbox_area_entered)
+	# signals
+	if hurtbox:
+		hurtbox.area_entered.connect(_on_hurtbox_area_entered)
 	anim.animation_finished.connect(_on_animation_finished)
 	anim.frame_changed.connect(_on_animation_frame_changed)
 
-	hit_shape.disabled = true
-	parry_shape.disabled = true
+	# ensure hit collider off initially
+	if hit_shape:
+		hit_shape.disabled = true
 
-	_hitarea_base_pos = hit_area.position
-	_hitshape_base_pos = hit_shape.position
-	_hitarea_base_pos_set = true
-
-	_parry_base_pos = parry_area.position
-	_parry_base_pos_set = true
+	# record base positions for mirroring
+	if hit_area:
+		_hitarea_base_pos = hit_area.position
+	if hit_shape:
+		_hitshape_base_pos = hit_shape.position
 
 	_update_hitarea_transform()
-	_update_parry_transform()
 
-# ==================== PHYSICS PROCESS ====================
 func _physics_process(delta: float) -> void:
 	if state == "death":
 		return
@@ -108,12 +109,12 @@ func _physics_process(delta: float) -> void:
 
 	_update_anim()
 	_update_hitarea_transform()
-	_update_parry_transform()
 	move_and_slide()
 
-# ==================== STATES ====================
+# ================== STATE FUNCTIONS ==================
+
 func _state_patrol_move(delta: float) -> void:
-	var dir: int = sign(current_target_x - global_position.x)
+	var dir = sign(current_target_x - global_position.x)
 	if dir == 0:
 		dir = 1
 	velocity.x = dir * speed
@@ -138,8 +139,7 @@ func _state_idle(delta: float) -> void:
 	idle_timer -= delta
 	if _can_see_player():
 		_set_state("chase")
-		return
-	if idle_timer <= 0.0:
+	elif idle_timer <= 0.0:
 		_set_state("patrol_move")
 
 func _state_chase(delta: float) -> void:
@@ -147,9 +147,9 @@ func _state_chase(delta: float) -> void:
 		_set_state("patrol_move")
 		return
 
-	var dx: float = player.global_position.x - global_position.x
-	var dist_abs: float = abs(dx)
-	var dir: int = sign(dx)
+	var dx = player.global_position.x - global_position.x
+	var dist_abs = abs(dx)
+	var dir = sign(dx)
 
 	if dist_abs <= attack_range:
 		velocity.x = 0
@@ -180,7 +180,8 @@ func _state_attack(delta: float) -> void:
 		if _attack_timer > attack_hard_timeout:
 			_finish_attack()
 
-# ==================== UTILS ====================
+# ================== STATE UTILS ==================
+
 func _swap_target_and_idle() -> void:
 	if is_equal_approx(current_target_x, patrol_right_x):
 		current_target_x = patrol_left_x
@@ -197,20 +198,15 @@ func _can_see_player() -> bool:
 func _update_anim() -> void:
 	match state:
 		"idle":
-			if anim.animation != "idle":
-				anim.play("idle")
+			anim.play("idle")
 		"death":
-			if anim.animation != "death":
-				anim.play("death")
+			anim.play("death")
 		"onhit":
-			if anim.animation != "onhit":
-				anim.play("onhit")
+			anim.play("onhit")
 		"attack":
-			if anim.animation != "attack":
-				anim.play("attack")
+			anim.play("attack")
 		_:
-			if anim.animation != "walk":
-				anim.play("walk")
+			anim.play("walk")
 
 	if velocity.x != 0:
 		anim.flip_h = velocity.x < 0
@@ -222,38 +218,42 @@ func _set_state(new_state: String, force: bool = false) -> void:
 		return
 	if _attack_lock and not force:
 		return
-
 	if new_state == "attack":
 		state = "attack"
 		_attack_lock = true
 		_attack_timer = 0.0
-		hit_shape.disabled = true
-		parry_shape.disabled = true
-		if anim.animation != "attack":
-			anim.play("attack")
+		if hit_shape:
+			hit_shape.disabled = true
+		anim.play("attack")
 		return
-
 	if new_state == "onhit" or new_state == "death":
 		_attack_lock = false
 		_attack_timer = -1.0
-
 	state = new_state
 
-# ==================== DAMAGE ====================
+# ================== DAMAGE (enemy being hit by player) ==================
+
 func _on_hurtbox_area_entered(area: Area2D) -> void:
+	# ignore if currently invulnerable or dead
 	if invulnerable or state == "death":
 		return
+
+	# prevent detecting own HitArea / self collisions
 	if area == hit_area or area.get_parent() == self or area.owner == self:
 		return
 
 	var dmg: int = 0
-	if area.has_meta("damage"):
+
+	# Prioritize explicit AttackArea name (simple rule requested)
+	if area.name == "AttackArea":
+		dmg = 3
+	# fallback: support meta / group style
+	elif area.has_meta("damage"):
 		dmg = int(area.get_meta("damage"))
 	elif area.is_in_group("player_attack"):
 		dmg = 2
-	elif area.name in ["PlayerHitArea", "PlayerAttack", "AttackArea"]:
-		dmg = 2
 	else:
+		# not a player attack → ignore
 		return
 
 	_take_damage(dmg, area)
@@ -261,23 +261,33 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 func _take_damage(amount: int, area: Area2D) -> void:
 	if state == "death":
 		return
+
+	# subtract health
 	health -= amount
+	if health < 0:
+		health = 0
+
+	# if still alive after hit, enter onhit state + knockback
 	if health > 0:
 		invulnerable = true
 		hitstun_timer = hitstun_time
-		var dir: int = sign(global_position.x - area.global_position.x)
+
+		# knockback away from attack source
+		var dir = sign(global_position.x - area.global_position.x)
 		if dir == 0:
 			dir = 1
-		velocity.x = dir * knockback_force
+		velocity.x = dir * (knockback_force * 0.5)  # sedikit knockback
+
 		_set_state("onhit", true)
 	else:
+		# died
 		_set_state("death", true)
 		invulnerable = true
 		velocity = Vector2.ZERO
-		if anim.animation != "death":
-			anim.play("death")
+		anim.play("death")
 
-# ==================== ANIMATION EVENTS ====================
+# ================== ANIM EVENTS ==================
+
 func _on_animation_finished() -> void:
 	if anim.animation == "death":
 		queue_free()
@@ -287,43 +297,31 @@ func _on_animation_finished() -> void:
 func _on_animation_frame_changed() -> void:
 	if anim.animation != "attack":
 		return
-	if _attack_timer < 0.0:
-		_attack_timer = 0.0
 	_attack_timer = 0.0
-
-	if anim.frame == hit_enable_frame:
-		hit_shape.disabled = false
-		parry_shape.disabled = false
-	elif anim.frame == hit_disable_frame:
-		hit_shape.disabled = true
-		parry_shape.disabled = true
+	var frame_now = anim.frame
+	var enable = false
+	for range in hit_frames:
+		if frame_now >= range.x and frame_now <= range.y:
+			enable = true
+			break
+	hit_shape.disabled = not enable
 
 func _finish_attack() -> void:
 	hit_shape.disabled = true
-	parry_shape.disabled = true
 	_attack_timer = -1.0
 	_attack_lock = false
-
 	if _can_see_player():
 		_set_state("chase")
 	else:
 		_set_state("patrol_move")
 
-# ==================== HITAREA & PARRY TRANSFORM ====================
+# ================== HITAREA TRANSFORM ==================
+
 func _update_hitarea_transform() -> void:
-	if _hitarea_base_pos_set:
+	# ensure mirror-agnostic hit_area placement
+	if _hitarea_base_pos == Vector2.ZERO:
+		hit_area.position = Vector2(hitarea_offset * facing_dir, 0)
+	else:
 		hit_area.position = Vector2(abs(_hitarea_base_pos.x) * facing_dir, _hitarea_base_pos.y)
-	else:
-		hit_area.position.x = hitarea_offset * facing_dir
-
-	hit_area.scale.x = 1 if facing_dir >= 0 else -1
 	hit_shape.position = _hitshape_base_pos
-
-func _update_parry_transform() -> void:
-	if _parry_base_pos_set:
-		parry_area.position = Vector2(abs(_parry_base_pos.x) * facing_dir, _parry_base_pos.y)
-	else:
-		parry_area.position.x = hitarea_offset * facing_dir
-
-	parry_area.scale.x = 1 if facing_dir >= 0 else -1
-	parry_shape.position = parry_shape.position
+	hit_area.scale.x = 1 if facing_dir >= 0 else -1
