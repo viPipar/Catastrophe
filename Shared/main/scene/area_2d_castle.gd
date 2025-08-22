@@ -1,7 +1,7 @@
 extends Area2D
 
 @onready var fader: AnimationPlayer = $"../main_character/Faderlayer/AnimationPlayer"
-@export var next_scene_path: String = "res://Shared/main/scene/CaveOne.tscn"
+@export var next_scene_path: String = "res://Shared/boss_room/scene/boss_room.tscn"
 var _used := false  # biar gak ke-trigger berkali-kali
 
 func _on_body_entered(body: Node2D) -> void:

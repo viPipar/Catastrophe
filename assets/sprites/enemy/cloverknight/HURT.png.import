@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://pfrskb0jixxc"
-path="res://.godot/imported/Death.png-7bb05f0860c7ad8c5a5a8cb117cbc82b.ctex"
+uid="uid://b556dwlfg8no"
+path="res://.godot/imported/HURT.png-d5bb55fb195476826794a2e296966ccc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/enemy/barkwing/Death.png"
-dest_files=["res://.godot/imported/Death.png-7bb05f0860c7ad8c5a5a8cb117cbc82b.ctex"]
+source_file="res://assets/sprites/enemy/cloverknight/HURT.png"
+dest_files=["res://.godot/imported/HURT.png-d5bb55fb195476826794a2e296966ccc.ctex"]
 
 [params]
 

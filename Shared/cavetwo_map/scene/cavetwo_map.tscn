@@ -12,55 +12,25 @@ texture = ExtResource("1_nfrc6")
 centered = false
 
 [node name="cavetwo_1" type="ParallaxLayer" parent="."]
-motion_scale = Vector2(0.2, 0.1)
+motion_scale = Vector2(0.2, 0.2)
 motion_mirroring = Vector2(1280, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="cavetwo_1"]
 texture = ExtResource("2_pebdl")
 centered = false
 
-[node name="Sprite2D2" type="Sprite2D" parent="cavetwo_1"]
-position = Vector2(0, -716)
-texture = ExtResource("2_pebdl")
-centered = false
-
-[node name="Sprite2D3" type="Sprite2D" parent="cavetwo_1"]
-position = Vector2(0, 720)
-texture = ExtResource("2_pebdl")
-centered = false
-
 [node name="cavetwo_2" type="ParallaxLayer" parent="."]
-motion_scale = Vector2(0.6, 0.3)
+motion_scale = Vector2(0.6, 0.6)
 motion_mirroring = Vector2(1280, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="cavetwo_2"]
 texture = ExtResource("3_kwdqy")
 centered = false
 
-[node name="Sprite2D2" type="Sprite2D" parent="cavetwo_2"]
-position = Vector2(0, -716)
-texture = ExtResource("3_kwdqy")
-centered = false
-
-[node name="Sprite2D3" type="Sprite2D" parent="cavetwo_2"]
-position = Vector2(0, 720)
-texture = ExtResource("3_kwdqy")
-centered = false
-
 [node name="cavetwo_3" type="ParallaxLayer" parent="."]
-motion_scale = Vector2(0.9, 0.45)
+motion_scale = Vector2(0.9, 0.9)
 motion_mirroring = Vector2(1280, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="cavetwo_3"]
-texture = ExtResource("4_hgdbm")
-centered = false
-
-[node name="Sprite2D2" type="Sprite2D" parent="cavetwo_3"]
-position = Vector2(0, 720)
-texture = ExtResource("4_hgdbm")
-centered = false
-
-[node name="Sprite2D3" type="Sprite2D" parent="cavetwo_3"]
-position = Vector2(0, -716)
 texture = ExtResource("4_hgdbm")
 centered = false

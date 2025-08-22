@@ -1,7 +1,6 @@
-[gd_scene load_steps=203 format=4 uid="uid://dflh43i41n3fx"]
+[gd_scene load_steps=199 format=4 uid="uid://cws6x5nll84ve"]
 
 [ext_resource type="PackedScene" uid="uid://gx7jt67karci" path="res://Shared/castle_map/scene/castle_map 2.tscn" id="1_lr3fq"]
-[ext_resource type="Script" uid="uid://ct0mj3lbbghr3" path="res://Shared/main/scene/surface.gd" id="1_y0sqh"]
 [ext_resource type="PackedScene" uid="uid://cxn5ye76bwr53" path="res://Shared/castle_map/scene/castle_map.tscn" id="2_pfod2"]
 [ext_resource type="PackedScene" uid="uid://bo6npwwwietey" path="res://Shared/caveone_map/scene/caveone_map.tscn" id="3_mq8du"]
 [ext_resource type="Texture2D" uid="uid://0253t5odcjyq" path="res://Shared/caveone_map/asset/cave_entrance_0.png" id="4_y0sqh"]
@@ -23,8 +22,6 @@
 [ext_resource type="PackedScene" uid="uid://bk551y5q1tl7q" path="res://enemy_mushi.tscn" id="20_udhl8"]
 [ext_resource type="PackedScene" uid="uid://bdqvhos4h542n" path="res://enemy_barkwing.tscn" id="21_ylx0j"]
 [ext_resource type="Script" uid="uid://y514lfl84te" path="res://Shared/main/scene/area_2d.gd" id="22_pfod2"]
-[ext_resource type="PackedScene" uid="uid://csgm4u5o0ysk4" path="res://scene/nyoba_scene.tscn" id="23_mq8du"]
-[ext_resource type="PackedScene" path="res://enemy_cloverknight.tscn" id="25_vjlrp"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_drqlo"]
 normal = Vector2(0.999822, -0.0188646)
@@ -5112,10 +5109,7 @@ _data = {
 a = Vector2(0, -1000)
 b = Vector2(0, 44.9994)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ibhgj"]
-
 [node name="main_map" type="Node"]
-script = ExtResource("1_y0sqh")
 
 [node name="castle_map2" parent="." instance=ExtResource("1_lr3fq")]
 
@@ -5254,9 +5248,9 @@ frame_progress = 0.589033
 [node name="main_character" parent="." instance=ExtResource("19_qxoit")]
 z_index = 100
 z_as_relative = false
-position = Vector2(344, 648)
-rotation = -3.14159
-scale = Vector2(2, -2)
+position = Vector2(720, 669)
+scale = Vector2(-2, 2)
+shake_strength = 5.0
 
 [node name="Camera2D2" type="Camera2D" parent="main_character"]
 limit_top = -600
@@ -5277,14 +5271,6 @@ libraries = {
 &"": SubResource("AnimationLibrary_y0sqh")
 }
 
-[node name="Enemy_Mushi" parent="." instance=ExtResource("20_udhl8")]
-position = Vector2(1027, 656)
-scale = Vector2(2, 2)
-
-[node name="Enemy_Mushi2" parent="." instance=ExtResource("20_udhl8")]
-position = Vector2(1656, 528)
-scale = Vector2(2, 2)
-
 [node name="Enemy_Barkwing" parent="." instance=ExtResource("21_ylx0j")]
 position = Vector2(1400, 384)
 scale = Vector2(2, 2)
@@ -5299,42 +5285,12 @@ script = ExtResource("22_pfod2")
 position = Vector2(-6972, 16.0177)
 shape = SubResource("SegmentShape2D_pfod2")
 
-[node name="BlackjackLayer" type="CanvasLayer" parent="."]
-process_mode = 2
-layer = 10
-visible = false
+[node name="Enemy_Mushi2" parent="." instance=ExtResource("20_udhl8")]
+position = Vector2(1465, 524)
+scale = Vector2(2, 2)
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="BlackjackLayer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-stretch = true
-
-[node name="SubViewport" type="SubViewport" parent="BlackjackLayer/SubViewportContainer"]
-disable_3d = true
-handle_input_locally = false
-size = Vector2i(1280, 720)
-render_target_update_mode = 0
-
-[node name="Blackjack" parent="BlackjackLayer/SubViewportContainer/SubViewport" instance=ExtResource("23_mq8du")]
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer"]
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="TestArea" type="Area2D" parent="."]
-position = Vector2(288, 686)
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TestArea"]
-shape = SubResource("RectangleShape2D_ibhgj")
-
-[node name="Enemy_CloverKnight" parent="." instance=ExtResource("25_vjlrp")]
-position = Vector2(2114, 658)
-scale = Vector2(0.15, 0.15)
+[node name="Enemy_Mushi" parent="." instance=ExtResource("20_udhl8")]
+position = Vector2(1027, 656)
+scale = Vector2(2, 2)
 
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]

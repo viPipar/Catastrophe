@@ -1,8 +1,8 @@
-[gd_scene load_steps=32 format=3 uid="uid://bdqvhos4h542n"]
+[gd_scene load_steps=34 format=3 uid="uid://bdqvhos4h542n"]
 
 [ext_resource type="Script" uid="uid://sx532aayp1r" path="res://enemy_barkwing.gd" id="1_clcyb"]
 [ext_resource type="Texture2D" uid="uid://cm7dywv3ghe56" path="res://assets/sprites/enemy/barkwing/Attack.png" id="2_hdp0k"]
-[ext_resource type="Texture2D" uid="uid://cl1or0182f42a" path="res://assets/sprites/enemy/barkwing/Death.png" id="3_owo3o"]
+[ext_resource type="Texture2D" uid="uid://pfrskb0jixxc" path="res://assets/sprites/enemy/barkwing/Death.png" id="3_owo3o"]
 [ext_resource type="Texture2D" uid="uid://vtf3ia3ewofi" path="res://assets/sprites/enemy/barkwing/Take Hit.png" id="4_erv8i"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_prf1x"]
@@ -37,19 +37,19 @@ region = Rect2(900, 0, 150, 150)
 atlas = ExtResource("2_hdp0k")
 region = Rect2(1050, 0, 150, 150)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bb0x7"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_clcyb"]
 atlas = ExtResource("3_owo3o")
 region = Rect2(0, 0, 150, 150)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0pgid"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_hdp0k"]
 atlas = ExtResource("3_owo3o")
 region = Rect2(150, 0, 150, 150)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3kcam"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_owo3o"]
 atlas = ExtResource("3_owo3o")
 region = Rect2(300, 0, 150, 150)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qdmqw"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_erv8i"]
 atlas = ExtResource("3_owo3o")
 region = Rect2(450, 0, 150, 150)
 
@@ -137,20 +137,32 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_bb0x7")
+"texture": SubResource("AtlasTexture_clcyb")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0pgid")
+"texture": SubResource("AtlasTexture_clcyb")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3kcam")
+"texture": SubResource("AtlasTexture_hdp0k")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_qdmqw")
+"texture": SubResource("AtlasTexture_hdp0k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_owo3o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_owo3o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_erv8i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_owo3o")
 }],
 "loop": true,
 "name": &"death",
-"speed": 8.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -195,19 +207,36 @@ animations = [{
 "texture": SubResource("AtlasTexture_wtplf")
 }],
 "loop": true,
-"name": &"take_hit",
+"name": &"onhit",
 "speed": 8.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fn8il"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_clcyb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hdp0k"]
 
 [node name="enemy_barkwing" type="Area2D"]
 script = ExtResource("1_clcyb")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_6rfiv")
-animation = &"attack"
+animation = &"death"
+frame_progress = 0.771043
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(5, 3)
 shape = SubResource("RectangleShape2D_fn8il")
+
+[node name="HitArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea"]
+position = Vector2(5, 3)
+shape = SubResource("RectangleShape2D_clcyb")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(5, 3)
+shape = SubResource("RectangleShape2D_hdp0k")

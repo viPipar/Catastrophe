@@ -1,14 +1,27 @@
 extends Area2D
 
-@export var speed: float = 400.0
+@export var speed: float = 900.0
+@export var max_lifetime: float = 3.0  # detik sebelum hilang otomatis
 var direction: int = 1
 
-@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+var lifetime_timer: float = 0.0  # internal timer
+
 
 func _ready() -> void:
-	# set arah sprite
-	sprite.flip_h = (direction < 0)
-	sprite.play("default")  # pastikan animasi selalu jalan
+	# pastikan animasi jalan
+	if has_node("AnimatedSprite2D"):
+		var spr: AnimatedSprite2D = $AnimatedSprite2D
+		if spr.sprite_frames.has_animation("default"):
+			spr.play("default")
 
-func _physics_process(delta: float) -> void:
-	position.x += speed * direction * delta
+	# connect sinyal tabrakan (kalau belum dihubungkan di editor)
+	if has_signal("body_entered"):
+		connect("body_entered", Callable(self, "_on_body_entered"))
+
+func _process(delta: float) -> void:
+	# gerak horizontal sesuai arah
+	position.x += direction * speed * delta
+		# hitung lifetime
+	lifetime_timer += delta
+	if lifetime_timer >= max_lifetime:
+		queue_free()

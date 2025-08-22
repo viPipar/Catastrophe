@@ -1,9 +1,8 @@
-res://asset/press_start_2p (1)
-res://Shared/main/scene
-res://Shared/main/asset
-res://
-res://Shared/castle_map/scene
 res://assets/sprites/enemy/barkwing
+res://assets/sprites/enemy/cloverknight
+res://
+res://Shared/main/scene
+res://Shared/castle_map/scene
 res://assets/sprites/enemy/mushi
 res://assets/sprites
 res://assets/sprites/witch_shop
