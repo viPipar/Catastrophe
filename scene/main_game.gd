@@ -370,10 +370,10 @@ func _evaluate_and_finish_round() -> void:
 		lose = "Joker"
 	else:
 		if p > d:
-			msg = "Player wins (%d vs %d)" % [p, d]
+			msg = "Player wins (%d VS %d)" % [p, d]
 			lose = "Joker"
 		elif d > p:
-			msg = "Joker wins (%d vs %d)" % [d, p]
+			msg = "Joker wins (%d VS %d)" % [d, p]
 			lose = "player"
 		else:
 			msg = "Draw (%d = %d)" % [p, d]

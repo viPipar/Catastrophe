@@ -1,6 +1,5 @@
 res://Shared/main/scene/Surface.tscn
 res://assets/tilemap/tileset.tres
-res://scene/main_game.gd
 res://Shared/main/scene/Castle.tscn
 res://Shared/main/scene/CaveOne.tscn
 res://Shared/cavetwo_map/scene/cavetwo_map.tscn
@@ -9,5 +8,5 @@ res://Shared/boss_room/scene/boss_room.tscn
 res://Shared/main/scene/moving_platform_castle.tscn
 res://scene/nyoba_scene.tscn
 res://scene/blackjack_background_2.tscn
-res://scene/blackjack_background.tscn
 res://scene/main menu.tscn
+res://scene/main_game.gd
