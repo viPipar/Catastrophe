@@ -21,9 +21,9 @@ extends CharacterBody2D
 # === ATTACK HANDLING ===
 @export var attack_hard_timeout: float = 3.5
 @export var hit_frames: Array[Vector2i] = [
-	Vector2i(3, 6),   # aktif di frame 3–6
-	Vector2i(10, 12)  # aktif di frame 10–12
+	Vector2i(6, 12)  # contoh: aktif di frame 6–12
 ]
+@export var parry_frames: Vector2i = Vector2i(3, 7) # parry aktif frame 3–7
 @export var hitarea_offset: float = 20.0
 
 # === STATE VAR ===
@@ -50,10 +50,14 @@ var _attack_lock: bool = false
 @onready var hurtbox: Area2D = $Hurtbox
 @onready var hit_area: Area2D = $HitArea
 @onready var hit_shape: CollisionShape2D = $HitArea/CollisionShape2D
+@onready var parry_area: Area2D = $ParryAttack
+@onready var parry_shape: CollisionShape2D = $ParryAttack/CollisionShape2D
 
-# backup posisi awal hitarea biar mirror konsisten
+# backup posisi awal hitarea & parry agar mirror konsisten
 var _hitarea_base_pos: Vector2 = Vector2.ZERO
 var _hitshape_base_pos: Vector2 = Vector2.ZERO
+var _parry_base_pos: Vector2 = Vector2.ZERO
+var _parryshape_base_pos: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
 	# initialize health & patrol bounds
@@ -69,17 +73,24 @@ func _ready() -> void:
 	anim.animation_finished.connect(_on_animation_finished)
 	anim.frame_changed.connect(_on_animation_frame_changed)
 
-	# ensure hit collider off initially
+	# pastikan collider mati di awal
 	if hit_shape:
 		hit_shape.disabled = true
+	if parry_shape:
+		parry_shape.disabled = true
 
 	# record base positions for mirroring
 	if hit_area:
 		_hitarea_base_pos = hit_area.position
 	if hit_shape:
 		_hitshape_base_pos = hit_shape.position
+	if parry_area:
+		_parry_base_pos = parry_area.position
+	if parry_shape:
+		_parryshape_base_pos = parry_shape.position
 
 	_update_hitarea_transform()
+	_update_parry_transform()
 
 func _physics_process(delta: float) -> void:
 	if state == "death":
@@ -109,10 +120,10 @@ func _physics_process(delta: float) -> void:
 
 	_update_anim()
 	_update_hitarea_transform()
+	_update_parry_transform()
 	move_and_slide()
 
 # ================== STATE FUNCTIONS ==================
-
 func _state_patrol_move(delta: float) -> void:
 	var dir = sign(current_target_x - global_position.x)
 	if dir == 0:
@@ -181,7 +192,6 @@ func _state_attack(delta: float) -> void:
 			_finish_attack()
 
 # ================== STATE UTILS ==================
-
 func _swap_target_and_idle() -> void:
 	if is_equal_approx(current_target_x, patrol_right_x):
 		current_target_x = patrol_left_x
@@ -224,6 +234,8 @@ func _set_state(new_state: String, force: bool = false) -> void:
 		_attack_timer = 0.0
 		if hit_shape:
 			hit_shape.disabled = true
+		if parry_shape:
+			parry_shape.disabled = true
 		anim.play("attack")
 		return
 	if new_state == "onhit" or new_state == "death":
@@ -231,29 +243,21 @@ func _set_state(new_state: String, force: bool = false) -> void:
 		_attack_timer = -1.0
 	state = new_state
 
-# ================== DAMAGE (enemy being hit by player) ==================
-
+# ================== DAMAGE ==================
 func _on_hurtbox_area_entered(area: Area2D) -> void:
-	# ignore if currently invulnerable or dead
 	if invulnerable or state == "death":
 		return
-
-	# prevent detecting own HitArea / self collisions
-	if area == hit_area or area.get_parent() == self or area.owner == self:
+	if area == hit_area or area == parry_area or area.get_parent() == self or area.owner == self:
 		return
 
 	var dmg: int = 0
-
-	# Prioritize explicit AttackArea name (simple rule requested)
 	if area.name == "AttackArea":
 		dmg = 3
-	# fallback: support meta / group style
-	elif area.has_meta("damage"):
-		dmg = int(area.get_meta("damage"))
-	elif area.is_in_group("player_attack"):
+	elif area.name == "CardProjectile":
 		dmg = 2
+	elif area.name == "ParryStun":
+		dmg = 4
 	else:
-		# not a player attack → ignore
 		return
 
 	_take_damage(dmg, area)
@@ -261,33 +265,24 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 func _take_damage(amount: int, area: Area2D) -> void:
 	if state == "death":
 		return
-
-	# subtract health
 	health -= amount
 	if health < 0:
 		health = 0
-
-	# if still alive after hit, enter onhit state + knockback
 	if health > 0:
 		invulnerable = true
 		hitstun_timer = hitstun_time
-
-		# knockback away from attack source
 		var dir = sign(global_position.x - area.global_position.x)
 		if dir == 0:
 			dir = 1
-		velocity.x = dir * (knockback_force * 0.5)  # sedikit knockback
-
+		velocity.x = dir * (knockback_force * 0.5)
 		_set_state("onhit", true)
 	else:
-		# died
 		_set_state("death", true)
 		invulnerable = true
 		velocity = Vector2.ZERO
 		anim.play("death")
 
 # ================== ANIM EVENTS ==================
-
 func _on_animation_finished() -> void:
 	if anim.animation == "death":
 		queue_free()
@@ -299,6 +294,14 @@ func _on_animation_frame_changed() -> void:
 		return
 	_attack_timer = 0.0
 	var frame_now = anim.frame
+
+	# parry window 3–7
+	if frame_now >= parry_frames.x and frame_now <= parry_frames.y:
+		parry_shape.disabled = false
+	else:
+		parry_shape.disabled = true
+
+	# hit window (pakai array hit_frames)
 	var enable = false
 	for range in hit_frames:
 		if frame_now >= range.x and frame_now <= range.y:
@@ -308,6 +311,7 @@ func _on_animation_frame_changed() -> void:
 
 func _finish_attack() -> void:
 	hit_shape.disabled = true
+	parry_shape.disabled = true
 	_attack_timer = -1.0
 	_attack_lock = false
 	if _can_see_player():
@@ -315,13 +319,19 @@ func _finish_attack() -> void:
 	else:
 		_set_state("patrol_move")
 
-# ================== HITAREA TRANSFORM ==================
-
+# ================== HITAREA & PARRY TRANSFORM ==================
 func _update_hitarea_transform() -> void:
-	# ensure mirror-agnostic hit_area placement
 	if _hitarea_base_pos == Vector2.ZERO:
 		hit_area.position = Vector2(hitarea_offset * facing_dir, 0)
 	else:
 		hit_area.position = Vector2(abs(_hitarea_base_pos.x) * facing_dir, _hitarea_base_pos.y)
 	hit_shape.position = _hitshape_base_pos
 	hit_area.scale.x = 1 if facing_dir >= 0 else -1
+
+func _update_parry_transform() -> void:
+	if _parry_base_pos == Vector2.ZERO:
+		parry_area.position = Vector2(hitarea_offset * facing_dir, 0)
+	else:
+		parry_area.position = Vector2(abs(_parry_base_pos.x) * facing_dir, _parry_base_pos.y)
+	parry_shape.position = _parryshape_base_pos
+	parry_area.scale.x = 1 if facing_dir >= 0 else -1

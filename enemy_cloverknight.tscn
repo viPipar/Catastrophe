@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://n0w0hvvak5is"]
+[gd_scene load_steps=55 format=3 uid="uid://n0w0hvvak5is"]
 
 [ext_resource type="Script" uid="uid://bx3b1nxlmu83d" path="res://enemy_cloverknight.gd" id="1_d0rkd"]
 [ext_resource type="Texture2D" uid="uid://cv8fqilrkvqbu" path="res://assets/sprites/enemy/cloverknight/ATTACK 1_Clover Knight.png" id="2_oiwja"]
@@ -369,6 +369,9 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d0rkd"]
+size = Vector2(567, 242)
+
 [node name="Enemy_CloverKnight" type="CharacterBody2D"]
 collision_layer = 4
 script = ExtResource("1_d0rkd")
@@ -398,3 +401,10 @@ sprite_frames = SubResource("SpriteFrames_tgx88")
 animation = &"attack"
 frame = 17
 frame_progress = 1.0
+
+[node name="ParryAttack" type="Area2D" parent="."]
+position = Vector2(10, 36)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ParryAttack"]
+position = Vector2(264.5, 42)
+shape = SubResource("RectangleShape2D_d0rkd")

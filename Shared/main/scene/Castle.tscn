@@ -3361,9 +3361,6 @@ z_index = 100
 position = Vector2(14304, 449)
 rotation = -3.14159
 scale = Vector2(2, -2)
-speed = 1000.0
-dash_speed = 900.0
-projectile_scene = null
 
 [node name="Camera2D" type="Camera2D" parent="main_character"]
 position = Vector2(32, -1.78019e-05)

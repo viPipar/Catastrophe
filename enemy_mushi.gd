@@ -17,8 +17,10 @@ extends CharacterBody2D
 @export var knockback_decel: float = 1200.0
 
 @export var attack_hard_timeout: float = 3.5
-@export var hit_enable_frame: int = 10
-@export var hit_disable_frame: int = 12
+@export var parry_enable_frame: int = 5    # parry aktif duluan
+@export var parry_disable_frame: int = 12
+@export var hit_enable_frame: int = 13
+@export var hit_disable_frame: int = 15
 @export var hitarea_offset: float = 20.0
 
 var health: int
@@ -66,9 +68,11 @@ func _ready() -> void:
 	anim.animation_finished.connect(_on_animation_finished)
 	anim.frame_changed.connect(_on_animation_frame_changed)
 
+	# pastikan collider mati di awal
 	hit_shape.disabled = true
 	parry_shape.disabled = true
 
+	# rekam posisi dasar HitArea & ParryAttack
 	_hitarea_base_pos = hit_area.position
 	_hitshape_base_pos = hit_shape.position
 	_hitarea_base_pos_set = true
@@ -227,6 +231,7 @@ func _set_state(new_state: String, force: bool = false) -> void:
 		state = "attack"
 		_attack_lock = true
 		_attack_timer = 0.0
+		# pastikan semua collider off saat mulai attack — akan di-enable per frame
 		hit_shape.disabled = true
 		parry_shape.disabled = true
 		if anim.animation != "attack":
@@ -243,20 +248,20 @@ func _set_state(new_state: String, force: bool = false) -> void:
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	if invulnerable or state == "death":
 		return
-	if area == hit_area or area.get_parent() == self or area.owner == self:
+	# hanya abaikan hitarea sendiri
+	if area == hit_area or area == parry_area:
 		return
 
 	var dmg: int = 0
-	if area.has_meta("damage"):
-		dmg = int(area.get_meta("damage"))
-	elif area.is_in_group("player_attack"):
+	if area.name == "AttackArea":
 		dmg = 2
-	elif area.name in ["PlayerHitArea", "PlayerAttack", "AttackArea"]:
-		dmg = 2
+	elif area.name in ["CardProjectile", "ParryStun"]:
+		dmg = 1.5
 	else:
 		return
 
 	_take_damage(dmg, area)
+
 
 func _take_damage(amount: int, area: Area2D) -> void:
 	if state == "death":
@@ -287,16 +292,23 @@ func _on_animation_finished() -> void:
 func _on_animation_frame_changed() -> void:
 	if anim.animation != "attack":
 		return
+
+	# anim berjalan → reset fallback timer
 	if _attack_timer < 0.0:
 		_attack_timer = 0.0
 	_attack_timer = 0.0
 
+	# parry window (bisa diparry oleh player) aktif lebih dahulu
+	if anim.frame == parry_enable_frame:
+		parry_shape.disabled = false
+	elif anim.frame == parry_disable_frame:
+		parry_shape.disabled = true
+
+	# kemudian non-parry hit window (tidak bisa diparry)
 	if anim.frame == hit_enable_frame:
 		hit_shape.disabled = false
-		parry_shape.disabled = false
 	elif anim.frame == hit_disable_frame:
 		hit_shape.disabled = true
-		parry_shape.disabled = true
 
 func _finish_attack() -> void:
 	hit_shape.disabled = true
@@ -326,4 +338,6 @@ func _update_parry_transform() -> void:
 		parry_area.position.x = hitarea_offset * facing_dir
 
 	parry_area.scale.x = 1 if facing_dir >= 0 else -1
+	# kembalikan posisi lokal collisionshape seperti di editor (jika kamu menyimpan pos dasar, gantikan sesuai)
 	parry_shape.position = parry_shape.position
+	

@@ -144,9 +144,6 @@ animations = [{
 "texture": SubResource("AtlasTexture_bl3qa")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_bl3qa")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_3k3mg")
 }, {
 "duration": 1.0,
@@ -157,6 +154,18 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_kbh1w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vpwen")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vpwen")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vpwen")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vpwen")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_vpwen")
@@ -274,7 +283,7 @@ shape = SubResource("RectangleShape2D_pba3b")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_151h6")
 animation = &"attack"
-frame = 12
+frame = 15
 frame_progress = 1.0
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
