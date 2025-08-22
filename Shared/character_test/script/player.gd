@@ -204,7 +204,7 @@ func spawn_projectile():
 		# flip sprite di projectile langsung (biar ngikut arah)
 		if bullet.has_node("AnimatedSprite2D"):
 			var spr: AnimatedSprite2D = bullet.get_node("AnimatedSprite2D")
-			spr.flip_h = (facing_dir < 0)
+			spr.flip_h = (facing_dir > 0)
 			spr.play("default")  # pastikan animasi projectile jalan
 
 func _on_sprite_frame_changed():

@@ -1,0 +1,128 @@
+[gd_scene load_steps=7 format=3 uid="uid://cqo4y1uf1xtrq"]
+
+[ext_resource type="Script" uid="uid://b4ajtqgopsnqf" path="res://scene/main_menu.gd" id="1_ufutv"]
+[ext_resource type="Texture2D" uid="uid://d1n8v063fvmpj" path="res://Untitled.png" id="2_1lftm"]
+[ext_resource type="FontFile" uid="uid://dphd0was5qchn" path="res://asset/press_start_2p (1)/PressStart2P.ttf" id="3_tt2v1"]
+
+[sub_resource type="Animation" id="Animation_1lftm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label Setting:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ufutv"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label Setting:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 0.965936),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tt2v1"]
+_data = {
+&"RESET": SubResource("Animation_1lftm"),
+&"fade_out": SubResource("Animation_ufutv")
+}
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_ufutv")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(1, -289)
+scale = Vector2(0.501736, 0.426505)
+texture = ExtResource("2_1lftm")
+region_enabled = true
+region_rect = Rect2(256, 256, 2592, 1728)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -288)
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+
+[node name="Label Setting" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = -355.0
+offset_top = -449.0
+offset_right = 363.0
+offset_bottom = -170.0
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/font_size = 40
+text = "Belom ada fiturnya yahahhaha"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Animation Player" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_tt2v1")
+}
+
+[node name="Control" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 45.0
+offset_top = -142.0
+offset_right = 85.0
+offset_bottom = -102.0
+
+[node name="Start Button" type="Button" parent="Control"]
+layout_mode = 2
+offset_left = -194.0
+offset_top = -367.0
+offset_right = 56.0
+offset_bottom = -296.0
+theme_override_fonts/font = ExtResource("3_tt2v1")
+text = "Start Game"
+
+[node name="Settings Button" type="Button" parent="Control"]
+layout_mode = 2
+offset_left = -194.0
+offset_top = -292.0
+offset_right = 56.0
+offset_bottom = -221.0
+theme_override_fonts/font = ExtResource("3_tt2v1")
+text = "Settings"
+
+[node name="Quit Button" type="Button" parent="Control"]
+layout_mode = 2
+offset_left = -194.0
+offset_top = -217.0
+offset_right = 56.0
+offset_bottom = -146.0
+theme_override_fonts/font = ExtResource("3_tt2v1")
+text = "Quit (i'm gay)"
+
+[node name="Credit_Button" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = -194.0
+offset_top = -142.0
+offset_right = 56.0
+offset_bottom = -71.0
+
+[node name="How to Play_Button" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = -194.0
+offset_top = -67.0
+offset_right = 56.0
+offset_bottom = 4.0
+
+[connection signal="pressed" from="Control/Start Button" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="Control/Settings Button" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="Control/Quit Button" to="." method="_on_quit_button_pressed"]

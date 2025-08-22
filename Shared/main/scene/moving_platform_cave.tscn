@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://csnsj765006vr"]
+
+[ext_resource type="Texture2D" uid="uid://2m3oygd4g6g2" path="res://Shared/main/asset/mainlev_build.png" id="1_1vab6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lc3et"]
+atlas = ExtResource("1_1vab6")
+region = Rect2(752, 8, 176, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uf8q8"]
+size = Vector2(160, 16)
+
+[node name="Platform" type="CharacterBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_lc3et")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_uf8q8")
+one_way_collision = true

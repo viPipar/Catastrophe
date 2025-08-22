@@ -1,0 +1,178 @@
+[gd_scene load_steps=10 format=3 uid="uid://csgm4u5o0ysk4"]
+
+[ext_resource type="Script" uid="uid://xgmr6b5gysnf" path="res://scene/main_game.gd" id="1_u6pak"]
+[ext_resource type="Texture2D" uid="uid://b1yhxist0dh1q" path="res://assets/tilemap/Playing Table.jpg" id="2_0hu3g"]
+[ext_resource type="PackedScene" uid="uid://dtoswm4ccn6l0" path="res://scene/blackjack_background_2.tscn" id="2_5iosh"]
+[ext_resource type="TileSet" uid="uid://clsaov0f3inaj" path="res://assets/tilemap/tileset.tres" id="3_rb71h"]
+[ext_resource type="PackedScene" uid="uid://ckophae3oal2x" path="res://scene/card.tscn" id="4_5iosh"]
+[ext_resource type="Texture2D" uid="uid://dkv6kectptg2" path="res://assets/tilemap/wp2436045-violet-evergarden-wallpapers.jpg" id="5_0hu3g"]
+[ext_resource type="Texture2D" uid="uid://inkxvvlsgyei" path="res://assets/tilemap/Waguri.jpeg" id="6_rb71h"]
+[ext_resource type="FontFile" uid="uid://dbee7gu4vinb7" path="res://asset/press_start_2p (1)/Minecraft.ttf" id="6_yma6s"]
+[ext_resource type="FontFile" uid="uid://dphd0was5qchn" path="res://asset/press_start_2p (1)/PressStart2P.ttf" id="7_ql8fe"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_u6pak")
+
+[node name="blackjack_background_2" parent="." instance=ExtResource("2_5iosh")]
+position = Vector2(-947, -543)
+scale = Vector2(1.5, 1.5)
+
+[node name="Playing Table" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, 2)
+scale = Vector2(3.1732, 3.08333)
+texture = ExtResource("2_0hu3g")
+
+[node name="DeckAnchor" parent="." instance=ExtResource("4_5iosh")]
+position = Vector2(827, -405)
+scale = Vector2(2.12, 2.12)
+
+[node name="TileMap" type="TileMap" parent="."]
+position = Vector2(8, -3)
+tile_set = ExtResource("3_rb71h")
+format = 2
+
+[node name="Camera2D" type="Camera2D" parent="."]
+rotation = -3.14159
+scale = Vector2(289590, 385618)
+zoom = Vector2(0.67, 0.67)
+
+[node name="Visible_Buttons" type="Node2D" parent="."]
+position = Vector2(0, -255)
+
+[node name="Hit_Button" type="Button" parent="Visible_Buttons"]
+offset_left = 660.0
+offset_top = 227.0
+offset_right = 730.0
+offset_bottom = 262.0
+scale = Vector2(3, 3)
+theme_override_fonts/font = ExtResource("7_ql8fe")
+text = "HIT"
+
+[node name="Stand_Button" type="Button" parent="Visible_Buttons"]
+offset_left = 616.0
+offset_top = 107.0
+offset_right = 715.0
+offset_bottom = 142.0
+scale = Vector2(3, 3)
+theme_override_fonts/font = ExtResource("7_ql8fe")
+text = "STAND"
+
+[node name="Visible_Label" type="Node2D" parent="."]
+
+[node name="Turn_Label" type="Label" parent="Visible_Label"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -97.0
+offset_right = 500.0
+offset_bottom = 97.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.682353)
+theme_override_fonts/font = ExtResource("6_yma6s")
+theme_override_font_sizes/font_size = 100
+text = "TURN"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Score_Player" type="Label" parent="Visible_Label"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = 70.0
+offset_right = 125.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("7_ql8fe")
+theme_override_font_sizes/font_size = 50
+text = "?/21"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Score_Dealer" type="Label" parent="Visible_Label"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -126.0
+offset_top = -200.0
+offset_right = 124.0
+offset_bottom = -70.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("7_ql8fe")
+theme_override_font_sizes/font_size = 50
+text = "?/21"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Life_Player" type="Label" parent="Visible_Label"]
+offset_left = 605.0
+offset_top = 39.0
+offset_right = 942.5
+offset_bottom = 190.0
+theme_override_fonts/font = ExtResource("7_ql8fe")
+theme_override_font_sizes/font_size = 110
+text = "OOO"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Life_Dealer" type="Label" parent="Visible_Label"]
+offset_left = -936.0
+offset_top = -225.0
+offset_right = -598.5
+offset_bottom = -74.0
+theme_override_font_sizes/font_size = 110
+text = "OOO"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Wp2436045-violet-evergarden-wallpapers" type="Sprite2D" parent="."]
+position = Vector2(773, 343)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("5_0hu3g")
+region_enabled = true
+region_rect = Rect2(280, 32, 450, 450)
+
+[node name="Waguri" type="Sprite2D" parent="."]
+position = Vector2(-768, -348)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("6_rb71h")
+
+[node name="Invisible_Button" type="Node2D" parent="."]
+position = Vector2(1601, 0)
+
+[node name="Finish_Button" type="Button" parent="Invisible_Button"]
+offset_left = -993.0
+offset_top = -258.0
+offset_right = -685.0
+offset_bottom = -160.0
+theme_override_fonts/font = ExtResource("7_ql8fe")
+theme_override_font_sizes/font_size = 50
+text = "FINISH"
+
+[node name="Dialog_Player" type="Node2D" parent="."]
+
+[node name="Dialog_Dealer" type="Node2D" parent="."]
+
+[node name="Label" type="Label" parent="Dialog_Dealer"]
+offset_left = -562.0
+offset_top = -512.0
+offset_right = 586.0
+offset_bottom = -275.0
+theme_override_fonts/font = ExtResource("6_yma6s")
+theme_override_font_sizes/font_size = 50
+text = "adwad"
+
+[connection signal="pressed" from="Visible_Buttons/Hit_Button" to="." method="_on_hit_button_pressed"]
+[connection signal="pressed" from="Visible_Buttons/Stand_Button" to="." method="_on_stand_button_pressed"]
+[connection signal="pressed" from="Invisible_Button/Finish_Button" to="." method="_on_finish_button_pressed"]

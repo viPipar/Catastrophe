@@ -1,0 +1,112 @@
+[gd_scene load_steps=6 format=3 uid="uid://cllxwvyvuo7fu"]
+
+[ext_resource type="Script" uid="uid://xgmr6b5gysnf" path="res://scene/main_game.gd" id="1_ad03d"]
+[ext_resource type="TileSet" uid="uid://clsaov0f3inaj" path="res://assets/tilemap/tileset.tres" id="1_rofmb"]
+[ext_resource type="Texture2D" uid="uid://b1yhxist0dh1q" path="res://assets/tilemap/Playing Table.jpg" id="3_u115g"]
+[ext_resource type="PackedScene" uid="uid://ckophae3oal2x" path="res://scene/card.tscn" id="4_02eqj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_02eqj"]
+size = Vector2(375, 498)
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_ad03d")
+
+[node name="Playing Table" type="Sprite2D" parent="."]
+position = Vector2(0, 2)
+scale = Vector2(3.1732, 3.08333)
+texture = ExtResource("3_u115g")
+
+[node name="TileMap" type="TileMap" parent="."]
+position = Vector2(8, -3)
+tile_set = ExtResource("1_rofmb")
+format = 2
+
+[node name="Camera2D" type="Camera2D" parent="."]
+scale = Vector2(-289590, -385618)
+zoom = Vector2(0.67, 0.67)
+
+[node name="Card Area" type="Area2D" parent="."]
+position = Vector2(-798, -347)
+scale = Vector2(0.5, 0.5)
+
+[node name="Card" parent="Card Area" instance=ExtResource("4_02eqj")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Card Area"]
+position = Vector2(-2.5, 1)
+shape = SubResource("RectangleShape2D_02eqj")
+
+[node name="Cards" type="Node2D" parent="."]
+position = Vector2(300, 275)
+scale = Vector2(0.5, 0.5)
+
+[node name="Card2" parent="Cards" instance=ExtResource("4_02eqj")]
+position = Vector2(-800, 4)
+
+[node name="Card3" parent="Cards" instance=ExtResource("4_02eqj")]
+position = Vector2(-400, 0)
+
+[node name="Card4" parent="Cards" instance=ExtResource("4_02eqj")]
+
+[node name="Card5" parent="Cards" instance=ExtResource("4_02eqj")]
+position = Vector2(-400, -1100)
+
+[node name="Card6" parent="Cards" instance=ExtResource("4_02eqj")]
+position = Vector2(0, -1100)
+
+[node name="Card7" parent="Cards" instance=ExtResource("4_02eqj")]
+position = Vector2(-800, -1096)
+
+[node name="Closed_Cards" type="Node2D" parent="."]
+position = Vector2(300, -275)
+scale = Vector2(0.5, 0.5)
+
+[node name="Card" parent="Closed_Cards" instance=ExtResource("4_02eqj")]
+position = Vector2(-1200, 4)
+
+[node name="Card5" parent="Closed_Cards" instance=ExtResource("4_02eqj")]
+position = Vector2(-1200, 1104)
+
+[node name="Buttons" type="Node2D" parent="."]
+visible = false
+
+[node name="Main Menu" type="Button" parent="Buttons"]
+offset_left = -194.5
+offset_top = 22.0
+offset_right = 194.5
+offset_bottom = 126.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 70
+text = "Main Menu"
+
+[node name="Restart" type="Button" parent="Buttons"]
+offset_left = -194.5
+offset_top = -137.0
+offset_right = 194.5
+offset_bottom = -33.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 70
+text = "Restart"
+
+[node name="Visible_Buttons" type="Node2D" parent="."]
+
+[node name="Hit_Button" type="Button" parent="Visible_Buttons"]
+offset_left = 594.0
+offset_top = 276.0
+offset_right = 659.0
+offset_bottom = 307.0
+scale = Vector2(4.87082, 4.87082)
+text = "HIT"
+
+[node name="Stand_Button" type="Button" parent="Visible_Buttons"]
+offset_left = 594.0
+offset_top = 107.0
+offset_right = 659.0
+offset_bottom = 138.0
+scale = Vector2(4.87082, 4.87082)
+text = "STAND"
+
+[connection signal="input_event" from="Card Area" to="." method="_on_card_area_input_event"]
+[connection signal="pressed" from="Buttons/Main Menu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="Buttons/Restart" to="." method="_on_restart_pressed"]
