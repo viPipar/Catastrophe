@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 [gd_scene format=3 uid="uid://b71a04l7a40hq"]
+=======
+[gd_scene load_steps=0 format=3 uid="uid://b71a04l7a40hq"]
+>>>>>>> save-gwe
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 

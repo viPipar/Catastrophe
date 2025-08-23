@@ -1,8 +1,11 @@
 extends Node2D
 
+<<<<<<< HEAD
 
 @onready var table_root: Node2D = $TableRoot
 
+=======
+>>>>>>> save-gwe
 var deck_queue: Array[String]  = []
 
 # Layout & aset
@@ -73,7 +76,11 @@ var winner: String = ""
 @onready var dealer_score_label: Label = $Visible_Label/Score_Dealer
 @onready var life_player: Label = $Visible_Label/Life_Player
 @onready var life_dealer: Label = $Visible_Label/Life_Dealer
+<<<<<<< HEAD
 @onready var deck_anchor: Node2D = $TableRoot/DeckAnchor
+=======
+@onready var deck_anchor: Node2D = $DeckAnchor
+>>>>>>> save-gwe
 @onready var dealer_react_label: Label = $Dialog_Dealer/Label
 var _react_tween: Tween = null
 
@@ -85,6 +92,10 @@ signal finished(success: bool)  # success: true/false; data: payload bebas
 # ===== Inisialisasi =====
 func _ready():
 	randomize()
+<<<<<<< HEAD
+=======
+
+>>>>>>> save-gwe
 	deck_queue = deck_shuffle()
 	start_round()
 	_update_turn_label()
@@ -121,7 +132,11 @@ func points_visible(cards: Array[Sprite2D]) -> int:
 	return total
 
 func _deck_origin() -> Vector2:
+<<<<<<< HEAD
 	return deck_anchor.position if deck_anchor else Vector2.ZERO
+=======
+	return deck_anchor.global_position if deck_anchor else Vector2.ZERO
+>>>>>>> save-gwe
 
 func _render_lives(lives: int) -> String:
 	var s := ""
@@ -276,7 +291,11 @@ func _deal_to_with_anim(target: String, face_down: bool=false, force: bool=false
 
 	# 1) Buat kartu asli (untuk logika/score), tapi sembunyikan dulu
 	var real := _make_card_sprite(code, final_face_down)
+<<<<<<< HEAD
 	table_root.add_child(real)
+=======
+	add_child(real)
+>>>>>>> save-gwe
 
 	if target == "player":
 		player_cards.append(real)
@@ -304,10 +323,17 @@ func _deal_to_with_anim(target: String, face_down: bool=false, force: bool=false
 	var start_scale := final_scale * 0.8
 	ghost.scale = start_scale
 	ghost.rotation = randf_range(-DEAL_ANIM_ROT_MAX, DEAL_ANIM_ROT_MAX)
+<<<<<<< HEAD
 	table_root.add_child(ghost)
 
 	# Mulai dari DeckAnchor (lokal), tapi karena parent sama-sama Node2D root, cukup local:
 	ghost.position = _deck_origin()   # lokal → sama ruang dengan final_pos
+=======
+	add_child(ghost)
+
+	# Mulai dari DeckAnchor (global), tapi karena parent sama-sama Node2D root, cukup local:
+	ghost.position = _deck_origin()
+>>>>>>> save-gwe
 
 	# 3) Tween gerak + scale + rotasi halus
 	var tw := get_tree().create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
@@ -318,12 +344,19 @@ func _deal_to_with_anim(target: String, face_down: bool=false, force: bool=false
 
 	# 4) Hapus ghost, tampilkan kartu asli
 	ghost.queue_free()
+<<<<<<< HEAD
 	
 	real.visible = true     
 	real.scale = final_scale * 1.1
 	var t3 := get_tree().create_tween()
 	t3.tween_property(real, "scale", final_scale, 0.1).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 
+=======
+	real.scale = final_scale * 1.1
+	var t3 := get_tree().create_tween()
+	t3.tween_property(real, "scale", final_scale, 0.1)
+	real.visible = true
+>>>>>>> save-gwe
 
 	# Update skor/UI (kartu asli sudah di tempat)
 	update_score_labels()
@@ -611,4 +644,7 @@ func _react_angry() -> void:
 
 func _react_neutral() -> void:
 	await _show_react(_pick(NEUTRAL_WHEN_DRAW), REACT_SHOW_TIME_DRAW)
+<<<<<<< HEAD
 	
+=======
+>>>>>>> save-gwe

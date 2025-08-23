@@ -1,0 +1,18 @@
+[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://clsaov0f3inaj"]
+
+[ext_resource type="Texture2D" uid="uid://dkv6kectptg2" path="res://assets/tilemap/wp2436045-violet-evergarden-wallpapers.jpg" id="1_fvjy2"]
+[ext_resource type="Texture2D" uid="uid://cwdiiwvubve05" path="res://assets/tilemap/VBG PI 61.png" id="2_uxkie"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ufutv"]
+texture = ExtResource("1_fvjy2")
+0:0/size_in_atlas = Vector2i(50, 81)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p02hu"]
+texture = ExtResource("2_uxkie")
+0:0/size_in_atlas = Vector2i(120, 67)
+0:0/0 = 0
+
+[resource]
+sources/0 = SubResource("TileSetAtlasSource_ufutv")
+sources/1 = SubResource("TileSetAtlasSource_p02hu")

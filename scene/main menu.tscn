@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 [gd_scene load_steps=7 format=3 uid="uid://dc8dwo1oj7qsg"]
 
 [ext_resource type="Script" uid="uid://b4ajtqgopsnqf" path="res://scene/main_menu.gd" id="1_ufutv"]
+=======
+[gd_scene load_steps=7 format=3 uid="uid://c8criwb0445ff"]
+
+[ext_resource type="Script" path="res://scene/main_menu.gd" id="1_ufutv"]
+>>>>>>> save-gwe
 [ext_resource type="Texture2D" uid="uid://d1n8v063fvmpj" path="res://Untitled.png" id="2_1lftm"]
 [ext_resource type="FontFile" uid="uid://dphd0was5qchn" path="res://asset/press_start_2p (1)/PressStart2P.ttf" id="3_tt2v1"]
 
