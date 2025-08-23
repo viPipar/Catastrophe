@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://xgmr6b5gysnf" path="res://scene/main_game.gd" id="1_u6pak"]
 [ext_resource type="Texture2D" uid="uid://b1yhxist0dh1q" path="res://assets/tilemap/Playing Table.jpg" id="2_0hu3g"]
-[ext_resource type="PackedScene" uid="uid://dtoswm4ccn6l0" path="res://scene/blackjack_background_2.tscn" id="2_5iosh"]
+[ext_resource type="PackedScene" path="res://scene/blackjack_background_2.tscn" id="2_5iosh"]
 [ext_resource type="TileSet" uid="uid://clsaov0f3inaj" path="res://assets/tilemap/tileset.tres" id="3_rb71h"]
 [ext_resource type="PackedScene" path="res://scene/card.tscn" id="4_5iosh"]
 [ext_resource type="Texture2D" uid="uid://dkv6kectptg2" path="res://assets/tilemap/wp2436045-violet-evergarden-wallpapers.jpg" id="5_0hu3g"]
