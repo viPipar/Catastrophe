@@ -24,7 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://bdqvhos4h542n" path="res://enemy_barkwing.tscn" id="21_ylx0j"]
 [ext_resource type="Script" uid="uid://y514lfl84te" path="res://Shared/main/scene/area_2d.gd" id="22_pfod2"]
 [ext_resource type="PackedScene" uid="uid://csgm4u5o0ysk4" path="res://scene/nyoba_scene.tscn" id="23_mq8du"]
-[ext_resource type="PackedScene" path="res://enemy_cloverknight.tscn" id="25_vjlrp"]
+[ext_resource type="PackedScene" uid="uid://n0w0hvvak5is" path="res://enemy_cloverknight.tscn" id="25_vjlrp"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_drqlo"]
 normal = Vector2(0.999822, -0.0188646)
