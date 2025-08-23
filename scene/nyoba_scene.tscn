@@ -2,41 +2,20 @@
 
 [ext_resource type="Script" uid="uid://xgmr6b5gysnf" path="res://scene/main_game.gd" id="1_u6pak"]
 [ext_resource type="Texture2D" uid="uid://b1yhxist0dh1q" path="res://assets/tilemap/Playing Table.jpg" id="2_0hu3g"]
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-[ext_resource type="PackedScene" uid="uid://dtoswm4ccn6l0" path="res://scene/blackjack_background_2.tscn" id="2_5iosh"]
-=======
-[ext_resource type="PackedScene" uid="uid://bxsnmv7mw4pmw" path="res://scene/blackjack_background_2.tscn" id="2_5iosh"]
->>>>>>> Stashed changes
-[ext_resource type="TileSet" uid="uid://clsaov0f3inaj" path="res://assets/tilemap/tileset.tres" id="3_rb71h"]
-[ext_resource type="PackedScene" uid="uid://ckophae3oal2x" path="res://scene/card.tscn" id="4_5iosh"]
-=======
 [ext_resource type="PackedScene" path="res://scene/blackjack_background_2.tscn" id="2_5iosh"]
 [ext_resource type="TileSet" uid="uid://clsaov0f3inaj" path="res://assets/tilemap/tileset.tres" id="3_rb71h"]
 [ext_resource type="PackedScene" path="res://scene/card.tscn" id="4_5iosh"]
->>>>>>> save-gwe
 [ext_resource type="Texture2D" uid="uid://dkv6kectptg2" path="res://assets/tilemap/wp2436045-violet-evergarden-wallpapers.jpg" id="5_0hu3g"]
 [ext_resource type="Texture2D" uid="uid://inkxvvlsgyei" path="res://assets/tilemap/Waguri.jpeg" id="6_rb71h"]
 [ext_resource type="FontFile" uid="uid://dbee7gu4vinb7" path="res://asset/press_start_2p (1)/Minecraft.ttf" id="6_yma6s"]
 [ext_resource type="FontFile" uid="uid://dphd0was5qchn" path="res://asset/press_start_2p (1)/PressStart2P.ttf" id="7_ql8fe"]
 
-<<<<<<< HEAD
-[node name="Node2D2" type="Node2D"]
-script = ExtResource("1_u6pak")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-rotation = -3.14159
-
-[node name="blackjack_background_2" parent="." instance=ExtResource("2_5iosh")]
-position = Vector2(-640, -360)
-=======
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_u6pak")
 
 [node name="blackjack_background_2" parent="." instance=ExtResource("2_5iosh")]
 position = Vector2(-947, -543)
 scale = Vector2(1.5, 1.5)
->>>>>>> save-gwe
 
 [node name="Playing Table" type="Sprite2D" parent="."]
 visible = false
@@ -44,17 +23,6 @@ position = Vector2(0, 2)
 scale = Vector2(3.1732, 3.08333)
 texture = ExtResource("2_0hu3g")
 
-<<<<<<< HEAD
-[node name="TileMap" type="TileMap" parent="."]
-position = Vector2(-55, -19)
-scale = Vector2(1.10932, 1.10932)
-tile_set = ExtResource("3_rb71h")
-format = 2
-
-[node name="Visible_Buttons" type="Node2D" parent="."]
-position = Vector2(-7, -174)
-scale = Vector2(0.655881, 0.655881)
-=======
 [node name="DeckAnchor" parent="." instance=ExtResource("4_5iosh")]
 position = Vector2(827, -405)
 scale = Vector2(2.12, 2.12)
@@ -71,7 +39,6 @@ zoom = Vector2(0.67, 0.67)
 
 [node name="Visible_Buttons" type="Node2D" parent="."]
 position = Vector2(0, -255)
->>>>>>> save-gwe
 
 [node name="Hit_Button" type="Button" parent="Visible_Buttons"]
 offset_left = 660.0
@@ -92,11 +59,6 @@ theme_override_fonts/font = ExtResource("7_ql8fe")
 text = "STAND"
 
 [node name="Visible_Label" type="Node2D" parent="."]
-<<<<<<< HEAD
-position = Vector2(2, 5)
-scale = Vector2(0.655881, 0.655881)
-=======
->>>>>>> save-gwe
 
 [node name="Turn_Label" type="Label" parent="Visible_Label"]
 anchors_preset = 8
@@ -175,34 +137,19 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Wp2436045-violet-evergarden-wallpapers" type="Sprite2D" parent="."]
-<<<<<<< HEAD
-position = Vector2(516, 234)
-scale = Vector2(0.491911, 0.491911)
-=======
 position = Vector2(773, 343)
 scale = Vector2(0.75, 0.75)
->>>>>>> save-gwe
 texture = ExtResource("5_0hu3g")
 region_enabled = true
 region_rect = Rect2(280, 32, 450, 450)
 
 [node name="Waguri" type="Sprite2D" parent="."]
-<<<<<<< HEAD
-position = Vector2(-514, -234)
-scale = Vector2(0.983821, 0.983821)
-texture = ExtResource("6_rb71h")
-
-[node name="Invisible_Button" type="Node2D" parent="."]
-position = Vector2(1048, -8)
-scale = Vector2(0.655881, 0.655881)
-=======
 position = Vector2(-768, -348)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("6_rb71h")
 
 [node name="Invisible_Button" type="Node2D" parent="."]
 position = Vector2(1601, 0)
->>>>>>> save-gwe
 
 [node name="Finish_Button" type="Button" parent="Invisible_Button"]
 offset_left = -993.0
@@ -214,17 +161,8 @@ theme_override_font_sizes/font_size = 50
 text = "FINISH"
 
 [node name="Dialog_Player" type="Node2D" parent="."]
-<<<<<<< HEAD
-position = Vector2(245, 194)
-scale = Vector2(0.655881, 0.655881)
 
 [node name="Dialog_Dealer" type="Node2D" parent="."]
-position = Vector2(-9.99998, -5.99998)
-scale = Vector2(0.655881, 0.655881)
-=======
-
-[node name="Dialog_Dealer" type="Node2D" parent="."]
->>>>>>> save-gwe
 
 [node name="Label" type="Label" parent="Dialog_Dealer"]
 offset_left = -562.0
@@ -235,17 +173,6 @@ theme_override_fonts/font = ExtResource("6_yma6s")
 theme_override_font_sizes/font_size = 50
 text = "adwad"
 
-<<<<<<< HEAD
-[node name="TableRoot" type="Node2D" parent="."]
-position = Vector2(27, -15)
-scale = Vector2(0.655881, 0.655881)
-
-[node name="DeckAnchor" parent="TableRoot" instance=ExtResource("4_5iosh")]
-position = Vector2(827, -405)
-scale = Vector2(2.12, 2.12)
-
-=======
->>>>>>> save-gwe
 [connection signal="pressed" from="Visible_Buttons/Hit_Button" to="." method="_on_hit_button_pressed"]
 [connection signal="pressed" from="Visible_Buttons/Stand_Button" to="." method="_on_stand_button_pressed"]
 [connection signal="pressed" from="Invisible_Button/Finish_Button" to="." method="_on_finish_button_pressed"]

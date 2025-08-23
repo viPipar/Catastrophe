@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-[gd_scene load_steps=6 format=3 uid="uid://dtoswm4ccn6l0"]
-=======
 [gd_scene load_steps=6 format=3 uid="uid://bxsnmv7mw4pmw"]
->>>>>>> save-gwe
 
 [ext_resource type="Texture2D" uid="uid://fc48jrrjprwi" path="res://asset/blackjack_0.png" id="1_sco1t"]
 [ext_resource type="Texture2D" uid="uid://bfwllpqxwfgff" path="res://asset/blackjack_transparent_100.png" id="2_2l0mj"]

@@ -1,17 +1,9 @@
-<<<<<<< HEAD
-[gd_scene load_steps=6 format=3 uid="uid://bu4s2rduoxepc"]
-=======
 [gd_scene load_steps=6 format=3 uid="uid://cllxwvyvuo7fu"]
->>>>>>> save-gwe
 
 [ext_resource type="Script" uid="uid://xgmr6b5gysnf" path="res://scene/main_game.gd" id="1_ad03d"]
 [ext_resource type="TileSet" uid="uid://clsaov0f3inaj" path="res://assets/tilemap/tileset.tres" id="1_rofmb"]
 [ext_resource type="Texture2D" uid="uid://b1yhxist0dh1q" path="res://assets/tilemap/Playing Table.jpg" id="3_u115g"]
-<<<<<<< HEAD
-[ext_resource type="PackedScene" path="res://scene/card.tscn" id="4_02eqj"]
-=======
 [ext_resource type="PackedScene" uid="uid://ckophae3oal2x" path="res://scene/card.tscn" id="4_02eqj"]
->>>>>>> save-gwe
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_02eqj"]
 size = Vector2(375, 498)

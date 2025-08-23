@@ -82,12 +82,6 @@ flashback={
 2d_physics/layer_2="Main Character Layer"
 2d_physics/layer_3="Mushii Layer"
 
-[layer_names]
-
-2d_physics/layer_1="Floor Layer"
-2d_physics/layer_2="Main Character Layer"
-2d_physics/layer_3="Mushii Layer"
-
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
