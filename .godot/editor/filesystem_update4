@@ -5,3 +5,7 @@ res://assets/tilemap/tileset.tres
 res://Shared/main/scene/Surface.tscn
 res://scene/main_game.tscn
 res://scene/main_game.gd
+<<<<<<< Updated upstream
+=======
+res://scene/card.tscn
+>>>>>>> Stashed changes
