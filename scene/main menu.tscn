@@ -1,44 +1,94 @@
-[gd_scene load_steps=8 format=3 uid="uid://c8criwb0445ff"]
+[gd_scene load_steps=10 format=3 uid="uid://c8criwb0445ff"]
 
 [ext_resource type="Script" uid="uid://b4ajtqgopsnqf" path="res://scene/main_menu.gd" id="1_ufutv"]
-[ext_resource type="Texture2D" uid="uid://d1n8v063fvmpj" path="res://Untitled.png" id="2_1lftm"]
+[ext_resource type="Texture2D" uid="uid://dv0vp1qbneg7w" path="res://fa50fd86-9ffb-4d23-99b3-c3ed0a220819.png" id="2_atihp"]
 [ext_resource type="FontFile" uid="uid://dphd0was5qchn" path="res://asset/press_start_2p (1)/PressStart2P.ttf" id="3_tt2v1"]
 [ext_resource type="Texture2D" uid="uid://desl7oioi4au" path="res://Logo.png" id="4_tt2v1"]
+[ext_resource type="Texture2D" uid="uid://cdo6kgcao8wdp" path="res://35c2a37f-01c7-49c9-8197-210de4d549ba_removalai_preview.png" id="5_atihp"]
+[ext_resource type="Texture2D" uid="uid://cxy1cmh3i4i6r" path="res://pngtree-game-interface-in-wooden-style-for-mobile-app-png-image_2911160.jpg" id="6_4l0v3"]
 
-[sub_resource type="Animation" id="Animation_1lftm"]
+[sub_resource type="Animation" id="Animation_tt2v1"]
+resource_name = "autoplay"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Logo:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-396, -756), Vector2(-396, -509)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Logo:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.6, 0.65),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.186, 0.186), Vector2(0.388, 0.388), Vector2(0.433, 0.433), Vector2(0.378, 0.378)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Camera2D/CanvasLayer/ColorRect:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_atihp"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Label Setting:modulate")
+tracks/0/path = NodePath("Logo:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
+"values": [Vector2(-396, -756)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Logo:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.186, 0.186)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Camera2D/CanvasLayer/ColorRect:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_ufutv"]
-resource_name = "fade_out"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Label Setting:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 0.965936),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_tt2v1"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4l0v3"]
 _data = {
-&"RESET": SubResource("Animation_1lftm"),
-&"fade_out": SubResource("Animation_ufutv")
+&"RESET": SubResource("Animation_atihp"),
+&"autoplay": SubResource("Animation_tt2v1")
 }
 
 [node name="Menu" type="Control"]
@@ -47,41 +97,18 @@ anchors_preset = 0
 script = ExtResource("1_ufutv")
 
 [node name="Background" type="Sprite2D" parent="."]
-position = Vector2(1, -289)
-scale = Vector2(0.501736, 0.426505)
-texture = ExtResource("2_1lftm")
-region_enabled = true
+self_modulate = Color(0.588235, 0.588235, 0.45098, 1)
+position = Vector2(-1, -287)
+scale = Vector2(0.83697, 0.712262)
+texture = ExtResource("2_atihp")
 region_rect = Rect2(256, 256, 2592, 1728)
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(0, -288)
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
-
-[node name="Label Setting" type="Label" parent="."]
-visible = false
-layout_mode = 0
-offset_left = -355.0
-offset_top = -449.0
-offset_right = 363.0
-offset_bottom = -170.0
-theme_override_constants/outline_size = 15
-theme_override_font_sizes/font_size = 40
-text = "Belom ada fiturnya yahahhaha"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Animation Player" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_tt2v1")
-}
 
 [node name="Control" type="Control" parent="."]
 anchors_preset = 0
 offset_left = -335.0
-offset_top = -49.0
+offset_top = 2.0
 offset_right = -295.0
-offset_bottom = -9.0
+offset_bottom = 42.0
 
 [node name="Start Button" type="Button" parent="Control"]
 layout_mode = 2
@@ -89,36 +116,22 @@ offset_left = -194.0
 offset_top = -367.0
 offset_right = 56.0
 offset_bottom = -296.0
+focus_mode = 0
+theme_override_colors/font_hover_color = Color(0.505344, 0.505344, 0.505344, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("3_tt2v1")
 text = "Start Game"
-flat = true
-
-[node name="Settings Button" type="Button" parent="Control"]
-layout_mode = 2
-offset_left = -194.0
-offset_top = -292.0
-offset_right = 56.0
-offset_bottom = -221.0
-theme_override_fonts/font = ExtResource("3_tt2v1")
-text = "Settings"
-flat = true
-
-[node name="Quit Button" type="Button" parent="Control"]
-layout_mode = 2
-offset_left = -194.0
-offset_top = -67.0
-offset_right = 56.0
-offset_bottom = 4.0
-theme_override_fonts/font = ExtResource("3_tt2v1")
-text = "Quit (i'm gay)"
 flat = true
 
 [node name="Credit_Button" type="Button" parent="Control"]
 layout_mode = 0
 offset_left = -194.0
-offset_top = -142.0
+offset_top = -217.0
 offset_right = 56.0
-offset_bottom = -71.0
+offset_bottom = -146.0
+focus_mode = 0
+theme_override_colors/font_hover_color = Color(0.505882, 0.505882, 0.505882, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("3_tt2v1")
 text = "Credit"
 flat = true
@@ -126,18 +139,140 @@ flat = true
 [node name="How to Play_Button" type="Button" parent="Control"]
 layout_mode = 0
 offset_left = -194.0
-offset_top = -217.0
+offset_top = -292.0
 offset_right = 56.0
-offset_bottom = -146.0
+offset_bottom = -221.0
+focus_mode = 0
+theme_override_colors/font_hover_color = Color(0.505882, 0.505882, 0.505882, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("3_tt2v1")
 text = "How to Play"
 flat = true
 
+[node name="Quit Button" type="Button" parent="Control"]
+layout_mode = 2
+offset_left = -194.0
+offset_top = -147.0
+offset_right = 56.0
+offset_bottom = -76.0
+focus_mode = 0
+theme_override_colors/font_hover_color = Color(0.505882, 0.505882, 0.505882, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_tt2v1")
+text = "Quit (i'm gay)"
+flat = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -288)
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Camera2D"]
+
+[node name="ColorRect" type="ColorRect" parent="Camera2D/CanvasLayer"]
+offset_right = 1319.0
+offset_bottom = 749.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
 [node name="Logo" type="Sprite2D" parent="."]
-position = Vector2(-396, -534)
-scale = Vector2(0.366437, 0.366437)
+position = Vector2(-396, -756)
+scale = Vector2(0.186, 0.186)
 texture = ExtResource("4_tt2v1")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_4l0v3")
+}
+autoplay = "autoplay"
+
+[node name="35c2a37f-01c7-49c9-8197-210De4d549BaRemovalaiPreview" type="Sprite2D" parent="."]
+position = Vector2(556, -10)
+scale = Vector2(0.286458, 0.286458)
+texture = ExtResource("5_atihp")
+
+[node name="Hidden Labels" type="Control" parent="."]
+visible = false
+z_index = 2
+anchors_preset = 0
+offset_left = -466.0
+offset_top = -439.0
+offset_right = -426.0
+offset_bottom = -399.0
+
+[node name="Backgroundnya" type="ColorRect" parent="Hidden Labels"]
+z_index = 1
+z_as_relative = false
+offset_left = -190.0
+offset_top = -237.0
+offset_right = 1148.0
+offset_bottom = 502.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Pngtree-game-interface-in-wooden-style-for-mobile-app-png-image2911160" type="Sprite2D" parent="Hidden Labels"]
+modulate = Color(0.27451, 0.27451, 0.27451, 1)
+position = Vector2(490.5, 151)
+scale = Vector2(3.36563, 4.46053)
+texture = ExtResource("6_4l0v3")
+region_enabled = true
+region_rect = Rect2(24, 40, 320, 152)
+
+[node name="How to Play" type="Label" parent="Hidden Labels"]
+layout_mode = 0
+offset_top = -175.0
+offset_right = 848.0
+offset_bottom = 524.0
+theme_override_fonts/font = ExtResource("3_tt2v1")
+theme_override_font_sizes/font_size = 22
+text = "Movement
+
+A: Move Left
+D: Move Right
+Space: Jump / Double Jump
+Shift: Dash
+
+Combat
+
+J: Attack
+K: Parry
+I: Projectile
+
+Blackjack
+
+Hit untuk ambil kartu
+Stand untuk bertahan
+"
+vertical_alignment = 1
+
+[node name="How to Play2" type="Label" parent="Hidden Labels"]
+layout_mode = 0
+offset_left = 230.0
+offset_top = -237.0
+offset_right = 480.0
+offset_bottom = -137.0
+scale = Vector2(2, 2)
+theme_override_fonts/font = ExtResource("3_tt2v1")
+text = "How to Play"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Exit" type="Button" parent="Hidden Labels"]
+layout_mode = 0
+offset_left = 932.0
+offset_top = -191.0
+offset_right = 956.0
+offset_bottom = -160.0
+scale = Vector2(3.76, 3.76)
+focus_mode = 0
+theme_override_colors/font_hover_color = Color(0.501961, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_tt2v1")
+text = "X"
+flat = true
+
 [connection signal="pressed" from="Control/Start Button" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="Control/Settings Button" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="Control/Credit_Button" to="." method="_on_credit_button_pressed"]
+[connection signal="pressed" from="Control/How to Play_Button" to="." method="_on_how_to_play_button_pressed"]
 [connection signal="pressed" from="Control/Quit Button" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="Hidden Labels/Exit" to="." method="_on_exit_pressed"]

@@ -2,13 +2,21 @@ extends Control
 
 
 func _on_start_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://Shared/main/scene/Surface.tscn")
+	get_tree().change_scene_to_file("res://Shared/main/scene/Castle.tscn")
 
 
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
 
 
-func _on_settings_button_pressed() -> void:
-	$"Label Setting".visible = true
-	$"Animation Player".play("fade_out")
+func _on_credit_button_pressed() -> void:
+	print("credit kang")
+
+
+func _on_how_to_play_button_pressed() -> void:
+	print("haw tu pley")
+	$"Hidden Labels".visible = true
+
+
+func _on_exit_pressed() -> void:
+	$"Hidden Labels".visible = false

@@ -1,0 +1,205 @@
+[gd_scene load_steps=16 format=3 uid="uid://cjcq13i7o7811"]
+
+[ext_resource type="Texture2D" uid="uid://cxy1cmh3i4i6r" path="res://pngtree-game-interface-in-wooden-style-for-mobile-app-png-image_2911160.jpg" id="1_pf0hr"]
+[ext_resource type="Texture2D" uid="uid://djoen1dojqryf" path="res://assets/Card Deck/JOC.png" id="2_5lc65"]
+[ext_resource type="FontFile" uid="uid://dphd0was5qchn" path="res://asset/press_start_2p (1)/PressStart2P.ttf" id="2_pf0hr"]
+[ext_resource type="Texture2D" uid="uid://ci14k4lv5afau" path="res://assets/Card Deck/JOH.png" id="4_tixqf"]
+[ext_resource type="Texture2D" uid="uid://bdbcwanw7tiie" path="res://assets/Card Deck/JOS.png" id="5_42yi4"]
+[ext_resource type="Script" uid="uid://bkchjwx6blgkb" path="res://scene/heart.gd" id="5_r2mmd"]
+[ext_resource type="Script" uid="uid://t4emeoob7mkc" path="res://scene/spade.gd" id="6_tixqf"]
+[ext_resource type="Script" uid="uid://i1dhhybshnvg" path="res://scene/club.gd" id="8_42yi4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_42yi4"]
+bg_color = Color(0.854902, 0.305882, 0.333333, 1)
+border_color = Color(0.533333, 0.0235294, 0.0235294, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n7uh6"]
+bg_color = Color(0.854902, 0.305882, 0.333333, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.533333, 0.0235294, 0.0235294, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tixqf"]
+bg_color = Color(0.435294, 0.392157, 0.290196, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.435294, 0.392157, 0.290196, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5lc65"]
+bg_color = Color(0.564706, 0.101961, 0.733333, 1)
+border_color = Color(0.533333, 0.0235294, 0.0235294, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r2mmd"]
+bg_color = Color(0.564706, 0.101961, 0.733333, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.301961, 0.105882, 0.694118, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n6p4a"]
+bg_color = Color(0, 0.745098, 0.129412, 1)
+border_color = Color(0.533333, 0.0235294, 0.0235294, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q8b5a"]
+bg_color = Color(0, 0.745098, 0.129412, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0, 0.521569, 0.129412, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 10
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Pngtree-game-interface-in-wooden-style-for-mobile-app-png-image2911160" type="Sprite2D" parent="."]
+modulate = Color(0.137255, 0.137255, 0.145098, 1)
+position = Vector2(3.00002, 2.50002)
+scale = Vector2(4.00625, 4.75658)
+texture = ExtResource("1_pf0hr")
+region_enabled = true
+region_rect = Rect2(24, 40, 320, 152)
+
+[node name="Label" type="Label" parent="."]
+offset_left = -342.0
+offset_top = -276.0
+offset_right = -86.0
+offset_bottom = -253.0
+scale = Vector2(2.68, 2.68)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_pf0hr")
+text = "Choose Your Buff"
+
+[node name="Card" type="Node2D" parent="."]
+position = Vector2(0, 47)
+scale = Vector2(1.2, 1.2)
+
+[node name="Heart" type="Button" parent="Card"]
+offset_left = -475.0
+offset_top = -200.0
+offset_right = -175.0
+offset_bottom = 150.0
+focus_mode = 0
+theme_override_fonts/font = ExtResource("2_pf0hr")
+theme_override_styles/hover = SubResource("StyleBoxFlat_42yi4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_n7uh6")
+theme_override_styles/normal = SubResource("StyleBoxFlat_tixqf")
+toggle_mode = true
+text = "
+
+ASHKAROT OF HEART
+
++50 Health
+
+"
+icon = ExtResource("4_tixqf")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+script = ExtResource("5_r2mmd")
+
+[node name="Spade" type="Button" parent="Card"]
+offset_left = -151.0
+offset_top = -200.0
+offset_right = 149.0
+offset_bottom = 150.0
+focus_mode = 0
+theme_override_fonts/font = ExtResource("2_pf0hr")
+theme_override_styles/hover = SubResource("StyleBoxFlat_5lc65")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_r2mmd")
+theme_override_styles/normal = SubResource("StyleBoxFlat_tixqf")
+toggle_mode = true
+text = "
+
+RAZOKH OF SPADE
+
++5 Damage
+
+"
+icon = ExtResource("5_42yi4")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+script = ExtResource("6_tixqf")
+
+[node name="Club" type="Button" parent="Card"]
+offset_left = 176.0
+offset_top = -200.0
+offset_right = 476.0
+offset_bottom = 150.0
+focus_mode = 0
+theme_override_fonts/font = ExtResource("2_pf0hr")
+theme_override_styles/hover = SubResource("StyleBoxFlat_n6p4a")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_q8b5a")
+theme_override_styles/normal = SubResource("StyleBoxFlat_tixqf")
+toggle_mode = true
+text = "
+
+JUNGARA OF CLUB
+
+-20% Dash CD
+
+"
+icon = ExtResource("2_5lc65")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+script = ExtResource("8_42yi4")
+
+[connection signal="pressed" from="Card/Heart" to="Card/Heart" method="_on_pressed"]
+[connection signal="pressed" from="Card/Spade" to="Card/Spade" method="_on_pressed"]
+[connection signal="pressed" from="Card/Club" to="Card/Club" method="_on_pressed"]

@@ -72,6 +72,7 @@ var winner: String = ""
 @onready var life_dealer: Label = $Visible_Label/Life_Dealer
 @onready var deck_anchor: Node2D = $DeckAnchor
 @onready var dealer_react_label: Label = $Dialog_Dealer/Label
+@onready var anim: AnimationPlayer = $AnimationPlayer
 var _react_tween: Tween = null
 
 
@@ -84,6 +85,7 @@ func _ready():
 	randomize()
 
 	deck_queue = deck_shuffle()
+	await get_tree().create_timer(1).timeout
 	start_round()
 	_update_turn_label()
 	_update_controls()
@@ -399,6 +401,7 @@ func _evaluate_and_finish_round() -> void:
 		turn_label.text = "%s wins the match!" % winner
 		ui_locked = true
 		_update_controls()
+		buff_or_debuff()
 		#await get_tree().create_timer(RESTART_DELAY_SEC).timeout
 		#_reset_match()         # reset nyawa & start ronde baru
 	else:
@@ -558,6 +561,23 @@ func _on_stand_button_pressed() -> void:
 
 	reveal_all_if_both_stand()
 
+func buff_or_debuff():
+	if winner == "Joker":
+		emit_signal("game_finished", "lose")
+		print("kontol")
+		await get_tree().create_timer(3).timeout
+		anim.play("fade_in")
+		await get_tree().create_timer(1).timeout
+		get_tree().change_scene_to_file("res://scene/main menu.tscn")
+	if winner == "Player":
+		emit_signal("game_finished", "win")
+		print("yessir")
+		await get_tree().create_timer(3).timeout
+		anim.play("fade_in")
+		await get_tree().create_timer(1).timeout
+		get_tree().change_scene_to_file("res://scene/buff_select.tscn")
+
+
 
 func _on_finish_button_pressed() -> void:
 	if winner == "Joker":
@@ -566,6 +586,9 @@ func _on_finish_button_pressed() -> void:
 	if winner == "Player":
 		emit_signal("game_finished", "win")
 		print("yessir")
+	anim.play("fade_in")
+	await get_tree().create_timer(1).timeout
+	get_tree().change_scene_to_file("res://scene/main menu.tscn")
 
 func _pick(arr: Array) -> String:
 	if arr.is_empty():

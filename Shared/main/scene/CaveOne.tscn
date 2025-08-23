@@ -20411,17 +20411,18 @@ position = Vector2(168, 344)
 rotation = 3.14159
 scale = Vector2(2, -2)
 
-[node name="Camera2D" type="Camera2D" parent="main_character"]
+[node name="Camera2D2" type="Camera2D" parent="main_character"]
 position = Vector2(32, -4)
 rotation = 3.14159
 scale = Vector2(0.5, -0.5)
 limit_left = 0
 limit_top = -896
+limit_right = 14590
 limit_bottom = 1440
 
-[node name="Faderlayer" type="CanvasLayer" parent="main_character/Camera2D"]
+[node name="Faderlayer" type="CanvasLayer" parent="main_character/Camera2D2"]
 
-[node name="Fader" type="ColorRect" parent="main_character/Camera2D/Faderlayer"]
+[node name="Fader" type="ColorRect" parent="main_character/Camera2D2/Faderlayer"]
 modulate = Color(1, 1, 1, 0)
 offset_left = -448.0
 offset_top = -48.0
@@ -20429,7 +20430,7 @@ offset_right = 1296.0
 offset_bottom = 953.0
 color = Color(0, 0, 0, 1)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="main_character/Camera2D/Faderlayer"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="main_character/Camera2D2/Faderlayer"]
 root_node = NodePath("../Fader")
 libraries = {
 &"": SubResource("AnimationLibrary_qrkm8")
@@ -20591,5 +20592,11 @@ position = Vector2(0, 264)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("WorldBoundaryShape2D_y7kmt")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 40.0
 
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
