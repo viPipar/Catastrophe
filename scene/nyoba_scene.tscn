@@ -10,7 +10,7 @@
 [ext_resource type="FontFile" uid="uid://dbee7gu4vinb7" path="res://asset/press_start_2p (1)/Minecraft.ttf" id="6_yma6s"]
 [ext_resource type="FontFile" uid="uid://dphd0was5qchn" path="res://asset/press_start_2p (1)/PressStart2P.ttf" id="7_ql8fe"]
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D2" type="Node2D"]
 script = ExtResource("1_u6pak")
 
 [node name="Camera2D" type="Camera2D" parent="."]

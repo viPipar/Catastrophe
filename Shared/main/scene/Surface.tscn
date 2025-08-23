@@ -1,6 +1,10 @@
 [gd_scene load_steps=201 format=4 uid="uid://dflh43i41n3fx"]
 
 [ext_resource type="PackedScene" uid="uid://gx7jt67karci" path="res://Shared/castle_map/scene/castle_map 2.tscn" id="1_lr3fq"]
+<<<<<<< Updated upstream
+=======
+[ext_resource type="Script" uid="uid://ct0mj3lbbghr3" path="res://Shared/main/scene/surface.gd" id="1_y0sqh"]
+>>>>>>> Stashed changes
 [ext_resource type="PackedScene" uid="uid://cxn5ye76bwr53" path="res://Shared/castle_map/scene/castle_map.tscn" id="2_pfod2"]
 [ext_resource type="PackedScene" uid="uid://bo6npwwwietey" path="res://Shared/caveone_map/scene/caveone_map.tscn" id="3_mq8du"]
 [ext_resource type="Texture2D" uid="uid://0253t5odcjyq" path="res://Shared/caveone_map/asset/cave_entrance_0.png" id="4_y0sqh"]

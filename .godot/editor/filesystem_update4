@@ -1,16 +1,7 @@
-res://main_character.tscn
+res://scene/blackjack_background_2.tscn
+res://scene/nyoba_scene.tscn
+res://scene/main menu.tscn
+res://assets/tilemap/tileset.tres
 res://Shared/main/scene/Surface.tscn
-res://Shared/main/scene/Castle.tscn
-res://Shared/main/scene/CaveOne.tscn
-res://Shared/castle_map/scene/castle_map.tscn
-res://Shared/caveone_map/scene/caveone_map.tscn
-res://Shared/cavetwo_map/scene/cavetwo_map.tscn
-res://Shared/cavethree_map/scene/cavethree_map.tscn
-res://Shared/boss_room/scene/boss_room.tscn
-res://card_projectile.tscn
-res://enemy_mushi.tscn
-res://enemy_base.tscn
-res://enemy_cloverknight.tscn
-res://enemy_barkwing.tscn
-res://enemy_mushi.gd
-res://enemy_cloverknight.gd
+res://scene/main_game.tscn
+res://scene/main_game.gd
