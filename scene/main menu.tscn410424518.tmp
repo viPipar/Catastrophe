@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://c8criwb0445ff"]
+[gd_scene load_steps=7 format=3 uid="uid://c8criwb0445ff"]
 
-[ext_resource type="Script" uid="uid://b4ajtqgopsnqf" path="res://scene/main_menu.gd" id="1_ufutv"]
+[ext_resource type="Script" path="res://scene/main_menu.gd" id="1_ufutv"]
 [ext_resource type="Texture2D" uid="uid://d1n8v063fvmpj" path="res://Untitled.png" id="2_1lftm"]
 [ext_resource type="FontFile" uid="uid://dphd0was5qchn" path="res://asset/press_start_2p (1)/PressStart2P.ttf" id="3_tt2v1"]
-[ext_resource type="Texture2D" uid="uid://desl7oioi4au" path="res://Logo.png" id="4_tt2v1"]
 
 [sub_resource type="Animation" id="Animation_1lftm"]
 length = 0.001
@@ -78,10 +77,10 @@ libraries = {
 
 [node name="Control" type="Control" parent="."]
 anchors_preset = 0
-offset_left = -335.0
-offset_top = -49.0
-offset_right = -295.0
-offset_bottom = -9.0
+offset_left = 45.0
+offset_top = -142.0
+offset_right = 85.0
+offset_bottom = -102.0
 
 [node name="Start Button" type="Button" parent="Control"]
 layout_mode = 2
@@ -91,7 +90,6 @@ offset_right = 56.0
 offset_bottom = -296.0
 theme_override_fonts/font = ExtResource("3_tt2v1")
 text = "Start Game"
-flat = true
 
 [node name="Settings Button" type="Button" parent="Control"]
 layout_mode = 2
@@ -101,17 +99,15 @@ offset_right = 56.0
 offset_bottom = -221.0
 theme_override_fonts/font = ExtResource("3_tt2v1")
 text = "Settings"
-flat = true
 
 [node name="Quit Button" type="Button" parent="Control"]
 layout_mode = 2
 offset_left = -194.0
-offset_top = -67.0
+offset_top = -217.0
 offset_right = 56.0
-offset_bottom = 4.0
+offset_bottom = -146.0
 theme_override_fonts/font = ExtResource("3_tt2v1")
 text = "Quit (i'm gay)"
-flat = true
 
 [node name="Credit_Button" type="Button" parent="Control"]
 layout_mode = 0
@@ -119,24 +115,13 @@ offset_left = -194.0
 offset_top = -142.0
 offset_right = 56.0
 offset_bottom = -71.0
-theme_override_fonts/font = ExtResource("3_tt2v1")
-text = "Credit"
-flat = true
 
 [node name="How to Play_Button" type="Button" parent="Control"]
 layout_mode = 0
 offset_left = -194.0
-offset_top = -217.0
+offset_top = -67.0
 offset_right = 56.0
-offset_bottom = -146.0
-theme_override_fonts/font = ExtResource("3_tt2v1")
-text = "How to Play"
-flat = true
-
-[node name="Logo" type="Sprite2D" parent="."]
-position = Vector2(-396, -534)
-scale = Vector2(0.366437, 0.366437)
-texture = ExtResource("4_tt2v1")
+offset_bottom = 4.0
 
 [connection signal="pressed" from="Control/Start Button" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="Control/Settings Button" to="." method="_on_settings_button_pressed"]

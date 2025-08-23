@@ -1,7 +1,6 @@
-[gd_scene load_steps=203 format=4 uid="uid://dflh43i41n3fx"]
+[gd_scene load_steps=202 format=4 uid="uid://dflh43i41n3fx"]
 
 [ext_resource type="PackedScene" uid="uid://gx7jt67karci" path="res://Shared/castle_map/scene/castle_map 2.tscn" id="1_lr3fq"]
-[ext_resource type="Script" path="res://Shared/main/scene/surface.gd" id="1_y0sqh"]
 [ext_resource type="PackedScene" uid="uid://cxn5ye76bwr53" path="res://Shared/castle_map/scene/castle_map.tscn" id="2_pfod2"]
 [ext_resource type="PackedScene" uid="uid://bo6npwwwietey" path="res://Shared/caveone_map/scene/caveone_map.tscn" id="3_mq8du"]
 [ext_resource type="Texture2D" uid="uid://0253t5odcjyq" path="res://Shared/caveone_map/asset/cave_entrance_0.png" id="4_y0sqh"]
@@ -23,7 +22,6 @@
 [ext_resource type="PackedScene" uid="uid://bk551y5q1tl7q" path="res://enemy_mushi.tscn" id="20_udhl8"]
 [ext_resource type="PackedScene" uid="uid://bdqvhos4h542n" path="res://enemy_barkwing.tscn" id="21_ylx0j"]
 [ext_resource type="Script" uid="uid://y514lfl84te" path="res://Shared/main/scene/area_2d.gd" id="22_pfod2"]
-[ext_resource type="PackedScene" uid="uid://csgm4u5o0ysk4" path="res://scene/nyoba_scene.tscn" id="23_mq8du"]
 [ext_resource type="PackedScene" uid="uid://n0w0hvvak5is" path="res://enemy_cloverknight.tscn" id="25_vjlrp"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_drqlo"]
@@ -5102,10 +5100,26 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_vjlrp"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_y0sqh"]
 _data = {
 &"RESET": SubResource("Animation_pfod2"),
-&"fade_in": SubResource("Animation_mq8du")
+&"fade_in": SubResource("Animation_mq8du"),
+&"fade_out": SubResource("Animation_vjlrp")
 }
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_pfod2"]
@@ -5115,7 +5129,6 @@ b = Vector2(0, 44.9994)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ibhgj"]
 
 [node name="main_map" type="Node"]
-script = ExtResource("1_y0sqh")
 
 [node name="castle_map2" parent="." instance=ExtResource("1_lr3fq")]
 
@@ -5254,7 +5267,7 @@ frame_progress = 0.589033
 [node name="main_character" parent="." instance=ExtResource("19_qxoit")]
 z_index = 100
 z_as_relative = false
-position = Vector2(344, 648)
+position = Vector2(228, 666)
 rotation = -3.14159
 scale = Vector2(2, -2)
 
@@ -5276,6 +5289,7 @@ root_node = NodePath("../Fader")
 libraries = {
 &"": SubResource("AnimationLibrary_y0sqh")
 }
+autoplay = "fade_out"
 
 [node name="Enemy_Mushi" parent="." instance=ExtResource("20_udhl8")]
 position = Vector2(1027, 656)
@@ -5298,27 +5312,6 @@ script = ExtResource("22_pfod2")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-6972, 16.0177)
 shape = SubResource("SegmentShape2D_pfod2")
-
-[node name="BlackjackLayer" type="CanvasLayer" parent="."]
-process_mode = 2
-layer = 10
-visible = false
-
-[node name="SubViewportContainer" type="SubViewportContainer" parent="BlackjackLayer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-stretch = true
-
-[node name="SubViewport" type="SubViewport" parent="BlackjackLayer/SubViewportContainer"]
-disable_3d = true
-handle_input_locally = false
-size = Vector2i(1280, 720)
-render_target_update_mode = 0
-
-[node name="Blackjack" parent="BlackjackLayer/SubViewportContainer/SubViewport" instance=ExtResource("23_mq8du")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

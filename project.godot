@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Catastrophe_Project"
-run/main_scene="uid://dflh43i41n3fx"
+run/main_scene="uid://c8criwb0445ff"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 

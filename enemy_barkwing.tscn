@@ -218,6 +218,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hdp0k"]
 
 [node name="enemy_barkwing" type="Area2D"]
+z_index = 10
 script = ExtResource("1_clcyb")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

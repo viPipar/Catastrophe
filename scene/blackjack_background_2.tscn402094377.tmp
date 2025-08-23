@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=3 uid="uid://bxsnmv7mw4pmw"]
+
+[ext_resource type="Texture2D" uid="uid://fc48jrrjprwi" path="res://asset/blackjack_0.png" id="1_sco1t"]
+[ext_resource type="Texture2D" uid="uid://bfwllpqxwfgff" path="res://asset/blackjack_transparent_100.png" id="2_2l0mj"]
+
+[sub_resource type="Animation" id="Animation_k5hus"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_pindt"]
+resource_name = "light"
+length = 8.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.13333, 2.76667, 3.33333, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.576471), Color(1, 1, 1, 0), Color(1, 1, 1, 0.635294), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nh041"]
+_data = {
+&"RESET": SubResource("Animation_k5hus"),
+&"light": SubResource("Animation_pindt")
+}
+
+[node name="blackjack_background_2" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_sco1t")
+centered = false
+
+[node name="light" type="Sprite2D" parent="Sprite2D"]
+modulate = Color(1, 1, 1, 0)
+texture = ExtResource("2_2l0mj")
+centered = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D/light"]
+libraries = {
+&"": SubResource("AnimationLibrary_nh041")
+}
+autoplay = "light"

@@ -1,5 +1,11 @@
-res://scene/card.gd
-res://scene/main_game.gd
+res://scene/main menu.tscn
+res://assets/tilemap/tileset.tres
 res://scene/main_menu.gd
-res://Shared/main/scene/area_2d_caveone.gd
+res://Shared/main/scene/Surface.tscn
+res://card_projectile.tscn
+res://Shared/main/scene/Castle.tscn
+res://Shared/main/scene/CaveOne.tscn
+res://scene/nyoba_scene.tscn
+res://enemy_mushi.tscn
+res://enemy_barkwing.tscn
 res://Shared/main/scene/surface.gd
