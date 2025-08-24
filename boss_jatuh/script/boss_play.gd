@@ -13,6 +13,7 @@ func _process(delta: float) -> void:
 
 func _on_check_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
+		print("aku kaya")
 		animasi_jatuh.play("jatuh")
 		await get_tree().create_timer(5.5).timeout
 		animasi_jatuh.play("fade_in")

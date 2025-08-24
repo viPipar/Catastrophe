@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bsydugi0cv631"]
+[gd_scene load_steps=15 format=3 uid="uid://bsydugi0cv631"]
 
 [ext_resource type="Script" uid="uid://dpua21bbs8x1v" path="res://scene/blackjack.gd" id="1_f2mig"]
 [ext_resource type="PackedScene" uid="uid://bsps7tsl6fhb5" path="res://blackjack_background/scene/blackjack_background_2.tscn" id="2_f2mig"]
@@ -9,6 +9,9 @@
 [ext_resource type="FontFile" uid="uid://dbee7gu4vinb7" path="res://asset/press_start_2p (1)/Minecraft.ttf" id="7_jr8fg"]
 [ext_resource type="Texture2D" uid="uid://b7cuhf3618f7v" path="res://Photo MC.png" id="8_f2mig"]
 [ext_resource type="Texture2D" uid="uid://csfxflhnkr87r" path="res://Photo Jungara.png" id="9_yqphp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f2mig"]
+bg_color = Color(0.6, 0.6, 0.6, 0.541176)
 
 [sub_resource type="Animation" id="Animation_ql8fe"]
 length = 0.001
@@ -89,7 +92,6 @@ scale = Vector2(289590, 385618)
 zoom = Vector2(0.67, 0.67)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Camera2D"]
-visible = false
 
 [node name="ColorRect" type="ColorRect" parent="Camera2D/CanvasLayer"]
 offset_right = 2029.0
@@ -205,18 +207,6 @@ position = Vector2(-759, -339)
 scale = Vector2(0.299998, 0.299998)
 texture = ExtResource("9_yqphp")
 
-[node name="Invisible_Button" type="Node2D" parent="."]
-position = Vector2(1601, 0)
-
-[node name="Finish_Button" type="Button" parent="Invisible_Button"]
-offset_left = -993.0
-offset_top = -258.0
-offset_right = -685.0
-offset_bottom = -160.0
-theme_override_fonts/font = ExtResource("6_hfiib")
-theme_override_font_sizes/font_size = 50
-text = "FINISH"
-
 [node name="Dialog_Player" type="Node2D" parent="."]
 
 [node name="Dialog_Dealer" type="Node2D" parent="."]
@@ -224,10 +214,12 @@ text = "FINISH"
 [node name="Label" type="Label" parent="Dialog_Dealer"]
 offset_left = -562.0
 offset_top = -512.0
-offset_right = 586.0
-offset_bottom = -275.0
+offset_right = 630.0
+offset_bottom = -459.0
 theme_override_fonts/font = ExtResource("7_jr8fg")
 theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_f2mig")
+text = "awdawd"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -237,4 +229,3 @@ autoplay = "fade_out"
 
 [connection signal="pressed" from="Visible_Buttons/Hit_Button" to="." method="_on_hit_button_pressed"]
 [connection signal="pressed" from="Visible_Buttons/Stand_Button" to="." method="_on_stand_button_pressed"]
-[connection signal="pressed" from="Invisible_Button/Finish_Button" to="." method="_on_finish_button_pressed"]

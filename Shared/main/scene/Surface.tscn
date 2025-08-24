@@ -1,4 +1,4 @@
-[gd_scene load_steps=199 format=4 uid="uid://dflh43i41n3fx"]
+[gd_scene load_steps=204 format=4 uid="uid://dflh43i41n3fx"]
 
 [ext_resource type="PackedScene" uid="uid://gx7jt67karci" path="res://Shared/castle_map/scene/castle_map 2.tscn" id="1_lr3fq"]
 [ext_resource type="PackedScene" uid="uid://cxn5ye76bwr53" path="res://Shared/castle_map/scene/castle_map.tscn" id="2_pfod2"]
@@ -21,6 +21,30 @@
 [ext_resource type="PackedScene" uid="uid://bjjjxnrku30bh" path="res://main_character.tscn" id="19_qxoit"]
 [ext_resource type="PackedScene" uid="uid://cvtw58bbwxfgd" path="res://sprit_devil.tscn" id="19_uc56j"]
 [ext_resource type="PackedScene" path="res://DialogueManager.tscn" id="20_lr3fq"]
+[ext_resource type="Texture2D" uid="uid://bmbo1yjglp3ew" path="res://assets/hpbar/HealthBar DARK - Copy (2) - Copy.png" id="20_vjlrp"]
+[ext_resource type="Texture2D" uid="uid://hhkjmolxw80g" path="res://assets/hpbar/HealthBar DARKP.png" id="21_ibhgj"]
+[ext_resource type="Script" uid="uid://c46852mh0mlp0" path="res://Shared/main/scene/hpbar.gd" id="22_6octq"]
+[ext_resource type="PackedScene" uid="uid://bk551y5q1tl7q" path="res://enemy_mushi.tscn" id="22_pfod2"]
+
+[sub_resource type="GDScript" id="GDScript_lr3fq"]
+script/source = "extends Node
+@onready var body: CharacterBody2D = $main_character
+@export var SURFACE = load(\"res://surface.dialogue\")
+
+func _ready() -> void:
+	if body.is_in_group(\"player\"):
+		DialogueManager.show_dialogue_balloon(SURFACE, \"awal\")
+		if body.has_method(\"freeze\"):
+			body.freeze(\"freeze_zone\")
+	# 3) Tunggu sampai dialog yang SE-RESOURCE ini selesai
+		while true:
+			var res = await DialogueManager.dialogue_ended
+			if res == SURFACE:
+				break
+
+		if is_instance_valid(body) and body.has_method(\"unfreeze\"):
+			body.unfreeze()
+"
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_drqlo"]
 normal = Vector2(0.999822, -0.0188646)
@@ -5125,6 +5149,7 @@ a = Vector2(-0.500977, -299.5)
 b = Vector2(0, 60.5)
 
 [node name="main_map" type="Node"]
+script = SubResource("GDScript_lr3fq")
 
 [node name="castle_map2" parent="." instance=ExtResource("1_lr3fq")]
 
@@ -5249,7 +5274,7 @@ frame_progress = 0.589033
 [node name="main_character" parent="." instance=ExtResource("19_qxoit")]
 z_index = 100
 z_as_relative = false
-position = Vector2(13731, 660)
+position = Vector2(240, 673)
 rotation = -3.14159
 scale = Vector2(2, -2)
 
@@ -5297,9 +5322,16 @@ shape = SubResource("SegmentShape2D_254xy")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer"]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="HPBAR" type="TextureProgressBar" parent="CanvasLayer"]
+offset_left = -44.0
+offset_top = 23.0
+offset_right = 57.0
+offset_bottom = 63.0
+scale = Vector2(5, 5)
+value = 100.0
+texture_over = ExtResource("20_vjlrp")
+texture_progress = ExtResource("21_ibhgj")
+script = ExtResource("22_6octq")
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
 
@@ -5309,6 +5341,42 @@ offset_bottom = 40.0
 modulate = Color(1, 1, 1, 0.415686)
 position = Vector2(13997, 576)
 scale = Vector2(0.202856, 0.202856)
+
+[node name="Enemy_Mushi2" parent="." instance=ExtResource("22_pfod2")]
+position = Vector2(4961, 262)
+
+[node name="Enemy_Mushi" parent="." instance=ExtResource("22_pfod2")]
+position = Vector2(5596, 272)
+
+[node name="Enemy_Mushi3" parent="." instance=ExtResource("22_pfod2")]
+position = Vector2(5196, 651)
+
+[node name="Enemy_Mushi4" parent="." instance=ExtResource("22_pfod2")]
+position = Vector2(5827, 449)
+
+[node name="Enemy_Mushi5" parent="." instance=ExtResource("22_pfod2")]
+position = Vector2(6499, -126)
+
+[node name="Enemy_Mushi7" parent="." instance=ExtResource("22_pfod2")]
+position = Vector2(7707, -118)
+
+[node name="Enemy_Mushi9" parent="." instance=ExtResource("22_pfod2")]
+position = Vector2(8288, 133)
+
+[node name="Enemy_Mushi10" parent="." instance=ExtResource("22_pfod2")]
+position = Vector2(9817, 128)
+
+[node name="Enemy_Mushi11" parent="." instance=ExtResource("22_pfod2")]
+position = Vector2(7645, 658)
+
+[node name="Enemy_Mushi12" parent="." instance=ExtResource("22_pfod2")]
+position = Vector2(6694, 645)
+
+[node name="Enemy_Mushi13" parent="." instance=ExtResource("22_pfod2")]
+position = Vector2(8855, 636)
+
+[node name="Enemy_Mushi14" parent="." instance=ExtResource("22_pfod2")]
+position = Vector2(9801, 626)
 
 [connection signal="body_entered" from="Area2D2" to="Area2D2" method="_on_body_entered"]
 [connection signal="body_entered" from="Dialog" to="Dialog" method="_on_body_entered"]

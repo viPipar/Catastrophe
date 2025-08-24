@@ -8,7 +8,7 @@ func _on_body_entered(body: Node2D) -> void:
 	if _used: return
 	if body.is_in_group("player"):
 		_used = true
-		var kontol = DialogueManager.show_dialogue_balloon(SURFACE, "start")
+		DialogueManager.show_dialogue_balloon(SURFACE, "start")
 		if body.has_method("freeze"):
 			body.freeze("freeze_zone")
 	# 3) Tunggu sampai dialog yang SE-RESOURCE ini selesai

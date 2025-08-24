@@ -2,7 +2,7 @@ extends Area2D
 
 @export var speed: float = 80.0
 @export var detection_range: float = 500.0
-@export var max_health: int = 60
+@export var max_health: int = 50
 
 var health: int
 var velocity: Vector2 = Vector2.ZERO
@@ -99,14 +99,15 @@ func _damage_from_area(area: Area2D) -> int:
 	if area.has_meta("damage"):
 		return int(area.get_meta("damage"))
 
-	# Kalau tidak, ambil dari GameState per jenis
-	if _is_melee(area):
-		return GameState.damage_for("melee")
-	elif _is_projectile(area):
-		return GameState.damage_for("projectile")
-	elif _is_parry(area):
-		return GameState.damage_for("parry")
-	return 0
+	match area.name:
+		"AttackArea":
+			return GameState.damage_for("melee")
+		"CardProjectile":
+			return GameState.damage_for("projectile")
+		"ParryStun":
+			return GameState.damage_for("parry")
+		_:
+			return 0
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	if area == null or invulnerable:
@@ -155,7 +156,6 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 
 	if health <= 0:
 		_die()
-
 # helper to clear invulnerability (uses coroutine via timer)
 func _clear_invulnerability_after(secs: float) -> void:
 	# start a background timer (non-blocking)

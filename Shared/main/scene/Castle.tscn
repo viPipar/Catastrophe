@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=4 uid="uid://6b0h0ob7i2rr"]
+[gd_scene load_steps=58 format=4 uid="uid://6b0h0ob7i2rr"]
 
 [ext_resource type="PackedScene" uid="uid://cxn5ye76bwr53" path="res://Shared/castle_map/scene/castle_map.tscn" id="1_gfjib"]
 [ext_resource type="Texture2D" uid="uid://dfe5u1ludsjlx" path="res://Shared/main/asset/decoration_tileset.png" id="2_enlij"]
@@ -11,10 +11,15 @@
 [ext_resource type="Texture2D" uid="uid://e0xqgt7plsqf" path="res://Shared/castle_map/asset/Tree1.png" id="9_8taqh"]
 [ext_resource type="Texture2D" uid="uid://30f5g6ykwtam" path="res://Shared/castle_map/asset/Pine Trees.png" id="10_dv2ty"]
 [ext_resource type="PackedScene" uid="uid://bjjjxnrku30bh" path="res://main_character.tscn" id="11_5rmo2"]
+[ext_resource type="Script" uid="uid://cxnowuvpllt7h" path="res://Shared/main/scene/deathzone.gd" id="11_dv2ty"]
 [ext_resource type="PackedScene" uid="uid://bxi5a758kwtxn" path="res://torch.tscn" id="12_enlij"]
 [ext_resource type="Script" uid="uid://0tyxtcheo3jd" path="res://Shared/main/scene/area_2d_castle.gd" id="12_uqvjl"]
 [ext_resource type="Texture2D" uid="uid://0253t5odcjyq" path="res://Shared/caveone_map/asset/cave_entrance_0.png" id="14_08hub"]
 [ext_resource type="Texture2D" uid="uid://dksbuokrm3fpt" path="res://Shared/caveone_map/asset/cave_entrance_1.png" id="15_qrkm8"]
+[ext_resource type="PackedScene" uid="uid://n0w0hvvak5is" path="res://enemy_cloverknight.tscn" id="16_08hub"]
+[ext_resource type="Texture2D" uid="uid://bmbo1yjglp3ew" path="res://assets/hpbar/HealthBar DARK - Copy (2) - Copy.png" id="16_8taqh"]
+[ext_resource type="Texture2D" uid="uid://hhkjmolxw80g" path="res://assets/hpbar/HealthBar DARKP.png" id="17_dv2ty"]
+[ext_resource type="Script" uid="uid://c46852mh0mlp0" path="res://Shared/main/scene/hpbar.gd" id="18_5rmo2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nri3j"]
 texture = ExtResource("6_08hub")
@@ -3229,6 +3234,10 @@ physics_layer_0/collision_layer = 1
 sources/3 = SubResource("TileSetAtlasSource_qrkm8")
 sources/4 = SubResource("TileSetAtlasSource_yygch")
 
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_dv2ty"]
+a = Vector2(154.6, -0.799988)
+b = Vector2(-132, 0.200012)
+
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_lts38"]
 normal = Vector2(-0.999941, 0.010869)
 
@@ -3347,6 +3356,17 @@ scale = Vector2(2, 2)
 tile_map_data = PackedByteArray("AAAqAAYABAAPAAAAAAArAAYABAAQAAAAAAAsAAYABAAOAAAAAAAtAAYABAAPAAAAAAAuAAYABAAQAAAAAAAvAAYABAARAAAAAAAqAAcABAADAAcAADAqAAgABAADAAYAADAsAAcABAADAAcAADAsAAgABAADAAYAADAvAAcABAADAAcAADAvAAgABAADAAYAADArAAcABAAEAAEAABArAAgABAAEAAIAABArAAkABAAEAAMAABArAAoABAAEAAQAABApAAYABAAOAAAAAAA=")
 tile_set = SubResource("TileSet_8taqh")
 
+[node name="Area2D2" type="Area2D" parent="."]
+position = Vector2(-44, 23)
+scale = Vector2(5, 5)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("11_dv2ty")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+position = Vector2(2343, 200.6)
+shape = SubResource("SegmentShape2D_dv2ty")
+
 [node name="Left World Limit" type="StaticBody2D" parent="."]
 position = Vector2(136, 576)
 rotation = 3.14159
@@ -3358,7 +3378,7 @@ shape = SubResource("WorldBoundaryShape2D_lts38")
 
 [node name="main_character" parent="." instance=ExtResource("11_5rmo2")]
 z_index = 100
-position = Vector2(14304, 449)
+position = Vector2(143, 674)
 rotation = -3.14159
 scale = Vector2(2, -2)
 
@@ -3588,8 +3608,70 @@ texture = ExtResource("15_qrkm8")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer"]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="HPBAR" type="TextureProgressBar" parent="CanvasLayer"]
+offset_left = -44.0
+offset_top = 23.0
+offset_right = 57.0
+offset_bottom = 63.0
+scale = Vector2(5, 5)
+value = 100.0
+texture_over = ExtResource("16_8taqh")
+texture_progress = ExtResource("17_dv2ty")
+script = ExtResource("18_5rmo2")
 
+[node name="Enemy_CloverKnight" parent="." instance=ExtResource("16_08hub")]
+position = Vector2(2673, 655)
+
+[node name="Enemy_CloverKnight2" parent="." instance=ExtResource("16_08hub")]
+position = Vector2(3807, 538)
+
+[node name="Enemy_CloverKnight3" parent="." instance=ExtResource("16_08hub")]
+position = Vector2(3957, 19)
+
+[node name="Enemy_CloverKnight4" parent="." instance=ExtResource("16_08hub")]
+position = Vector2(2461, -310)
+
+[node name="Enemy_CloverKnight5" parent="." instance=ExtResource("16_08hub")]
+position = Vector2(4136, -1013)
+
+[node name="Enemy_CloverKnight6" parent="." instance=ExtResource("16_08hub")]
+position = Vector2(5242, 650)
+
+[node name="Enemy_CloverKnight7" parent="." instance=ExtResource("16_08hub")]
+position = Vector2(6112, 631)
+
+[node name="Enemy_CloverKnight8" parent="." instance=ExtResource("16_08hub")]
+position = Vector2(7102, 70)
+
+[node name="Enemy_CloverKnight9" parent="." instance=ExtResource("16_08hub")]
+position = Vector2(7975, -314)
+
+[node name="Enemy_CloverKnight10" parent="." instance=ExtResource("16_08hub")]
+position = Vector2(7581, -939)
+
+[node name="Enemy_CloverKnight11" parent="." instance=ExtResource("16_08hub")]
+position = Vector2(8861, 643)
+
+[node name="Enemy_CloverKnight12" parent="." instance=ExtResource("16_08hub")]
+position = Vector2(10003, 669)
+
+[node name="Enemy_CloverKnight13" parent="." instance=ExtResource("16_08hub")]
+position = Vector2(14099, -943)
+
+[node name="Enemy_CloverKnight14" parent="." instance=ExtResource("16_08hub")]
+position = Vector2(12792, -946)
+
+[node name="Enemy_CloverKnight15" parent="." instance=ExtResource("16_08hub")]
+position = Vector2(13756, -53)
+
+[node name="Enemy_CloverKnight16" parent="." instance=ExtResource("16_08hub")]
+position = Vector2(14504, -65)
+
+[node name="Enemy_CloverKnight17" parent="." instance=ExtResource("16_08hub")]
+position = Vector2(13154, 640)
+
+[node name="Enemy_CloverKnight18" parent="." instance=ExtResource("16_08hub")]
+position = Vector2(15180, 652)
+
+[connection signal="body_entered" from="Area2D2" to="Area2D2" method="_on_body_entered"]
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://uyh06d1octo6"]
+[gd_scene load_steps=18 format=3 uid="uid://uyh06d1octo6"]
 
 [ext_resource type="Script" uid="uid://d1hm0op77k5q6" path="res://boss_jatuh/script/boss_play.gd" id="1_gcte3"]
 [ext_resource type="Texture2D" uid="uid://d15pitn4tr4us" path="res://boss_jatuh/asset/boss_room_0.jpg" id="1_hk3n8"]
@@ -7,6 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://cwqa6uyo0aoe3" path="res://boss_jatuh/asset/kucing jatuh.png" id="4_g0ubo"]
 [ext_resource type="Texture2D" uid="uid://bv3dqfdyd6qg2" path="res://boss_jatuh/asset/tails_long.png" id="5_3yek0"]
 [ext_resource type="PackedScene" uid="uid://bjjjxnrku30bh" path="res://main_character.tscn" id="7_3726x"]
+[ext_resource type="Texture2D" uid="uid://bmbo1yjglp3ew" path="res://assets/hpbar/HealthBar DARK - Copy (2) - Copy.png" id="8_12ucp"]
+[ext_resource type="Texture2D" uid="uid://hhkjmolxw80g" path="res://assets/hpbar/HealthBar DARKP.png" id="9_ry223"]
+[ext_resource type="Script" uid="uid://c46852mh0mlp0" path="res://Shared/main/scene/hpbar.gd" id="10_u8mw0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fc2bl"]
 
@@ -74,7 +77,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/4/path = NodePath("CanvasLayer3/ColorRect:modulate")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -89,7 +92,7 @@ resource_name = "fade_in"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasLayer/ColorRect:modulate")
+tracks/0/path = NodePath("CanvasLayer3/ColorRect:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -245,12 +248,25 @@ position = Vector2(206, 392)
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer3" type="CanvasLayer" parent="."]
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer3"]
 modulate = Color(1, 1, 1, 0)
 offset_right = 1280.0
 offset_bottom = 720.0
 color = Color(0, 0, 0, 1)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HPBAR" type="TextureProgressBar" parent="CanvasLayer"]
+offset_left = -44.0
+offset_top = 23.0
+offset_right = 57.0
+offset_bottom = 63.0
+scale = Vector2(5, 5)
+value = 100.0
+texture_over = ExtResource("8_12ucp")
+texture_progress = ExtResource("9_ry223")
+script = ExtResource("10_u8mw0")
 
 [connection signal="body_entered" from="check_area" to="." method="_on_check_area_body_entered"]

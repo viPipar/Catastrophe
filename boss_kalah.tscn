@@ -1,0 +1,341 @@
+[gd_scene load_steps=26 format=3 uid="uid://77t8lxbxpm6g"]
+
+[ext_resource type="Script" uid="uid://cvyddgxmnhr83" path="res://boss_kalah.gd" id="1_phyid"]
+[ext_resource type="Texture2D" uid="uid://d15pitn4tr4us" path="res://Shared/boss_jatuh/asset/boss_room_0.jpg" id="2_ao2io"]
+[ext_resource type="PackedScene" uid="uid://wr4e8efe1flj" path="res://Shared/boss_jatuh/scene/background_boss_jatuh.tscn" id="3_vohs3"]
+[ext_resource type="Texture2D" uid="uid://cy8p7aesb2frf" path="res://Shared/boss_jatuh/asset/kucing_transform_1.png" id="4_wy7xl"]
+[ext_resource type="Texture2D" uid="uid://dfm6ck3i1js05" path="res://Shared/boss_jatuh/asset/kucing_transform_2.png" id="5_38hnk"]
+[ext_resource type="Texture2D" uid="uid://dpvshjhwf88b8" path="res://Shared/boss_jatuh/asset/kucing_transform_3.png" id="6_gek6w"]
+[ext_resource type="Texture2D" uid="uid://banwyu081vbhd" path="res://Shared/boss_jatuh/asset/kucing_transform_4.png" id="7_7jt4j"]
+[ext_resource type="Texture2D" uid="uid://b3pqteud1yk0e" path="res://Shared/boss_jatuh/asset/kucing_transform_5.png" id="8_pdb22"]
+[ext_resource type="Texture2D" uid="uid://br0sojeniiq30" path="res://Shared/boss_jatuh/asset/kucing_transform_6.png" id="9_33g7o"]
+[ext_resource type="Texture2D" uid="uid://jhx56h3v5ay" path="res://Shared/boss_jatuh/asset/kucing_transform_7.png" id="10_jogjw"]
+[ext_resource type="Texture2D" uid="uid://p76ss23148jd" path="res://Shared/boss_jatuh/asset/kucing_transform_8.png" id="11_238rx"]
+[ext_resource type="Texture2D" uid="uid://bsmh2lk2pc2c" path="res://Shared/boss_jatuh/asset/kucing_transform_9.png" id="12_ex4ls"]
+[ext_resource type="Texture2D" uid="uid://co12d8e6fkrbu" path="res://Shared/boss_jatuh/asset/kucing_transform_10.png" id="13_fwo6r"]
+[ext_resource type="Texture2D" uid="uid://b6nn8dl1dw74y" path="res://Shared/boss_jatuh/asset/kucing_transform_11.png" id="14_a8r73"]
+[ext_resource type="Texture2D" uid="uid://c6dks1fhxpjop" path="res://Shared/boss_jatuh/asset/kucing_transform_13.png" id="15_yc3l3"]
+[ext_resource type="Texture2D" uid="uid://5hlrklsdmtgj" path="res://Shared/boss_jatuh/asset/kucing_transform_normal.png" id="16_4a5rw"]
+[ext_resource type="Texture2D" uid="uid://hq628cmew2kr" path="res://Shared/boss_jatuh/asset/kucing.png" id="17_1l07b"]
+[ext_resource type="Texture2D" uid="uid://dyaca8j6svjd4" path="res://Shared/boss_jatuh/asset/boss_room_5.png" id="18_gcu6f"]
+[ext_resource type="PackedScene" uid="uid://bjjjxnrku30bh" path="res://main_character.tscn" id="19_fw1nt"]
+[ext_resource type="Texture2D" uid="uid://cojtvvdalcg3i" path="res://Shared/boss_jatuh/asset/kucing_tangan.png" id="19_lnvv0"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vfw5l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_wy7xl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_38hnk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_gek6w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_7jt4j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_pdb22")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_33g7o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_jogjw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_238rx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ex4ls")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ex4ls")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_fwo6r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_a8r73")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_yc3l3")
+}],
+"loop": false,
+"name": &"hilang",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("16_4a5rw")
+}],
+"loop": true,
+"name": &"normal",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_loni0"]
+
+[sub_resource type="Animation" id="Animation_loni0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StaticBody2D/kucing:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody2D/tangan:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("StaticBody2D/Node2D/kucing_jatuh:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("StaticBody2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("StaticBody2D/Node2D/kucing_jatuh:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(640, 31)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("StaticBody2D/Node2D:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Sprite2D:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("StaticBody2D/Node2D/kucing_jatuh:animation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"hilang"]
+}
+
+[sub_resource type="Animation" id="Animation_a1d6o"]
+resource_name = "jatuh"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StaticBody2D/kucing:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody2D/tangan:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("StaticBody2D/Node2D/kucing_jatuh:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("StaticBody2D/Node2D/kucing_jatuh:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(2, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(640, 31), Vector2(662.25, 128.5)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("StaticBody2D/Node2D/kucing_jatuh:animation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 8.06667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [&"normal", &"hilang"]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("StaticBody2D:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 9103)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("StaticBody2D/Node2D:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(2, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(562, 7672)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Sprite2D:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 2, 10),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 1814), Vector2(561, 16763)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ya4ew"]
+_data = {
+&"RESET": SubResource("Animation_loni0"),
+&"jatuh": SubResource("Animation_a1d6o")
+}
+
+[node name="boss_kalah" type="Node2D"]
+script = ExtResource("1_phyid")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1.1, 1.1)
+texture = ExtResource("2_ao2io")
+centered = false
+
+[node name="background_boss_jatuh" parent="." instance=ExtResource("3_vohs3")]
+position = Vector2(0, 7925)
+
+[node name="background_boss_jatuh2" parent="." instance=ExtResource("3_vohs3")]
+position = Vector2(1263, 7959)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="Node2D" type="Node2D" parent="StaticBody2D"]
+
+[node name="kucing_jatuh" type="AnimatedSprite2D" parent="StaticBody2D/Node2D"]
+visible = false
+position = Vector2(640, 31)
+sprite_frames = SubResource("SpriteFrames_vfw5l")
+animation = &"hilang"
+autoplay = "normal"
+
+[node name="Camera2D" type="Camera2D" parent="StaticBody2D/Node2D"]
+anchor_mode = 0
+zoom = Vector2(0.99991, 0.99991)
+
+[node name="kucing" type="Sprite2D" parent="StaticBody2D"]
+visible = false
+texture = ExtResource("17_1l07b")
+centered = false
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+texture = ExtResource("18_gcu6f")
+centered = false
+
+[node name="tangan" type="Sprite2D" parent="StaticBody2D"]
+texture = ExtResource("19_lnvv0")
+centered = false
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(611, 542)
+rotation = 3.14159
+scale = Vector2(77.7492, -6.90214)
+shape = SubResource("RectangleShape2D_loni0")
+
+[node name="jatuh" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ya4ew")
+}
+autoplay = "jatuh"
+
+[node name="main_character" parent="." instance=ExtResource("19_fw1nt")]
+position = Vector2(670, 431)

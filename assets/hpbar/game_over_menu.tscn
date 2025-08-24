@@ -1,0 +1,115 @@
+[gd_scene load_steps=7 format=3 uid="uid://djs70xh3d27nc"]
+
+[ext_resource type="FontFile" uid="uid://dphd0was5qchn" path="res://asset/press_start_2p (1)/PressStart2P.ttf" id="1_ckcbh"]
+
+[sub_resource type="Animation" id="Animation_io285"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ckcbh"]
+resource_name = "fade in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_fbw3d"]
+resource_name = "fade out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p87gu"]
+_data = {
+&"RESET": SubResource("Animation_io285"),
+&"fade in": SubResource("Animation_ckcbh"),
+&"fade out": SubResource("Animation_fbw3d")
+}
+
+[sub_resource type="GDScript" id="GDScript_ckcbh"]
+resource_name = "button"
+script/source = "extends Button
+
+
+
+func _on_pressed() -> void:
+	get_tree().paused = false
+	Engine.time_scale = 1.0
+	GameState.reset_all()  # bersihin state run + overwrite save
+	get_tree().change_scene_to_file(\"res://scene/main menu.tscn\")
+"
+
+[node name="Game_Over_Menu" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -667.0
+offset_top = -396.0
+offset_right = 679.0
+offset_bottom = 398.0
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -492.0
+offset_top = -147.0
+offset_right = -348.0
+offset_bottom = -131.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(7.07041, 7.07041)
+theme_override_fonts/font = ExtResource("1_ckcbh")
+text = "GAME OVER"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Label")
+libraries = {
+&"": SubResource("AnimationLibrary_p87gu")
+}
+autoplay = "fade out"
+
+[node name="Button" type="Button" parent="."]
+offset_left = -136.0
+offset_top = 223.0
+offset_right = 144.0
+offset_bottom = 247.0
+theme_override_colors/font_hover_color = Color(0.352941, 0.352941, 0.352941, 1)
+theme_override_fonts/font = ExtResource("1_ckcbh")
+text = "BACK TO MAIN MENU"
+flat = true
+script = SubResource("GDScript_ckcbh")
+
+[connection signal="pressed" from="Button" to="Button" method="_on_pressed"]

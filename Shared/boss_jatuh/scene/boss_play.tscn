@@ -1,0 +1,215 @@
+[gd_scene load_steps=13 format=3 uid="uid://uyh06d1octo6"]
+
+[ext_resource type="Script" uid="uid://d1hm0op77k5q6" path="res://Shared/boss_jatuh/script/boss_play.gd" id="1_gcte3"]
+[ext_resource type="Texture2D" uid="uid://d15pitn4tr4us" path="res://Shared/boss_jatuh/asset/boss_room_0.jpg" id="1_hk3n8"]
+[ext_resource type="PackedScene" uid="uid://wr4e8efe1flj" path="res://Shared/boss_jatuh/scene/background_boss_jatuh.tscn" id="2_gcte3"]
+[ext_resource type="Texture2D" uid="uid://dyaca8j6svjd4" path="res://Shared/boss_jatuh/asset/boss_room_5.png" id="3_e4kew"]
+[ext_resource type="Texture2D" uid="uid://cwqa6uyo0aoe3" path="res://Shared/boss_jatuh/asset/kucing jatuh.png" id="4_g0ubo"]
+[ext_resource type="Texture2D" uid="uid://bv3dqfdyd6qg2" path="res://Shared/boss_jatuh/asset/tails_long.png" id="5_3yek0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fc2bl"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_d31tj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_g0ubo")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_ul776"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("movement/kucing_node:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(39, -5727)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("movement:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Camera2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("background:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_u8hgf"]
+resource_name = "jatuh"
+length = 8.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("movement/kucing_node:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(2, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(39, -5727), Vector2(39, -203)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("movement:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(4, 8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 10554)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Camera2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -5727), Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("background:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 2, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -5727), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wcnhr"]
+_data = {
+&"RESET": SubResource("Animation_ul776"),
+&"jatuh": SubResource("Animation_u8hgf")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e4kew"]
+
+[node name="boss_play" type="Node2D"]
+script = ExtResource("1_gcte3")
+
+[node name="background" type="Sprite2D" parent="."]
+texture = ExtResource("1_hk3n8")
+centered = false
+
+[node name="background_boss_jatuh" parent="." instance=ExtResource("2_gcte3")]
+
+[node name="movement" type="Node2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="movement"]
+
+[node name="platform" type="Sprite2D" parent="movement/StaticBody2D"]
+texture = ExtResource("3_e4kew")
+centered = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="movement/StaticBody2D"]
+position = Vector2(664, 485)
+scale = Vector2(84.9946, 2.84002)
+shape = SubResource("RectangleShape2D_fc2bl")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="movement/StaticBody2D"]
+position = Vector2(-105, 485)
+rotation = 1.5708
+scale = Vector2(84.9946, 2.84002)
+shape = SubResource("RectangleShape2D_fc2bl")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="movement/StaticBody2D"]
+position = Vector2(1372, 485)
+rotation = 1.5708
+scale = Vector2(84.9946, 2.84002)
+shape = SubResource("RectangleShape2D_fc2bl")
+
+[node name="kucing_node" type="Node2D" parent="movement"]
+position = Vector2(39, -5727)
+
+[node name="kucing" type="AnimatedSprite2D" parent="movement/kucing_node"]
+position = Vector2(602, 80.9999)
+sprite_frames = SubResource("SpriteFrames_d31tj")
+
+[node name="ekor_1" type="Sprite2D" parent="movement/kucing_node"]
+position = Vector2(579.675, -20.7944)
+rotation = -1.27748
+texture = ExtResource("5_3yek0")
+offset = Vector2(2553, -19)
+
+[node name="ekor_3" type="Sprite2D" parent="movement/kucing_node"]
+position = Vector2(582.675, -12.7046)
+rotation = -2.51528
+texture = ExtResource("5_3yek0")
+offset = Vector2(2553, -19)
+
+[node name="ekor_4" type="Sprite2D" parent="movement/kucing_node"]
+position = Vector2(583.675, -20.7944)
+rotation = -0.760369
+texture = ExtResource("5_3yek0")
+offset = Vector2(2553, -19)
+
+[node name="ekor_2" type="Sprite2D" parent="movement/kucing_node"]
+position = Vector2(569.351, -12.7045)
+rotation = -1.91859
+texture = ExtResource("5_3yek0")
+offset = Vector2(2553, -19)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="animasi_jatuh" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_wcnhr")
+}
+autoplay = "jatuh"
+
+[node name="check_area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="check_area"]
+position = Vector2(649, 302)
+scale = Vector2(-11.0015, 20.2176)
+shape = SubResource("RectangleShape2D_e4kew")
+
+[connection signal="body_entered" from="check_area" to="." method="_on_check_area_body_entered"]

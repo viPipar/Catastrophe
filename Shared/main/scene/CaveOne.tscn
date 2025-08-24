@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=4 uid="uid://cudabg757paye"]
+[gd_scene load_steps=80 format=4 uid="uid://cudabg757paye"]
 
 [ext_resource type="PackedScene" uid="uid://d1vb3l1q4hj80" path="res://Shared/cavetwo_map/scene/cavetwo_map.tscn" id="1_wi8n5"]
 [ext_resource type="Texture2D" uid="uid://2m3oygd4g6g2" path="res://Shared/main/asset/mainlev_build.png" id="2_td4jb"]
@@ -7,6 +7,11 @@
 [ext_resource type="PackedScene" uid="uid://bjjjxnrku30bh" path="res://main_character.tscn" id="5_6mlvh"]
 [ext_resource type="PackedScene" uid="uid://csnsj765006vr" path="res://Shared/main/scene/moving_platform_cave.tscn" id="6_td4jb"]
 [ext_resource type="Script" uid="uid://c2wyi5m2unr8y" path="res://Shared/main/scene/area_2d_caveone.gd" id="7_y7kmt"]
+[ext_resource type="PackedScene" uid="uid://0xr1rjotdfth" path="res://enemy_ctulhu.tscn" id="8_6mlvh"]
+[ext_resource type="Texture2D" uid="uid://bmbo1yjglp3ew" path="res://assets/hpbar/HealthBar DARK - Copy (2) - Copy.png" id="8_sgx45"]
+[ext_resource type="PackedScene" uid="uid://bk551y5q1tl7q" path="res://enemy_mushi.tscn" id="9_bvokh"]
+[ext_resource type="Texture2D" uid="uid://hhkjmolxw80g" path="res://assets/hpbar/HealthBar DARKP.png" id="9_srw6q"]
+[ext_resource type="Script" uid="uid://c46852mh0mlp0" path="res://Shared/main/scene/hpbar.gd" id="10_eswax"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bvokh"]
 texture = ExtResource("2_td4jb")
@@ -20407,7 +20412,7 @@ tile_map_data = PackedByteArray("AAADAB0AAAAvAAEAAAAEAB0AAAAwAAEAAAAFAB0AAAAxAAE
 tile_set = SubResource("TileSet_cnq07")
 
 [node name="main_character" parent="." instance=ExtResource("5_6mlvh")]
-position = Vector2(168, 344)
+position = Vector2(209, 331)
 rotation = 3.14159
 scale = Vector2(2, -2)
 
@@ -20595,8 +20600,81 @@ shape = SubResource("WorldBoundaryShape2D_y7kmt")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer"]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="HPBAR" type="TextureProgressBar" parent="CanvasLayer"]
+offset_left = -44.0
+offset_top = 23.0
+offset_right = 57.0
+offset_bottom = 63.0
+scale = Vector2(5, 5)
+value = 100.0
+texture_over = ExtResource("8_sgx45")
+texture_progress = ExtResource("9_srw6q")
+script = ExtResource("10_eswax")
+
+[node name="Enemy_Ctulhu" parent="." instance=ExtResource("8_6mlvh")]
+position = Vector2(1958, 1199)
+
+[node name="Enemy_Mushi" parent="." instance=ExtResource("9_bvokh")]
+position = Vector2(1092, 1168)
+
+[node name="Enemy_Mushi2" parent="." instance=ExtResource("9_bvokh")]
+position = Vector2(2871, 1244)
+
+[node name="Enemy_Ctulhu2" parent="." instance=ExtResource("8_6mlvh")]
+position = Vector2(2919, 612)
+
+[node name="Enemy_Mushi3" parent="." instance=ExtResource("9_bvokh")]
+position = Vector2(3148, 186)
+
+[node name="Enemy_Ctulhu3" parent="." instance=ExtResource("8_6mlvh")]
+position = Vector2(3480, 1222)
+
+[node name="Enemy_Mushi4" parent="." instance=ExtResource("9_bvokh")]
+position = Vector2(4320, 1240)
+
+[node name="Enemy_Mushi5" parent="." instance=ExtResource("9_bvokh")]
+position = Vector2(6356, 418)
+
+[node name="Enemy_Ctulhu4" parent="." instance=ExtResource("8_6mlvh")]
+position = Vector2(7061, 302)
+
+[node name="Enemy_Mushi6" parent="." instance=ExtResource("9_bvokh")]
+position = Vector2(7091, 1085)
+
+[node name="Enemy_Ctulhu5" parent="." instance=ExtResource("8_6mlvh")]
+position = Vector2(7642, 1090)
+
+[node name="Enemy_Ctulhu6" parent="." instance=ExtResource("8_6mlvh")]
+position = Vector2(6553, 1196)
+
+[node name="Enemy_Ctulhu7" parent="." instance=ExtResource("8_6mlvh")]
+position = Vector2(8499, 1142)
+
+[node name="Enemy_Mushi7" parent="." instance=ExtResource("9_bvokh")]
+position = Vector2(9315, 1275)
+
+[node name="Enemy_Mushi8" parent="." instance=ExtResource("9_bvokh")]
+position = Vector2(10298, -307)
+
+[node name="Enemy_Ctulhu8" parent="." instance=ExtResource("8_6mlvh")]
+position = Vector2(10816, -365)
+
+[node name="Enemy_Ctulhu9" parent="." instance=ExtResource("8_6mlvh")]
+position = Vector2(10867, 505)
+
+[node name="Enemy_Mushi9" parent="." instance=ExtResource("9_bvokh")]
+position = Vector2(11540, 536)
+
+[node name="Enemy_Ctulhu10" parent="." instance=ExtResource("8_6mlvh")]
+position = Vector2(11015, 1198)
+
+[node name="Enemy_Mushi10" parent="." instance=ExtResource("9_bvokh")]
+position = Vector2(11626, 1244)
+
+[node name="Enemy_Ctulhu11" parent="." instance=ExtResource("8_6mlvh")]
+position = Vector2(12596, 1244)
+
+[node name="Enemy_Ctulhu12" parent="." instance=ExtResource("8_6mlvh")]
+position = Vector2(13130, 782)
 
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]

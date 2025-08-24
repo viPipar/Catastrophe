@@ -24,7 +24,8 @@
 [ext_resource type="AudioStream" uid="uid://bi04i3hun1yh1" path="res://assets/audio/Jaeger/DoubleJumpSFX.mp3" id="22_y5ku0"]
 
 [sub_resource type="GDScript" id="GDScript_wtcfe"]
-script/source = "extends CharacterBody2D
+script/source = "# main_character.gd
+extends CharacterBody2D
 
 # ========== CORE MOVEMENT / STATE ==========
 @export var speed: float = 500.0
@@ -33,10 +34,13 @@ script/source = "extends CharacterBody2D
 @export var dash_speed: float = 900.0
 @export var dash_duration: float = 0.25
 var dash_timer: float = 0.0
+var dash_cd_timer: float = 0.0
 
 # Double jump
 @export var max_jumps: int = 2
 var jump_count: int = 0
+var can_move := true
+var is_frozen: bool = false
 
 # Flags
 var is_attacking = false
@@ -45,8 +49,7 @@ var is_parrying = false
 var is_jumping = false
 var is_shooting = false
 var facing_dir: int = -1
-var can_move := true
-var is_frozen: bool = false
+
 # ========== HEALTH ==========
 var max_health: int:
 	get: return int(GameState.stats.get(\"max_health\", 100))
@@ -57,15 +60,23 @@ var max_health: int:
 			int(GameState.stats.get(\"current_health\", value)),
 			int(value)
 		)
+		# emit agar listener (UI dll) tau perubahan
 		GameState.stats_changed.emit(GameState.stats)
+		# update UI langsung jika kita menemukan health_bar
+		if health_bar:
+			health_bar.max_value = float(GameState.stats[\"max_health\"])
+			# sync current value juga
+			health_bar.value = float(GameState.stats[\"current_health\"])
 
 var current_health: int:
 	get: return int(GameState.stats.get(\"current_health\", max_health))
 	set(value):
-		GameState.stats[\"current_health\"] = clampi(
-			int(value), 0, int(GameState.stats.get(\"max_health\", 100))
-		)
+		# pakai clamp untuk menjamin integer dalam range
+		GameState.stats[\"current_health\"] = clamp(int(value), 0, int(GameState.stats.get(\"max_health\", 100)))
 		GameState.stats_changed.emit(GameState.stats)
+		# update UI langsung jika ada
+		if health_bar:
+			health_bar.value = float(GameState.stats[\"current_health\"])
 
 var damage: int:
 	get: return int(GameState.stats.get(\"damage\", 10))
@@ -78,8 +89,9 @@ var dash_cooldown: float:
 	set(value):
 		GameState.stats[\"dash_cooldown\"] = float(value)
 		GameState.stats_changed.emit(GameState.stats)
-		
-@onready var health_bar: TextureProgressBar = get_tree().current_scene.get_node(\"CanvasLayer/TextureProgressBar\")
+
+# health_bar sekarang di-inisialisasi secara aman di _ready()
+var health_bar: TextureProgressBar = null
 
 
 # Hurt/invuln (from TestArea)
@@ -179,29 +191,19 @@ func _process(delta: float) -> void:
 		if has_node(\"Camera2D2\"):
 			$Camera2D2.offset = Vector2.ZERO
 
-func freeze(reason: String = \"dialog\") -> void:
-	is_frozen = true
-	can_move = false
-	# matikan semua state aksi
-	is_attacking = false
-	is_dashing = false
-	is_parrying = false
-	is_shooting = false
-	lunge_timer = 0.0
-	velocity = Vector2.ZERO
-	# matikan SFX jalan biar gak nyangkut
-	if walksfx and walksfx.playing:
-		walksfx.stop()
-	# anim diam (opsional)
-	if sprite and sprite.animation != \"idle\":
-		sprite.play(\"idle\")
-
-func unfreeze() -> void:
-	is_frozen = false
-	can_move = true
-
+# utility: cari node TextureProgressBar secara rekursif di suatu root
+func _find_health_bar(node: Node) -> TextureProgressBar:
+	if node is TextureProgressBar:
+		return node
+	for child in node.get_children():
+		if child is Node:
+			var found := _find_health_bar(child)
+			if found:
+				return found
+	return null
 
 func _ready():
+	# cari attack offsets / parents seperti sebelumnya
 	if attack_area:
 		attack_area_offset = attack_area.position
 		attack_parent = attack_area.get_parent()
@@ -221,15 +223,28 @@ func _ready():
 	if hurtbox:
 		hurtbox.area_entered.connect(_on_hurtbox_area_entered)
 
-	if health_bar:
-		health_bar.max_value = max_health
-		health_bar.value = current_health
+	# ------------------ HEALTH BAR: cari dengan aman ------------------
+	# coba cari di current_scene dulu, kalau null pakai root
+	var scene_root := get_tree().current_scene
+	if scene_root == null:
+		scene_root = get_tree().root
 
+	health_bar = _find_health_bar(scene_root)
+	if health_bar:
+		# inisialisasi nilai UI
+		health_bar.max_value = float(max_health)
+		health_bar.value = float(current_health)
+		print(\"[Player] Health bar ditemukan dan diset:\", health_bar, \"cur:\", current_health, \"max:\", max_health)
+	else:
+		print(\"[Player] Health bar TIDAK ditemukan otomatis. Pastikan HPBar.gd attach atau GameState autoload benar.\")
+
+	# disable attack/parry areas as before
 	if attack_area:
 		attack_area.disabled = true
 	if parry_area:
 		parry_area.disabled = true
 
+	# parry_stun setup (sama)
 	if has_node(\"ParryStun\"):
 		parry_stun_area = $ParryStun
 		if parry_stun_area and parry_stun_area.has_node(\"CollisionShape2D\"):
@@ -243,7 +258,6 @@ func _ready():
 func _physics_process(delta: float) -> void:
 	if current_health <= 0:
 		return
-		
 	if is_frozen:
 		# tetap apply gravitasi supaya mendarat wajar
 		if not is_on_floor():
@@ -253,6 +267,10 @@ func _physics_process(delta: float) -> void:
 		velocity.x = 0
 		move_and_slide()
 		return
+
+	# jalanin cooldown timer kalau masih > 0
+	if dash_cd_timer > 0.0:
+		dash_cd_timer -= delta
 	if is_hurt:
 		if not is_on_floor():
 			velocity.y += gravity * delta
@@ -346,12 +364,14 @@ func _physics_process(delta: float) -> void:
 		facing_dir = 1 if dir > 0 else -1
 
 	if Input.is_action_just_pressed(\"dash\") and not is_dashing and not is_parrying and dir != 0:
-		is_dashing = true
-		dash_timer = dash_duration
-		velocity.x = dir * dash_speed
-		velocity.y = 0
-		sprite.play(\"dash\")
-		return
+		if dash_cd_timer <= 0.0:   # hanya boleh dash kalau cooldown habis
+			is_dashing = true
+			dash_timer = dash_duration
+			dash_cd_timer = dash_cooldown   # reset cooldown
+			velocity.x = dir * dash_speed
+			velocity.y = 0
+			sprite.play(\"dash\")
+			return
 
 	if is_attacking:
 		if lunge_timer > 0:
@@ -415,7 +435,7 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 			source = area.get_parent() as Node2D
 		else:
 			source = area
-		take_damage(3, source, area.name)
+		take_damage(5, source, area.name)
 
 func take_damage(amount: int, source: Node = null, from_area_name: String = \"\") -> void:
 	if _hurtbox_disabled_active:
@@ -423,11 +443,13 @@ func take_damage(amount: int, source: Node = null, from_area_name: String = \"\"
 	if invulnerable:
 		return
 
+	# debug: tunjukkan pemanggilan
+	print(\"[Player] take_damage:\", amount, \"before:\", GameState.stats.get(\"current_health\"))
+
+	# ubah health via property -> akan memicu GameState.stats_changed.emit dan update UI jika health_bar tersedia
 	current_health -= amount
-	if current_health < 0:
-		current_health = 0
-	if health_bar:
-		health_bar.value = current_health
+
+	# anim + audio + invuln
 	if sprite.animation != \"hurt\":
 		hurtsfx.play()
 		sprite.play(\"hurt\")
@@ -463,8 +485,7 @@ func take_damage(amount: int, source: Node = null, from_area_name: String = \"\"
 		die()
 
 func die() -> void:
-	if sprite.animation != \"death\":
-		sprite.play(\"death\")
+	get_tree().change_scene_to_file(\"res://assets/hpbar/game_over_menu.tscn\")
 
 # ========== ATTACKS / PROJECTILES ==========
 func try_attack():
@@ -501,6 +522,8 @@ func spawn_projectile():
 		bullet.global_position = spawn_point.global_position
 		bullet.direction = facing_dir
 		if bullet.has_node(\"AnimatedSprite2D\"):
+			if bullet.has_node(\"HitArea\"):
+				bullet.get_node(\"HitArea\").set_meta(\"damage\", GameState.damage_for(\"projectile\"))
 			var spr: AnimatedSprite2D = bullet.get_node(\"AnimatedSprite2D\")
 			spr.flip_h = (facing_dir < 0)
 			projectilesfx.play()
@@ -520,6 +543,8 @@ func _on_sprite_frame_changed():
 		var parry_data = parry_hitbox_frames[anim_name]
 		if sprite.frame == parry_data[\"on\"]:
 			parry_area.disabled = false
+			if parry_area.has_method(\"set_meta\"):
+				parry_area.set_meta(\"damage\", GameState.damage_for(\"parry\"))
 		elif sprite.frame == parry_data[\"off\"]:
 			parry_area.disabled = true
 
@@ -552,8 +577,6 @@ func _on_parry_area_entered(area: Area2D) -> void:
 	if area.name == \"ParryAttack\" or area.is_in_group(\"parry_attack\"):
 		_activate_parry_stun()
 
-# aktifkan ParryStun selama `duration` detik, lalu matikan kembali
-# aktifkan ParryStun selama `duration` detik, lalu matikan kembali + efek zoom kamera
 func _activate_parry_stun(duration: float = 0.5) -> void:
 	if _parry_stun_active:
 		return
@@ -564,11 +587,9 @@ func _activate_parry_stun(duration: float = 0.5) -> void:
 		_parry_stun_active = false
 		return
 
-	# ----- aktifkan slow motion -----
-	Engine.time_scale = 0.3   # 30% kecepatan normal
+	Engine.time_scale = 0.3
 	parrysfx.play()
 
-	# simpan zoom awal kamera
 	var original_zoom: Vector2 = camera.zoom
 	var target_zoom: Vector2 = original_zoom * 1.2
 
@@ -580,17 +601,14 @@ func _activate_parry_stun(duration: float = 0.5) -> void:
 		if child is CollisionShape2D:
 			(child as CollisionShape2D).set_deferred(\"disabled\", false)
 
-	# pakai timer real-time supaya slowmo tidak memperpanjang durasi
 	await get_tree().create_timer(duration, true).timeout
 
-	# matikan lagi parry_stun
 	for child in parry_stun_area.get_children():
 		if child is CollisionShape2D:
 			(child as CollisionShape2D).set_deferred(\"disabled\", true)
 	parry_stun_area.set_deferred(\"monitoring\", false)
 	_parry_stun_active = false
 
-	# ----- kembalikan ke normal -----
 	Engine.time_scale = 1.0
 
 	var tween_out := create_tween()
@@ -628,9 +646,23 @@ func _disable_hurtbox_temporarily(duration: float) -> void:
 
 	_hurtbox_disabled_active = false
 
+func freeze(reason: String = \"dialog\") -> void:
+	is_frozen = true
+	can_move = false
+	is_attacking = false
+	is_dashing = false
+	is_parrying = false
+	is_shooting = false
+	lunge_timer = 0.0
+	velocity = Vector2.ZERO
+	if walksfx and walksfx.playing:
+		walksfx.stop()
+	if sprite and sprite.animation != \"idle\":
+		sprite.play(\"idle\")
 
-func _on_dialog_body_entered(body: Node2D) -> void:
-	pass # Replace with function body.
+func unfreeze() -> void:
+	is_frozen = false
+	can_move = true
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kdubu"]

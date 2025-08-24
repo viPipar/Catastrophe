@@ -12,8 +12,24 @@ extends CharacterBody2D
 @export var chase_stop_distance: float = 20.0
 @export var attack_range: float = 220.0
 
+func _damage_from_area(area: Area2D) -> int:
+	# Kalau area sudah membawa angka damage sendiri, pakai itu
+	if area.has_meta("damage"):
+		return int(area.get_meta("damage"))
+
+	# Kalau tidak, ambil dari GameState per jenis serangan
+	match area.name:
+		"AttackArea":
+			return GameState.damage_for("melee")
+		"CardProjectile":
+			return GameState.damage_for("projectile")
+		"ParryStun":
+			return GameState.damage_for("parry")
+		_:
+			return 0
+
 # === STAT & DAMAGE ===
-@export var max_health: int = 500
+@export var max_health: int = 250
 @export var hitstun_time: float = 0.3
 
 # === ATTACK HANDLING ===
@@ -263,22 +279,6 @@ func _set_state(new_state: String, force: bool = false) -> void:
 		_attack_lock = false
 		_attack_timer = -1.0
 	state = new_state
-
-func _damage_from_area(area: Area2D) -> int:
-	# Kalau area sudah membawa angka damage sendiri, pakai itu
-	if area.has_meta("damage"):
-		return int(area.get_meta("damage"))
-
-	# Kalau tidak, ambil dari GameState per jenis serangan
-	match area.name:
-		"AttackArea":
-			return GameState.damage_for("melee")
-		"CardProjectile":
-			return GameState.damage_for("projectile")
-		"ParryStun":
-			return GameState.damage_for("parry")
-		_:
-			return 0
 
 # ================== DAMAGE ==================
 func _on_hurtbox_area_entered(area: Area2D) -> void:

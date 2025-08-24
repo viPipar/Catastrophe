@@ -5,7 +5,7 @@
 [ext_resource type="FontFile" uid="uid://dphd0was5qchn" path="res://asset/press_start_2p (1)/PressStart2P.ttf" id="3_tt2v1"]
 [ext_resource type="Texture2D" uid="uid://desl7oioi4au" path="res://Logo.png" id="4_tt2v1"]
 [ext_resource type="Texture2D" uid="uid://cdo6kgcao8wdp" path="res://35c2a37f-01c7-49c9-8197-210de4d549ba_removalai_preview.png" id="5_atihp"]
-[ext_resource type="Texture2D" uid="uid://cxy1cmh3i4i6r" path="res://pngtree-game-interface-in-wooden-style-for-mobile-app-png-image_2911160.jpg" id="6_4l0v3"]
+[ext_resource type="Texture2D" uid="uid://0pquujndir3i" path="res://menu.png" id="6_4l0v3"]
 
 [sub_resource type="Animation" id="Animation_atihp"]
 length = 0.001
@@ -159,7 +159,7 @@ focus_mode = 0
 theme_override_colors/font_hover_color = Color(0.505882, 0.505882, 0.505882, 1)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("3_tt2v1")
-text = "Quit (i'm gay)"
+text = "Quit"
 flat = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -212,11 +212,9 @@ mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="Pngtree-game-interface-in-wooden-style-for-mobile-app-png-image2911160" type="Sprite2D" parent="Hidden Labels"]
-modulate = Color(0.27451, 0.27451, 0.27451, 1)
-position = Vector2(490.5, 151)
-scale = Vector2(3.36563, 4.46053)
+position = Vector2(466, 118)
+scale = Vector2(1.29063, 1.08222)
 texture = ExtResource("6_4l0v3")
-region_enabled = true
 region_rect = Rect2(24, 40, 320, 152)
 
 [node name="How to Play" type="Label" parent="Hidden Labels"]
@@ -248,10 +246,10 @@ vertical_alignment = 1
 
 [node name="How to Play2" type="Label" parent="Hidden Labels"]
 layout_mode = 0
-offset_left = 230.0
-offset_top = -237.0
-offset_right = 480.0
-offset_bottom = -137.0
+offset_left = 221.0
+offset_top = -197.0
+offset_right = 471.0
+offset_bottom = -97.0
 scale = Vector2(2, 2)
 theme_override_fonts/font = ExtResource("3_tt2v1")
 text = "How to Play"
@@ -260,10 +258,78 @@ vertical_alignment = 1
 
 [node name="Exit" type="Button" parent="Hidden Labels"]
 layout_mode = 0
-offset_left = 932.0
-offset_top = -191.0
-offset_right = 956.0
-offset_bottom = -160.0
+offset_left = 1018.0
+offset_top = -213.0
+offset_right = 1042.0
+offset_bottom = -182.0
+scale = Vector2(3.76, 3.76)
+focus_mode = 0
+theme_override_colors/font_hover_color = Color(0.501961, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_tt2v1")
+text = "X"
+flat = true
+
+[node name="Hidden Labels2" type="Control" parent="."]
+visible = false
+z_index = 2
+anchors_preset = 0
+offset_left = -466.0
+offset_top = -439.0
+offset_right = -426.0
+offset_bottom = -399.0
+
+[node name="Backgroundnya" type="ColorRect" parent="Hidden Labels2"]
+z_index = 1
+z_as_relative = false
+layout_mode = 0
+offset_left = -190.0
+offset_top = -237.0
+offset_right = 1148.0
+offset_bottom = 502.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Pngtree-game-interface-in-wooden-style-for-mobile-app-png-image2911160" type="Sprite2D" parent="Hidden Labels2"]
+position = Vector2(466, 118)
+scale = Vector2(1.29063, 1.08222)
+texture = ExtResource("6_4l0v3")
+region_rect = Rect2(24, 40, 320, 152)
+
+[node name="How to Play" type="Label" parent="Hidden Labels2"]
+layout_mode = 0
+offset_top = -175.0
+offset_right = 848.0
+offset_bottom = 524.0
+theme_override_fonts/font = ExtResource("3_tt2v1")
+theme_override_font_sizes/font_size = 22
+text = "AHMAD RAFIF ILMANY
+
+
+CANDRA AGUNG ALIEF PRASETYO
+
+
+RAFID HARSYAH SYAUQIRAHMAN"
+vertical_alignment = 1
+
+[node name="How to Play2" type="Label" parent="Hidden Labels2"]
+layout_mode = 0
+offset_left = 221.0
+offset_top = -197.0
+offset_right = 471.0
+offset_bottom = -97.0
+scale = Vector2(2, 2)
+theme_override_fonts/font = ExtResource("3_tt2v1")
+text = "Credits"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Exit" type="Button" parent="Hidden Labels2"]
+layout_mode = 0
+offset_left = 1018.0
+offset_top = -213.0
+offset_right = 1042.0
+offset_bottom = -182.0
 scale = Vector2(3.76, 3.76)
 focus_mode = 0
 theme_override_colors/font_hover_color = Color(0.501961, 0, 0, 1)
@@ -277,3 +343,4 @@ flat = true
 [connection signal="pressed" from="Control/How to Play_Button" to="." method="_on_how_to_play_button_pressed"]
 [connection signal="pressed" from="Control/Quit Button" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="Hidden Labels/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="Hidden Labels2/Exit" to="." method="_on_exit_pressed"]

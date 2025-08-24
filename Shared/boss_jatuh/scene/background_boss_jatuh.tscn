@@ -1,0 +1,68 @@
+[gd_scene load_steps=5 format=3 uid="uid://wr4e8efe1flj"]
+
+[ext_resource type="Texture2D" uid="uid://cieoyqusve2f7" path="res://Shared/boss_jatuh/asset/boss_room_1.png" id="2_d0jrs"]
+[ext_resource type="Texture2D" uid="uid://d4jvqt8upgifo" path="res://Shared/boss_jatuh/asset/boss_room_2.png" id="3_rmnoo"]
+[ext_resource type="Texture2D" uid="uid://cpg32xe2mcdim" path="res://Shared/boss_jatuh/asset/boss_room_3.png" id="4_vjl2o"]
+[ext_resource type="Texture2D" uid="uid://bdrdqhycrgd73" path="res://Shared/boss_jatuh/asset/boss_room_4.png" id="5_r2rv3"]
+
+[node name="background_boss_jatuh" type="Node2D"]
+
+[node name="background_2" type="TextureRect" parent="."]
+offset_top = -10081.0
+offset_right = 1280.0
+offset_bottom = 9919.0
+texture = ExtResource("2_d0jrs")
+stretch_mode = 1
+
+[node name="background_3" type="TextureRect" parent="."]
+offset_top = -10081.0
+offset_right = 1280.0
+offset_bottom = 9919.0
+texture = ExtResource("3_rmnoo")
+stretch_mode = 1
+
+[node name="background_4" type="TextureRect" parent="."]
+offset_top = -10081.0
+offset_right = 1280.0
+offset_bottom = 9919.0
+texture = ExtResource("4_vjl2o")
+stretch_mode = 1
+
+[node name="background_5" type="Sprite2D" parent="."]
+texture = ExtResource("5_r2rv3")
+centered = false
+
+[node name="background_5_1" type="Sprite2D" parent="background_5"]
+position = Vector2(0, -1763)
+texture = ExtResource("5_r2rv3")
+centered = false
+
+[node name="background_5_5" type="Sprite2D" parent="background_5"]
+position = Vector2(0, 1606)
+texture = ExtResource("5_r2rv3")
+centered = false
+
+[node name="background_5_6" type="Sprite2D" parent="background_5"]
+position = Vector2(0, 4398)
+texture = ExtResource("5_r2rv3")
+centered = false
+
+[node name="background_5_7" type="Sprite2D" parent="background_5"]
+position = Vector2(0, 6876)
+texture = ExtResource("5_r2rv3")
+centered = false
+
+[node name="background_5_2" type="Sprite2D" parent="background_5"]
+position = Vector2(0, -3319)
+texture = ExtResource("5_r2rv3")
+centered = false
+
+[node name="background_5_3" type="Sprite2D" parent="background_5"]
+position = Vector2(0, -6376)
+texture = ExtResource("5_r2rv3")
+centered = false
+
+[node name="background_5_4" type="Sprite2D" parent="background_5"]
+position = Vector2(0, -9159)
+texture = ExtResource("5_r2rv3")
+centered = false

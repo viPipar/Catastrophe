@@ -276,6 +276,7 @@ size = Vector2(47, 42)
 
 [node name="Enemy_Mushi" type="CharacterBody2D"]
 z_index = 50
+scale = Vector2(2, 2)
 collision_layer = 4
 script = ExtResource("1_d5ldx")
 
@@ -287,9 +288,8 @@ shape = SubResource("RectangleShape2D_pba3b")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_151h6")
-animation = &"attack"
-frame = 15
-frame_progress = 1.0
+animation = &"idle"
+autoplay = "idle"
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 z_index = 10
@@ -317,7 +317,7 @@ shape = SubResource("RectangleShape2D_sd1x3")
 
 [node name="Walk" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("8_sd1x3")
-volume_db = -15.096
+volume_db = -26.838
 
 [node name="Attack" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("9_cs8ge")

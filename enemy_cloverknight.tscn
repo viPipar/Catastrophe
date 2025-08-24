@@ -377,6 +377,8 @@ animations = [{
 size = Vector2(567, 242)
 
 [node name="Enemy_CloverKnight" type="CharacterBody2D"]
+z_index = 50
+scale = Vector2(0.15, 0.15)
 collision_layer = 4
 script = ExtResource("1_d0rkd")
 
@@ -424,7 +426,7 @@ volume_db = 5.0
 
 [node name="Walk" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("9_1ueuj")
-volume_db = -8.387
+volume_db = -32.559
 
 [node name="Attack" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("10_jupjx")
@@ -432,4 +434,4 @@ volume_db = -4.0
 
 [node name="Death" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("11_4ux18")
-volume_db = 10.0
+volume_db = -26.903

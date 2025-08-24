@@ -11,7 +11,7 @@ func _on_quit_button_pressed() -> void:
 
 func _on_credit_button_pressed() -> void:
 	print("credit kang")
-
+	$"Hidden Labels2".visible = true
 
 func _on_how_to_play_button_pressed() -> void:
 	print("haw tu pley")
@@ -20,3 +20,4 @@ func _on_how_to_play_button_pressed() -> void:
 
 func _on_exit_pressed() -> void:
 	$"Hidden Labels".visible = false
+	$"Hidden Labels2".visible = false	

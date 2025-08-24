@@ -357,7 +357,7 @@ func _evaluate_and_finish_round() -> void:
 	# semua kartu sudah face-up sekarang
 	var p := calculate_points(player_cards)
 	var d := calculate_points(dealer_cards)
-
+	
 	var msg := ""
 	var lose := "none"  # "player" / "dealer" / "none"
 	# Aturan bust: >21 kalah
@@ -568,7 +568,7 @@ func buff_or_debuff():
 		await get_tree().create_timer(3).timeout
 		anim.play("fade_in")
 		await get_tree().create_timer(1).timeout
-		get_tree().change_scene_to_file("res://scene/main menu.tscn")
+		get_tree().change_scene_to_file("res://scene/debuff_select.tscn")
 	if winner == "Player":
 		emit_signal("game_finished", "win")
 		print("yessir")
@@ -578,17 +578,6 @@ func buff_or_debuff():
 		get_tree().change_scene_to_file("res://scene/buff_select.tscn")
 
 
-
-func _on_finish_button_pressed() -> void:
-	if winner == "Joker":
-		emit_signal("game_finished", "lose")
-		print("kontol")
-	if winner == "Player":
-		emit_signal("game_finished", "win")
-		print("yessir")
-	anim.play("fade_in")
-	await get_tree().create_timer(1).timeout
-	get_tree().change_scene_to_file("res://scene/main menu.tscn")
 
 func _pick(arr: Array) -> String:
 	if arr.is_empty():

@@ -1,17 +1,38 @@
 extends Button
 
-@export var slide_duration := 0.35
-@export var delete_on_finish := false
+@onready var anim: AnimationPlayer = $"../../AnimationPlayer"
+@export var slide_duration: float = 0.35
+@export var delete_on_finish: bool = false
+@export var heal_to_full: bool = true
 
-var _sliding := false
+var _sliding: bool = false
 
-
-func _on_pressed():
+func _on_pressed() -> void:
 	if _sliding: return
 	_sliding = true
 	disabled = true
 
-	# target = di bawah layar + tinggi tombol (biar benar-benar keluar)
+	# ===== BUFF: +50% max_health =====
+	var old_max: int = int(GameState.stats.get("max_health", 100))
+	var old_cur: int = int(GameState.stats.get("current_health", old_max))
+	var delta: int   = int(round(old_max * 0.5))
+	var new_max: int = old_max + delta
+	var new_cur: int
+	if heal_to_full:
+		new_cur = old_cur + delta
+	else:
+		var ratio: float = (float(old_cur) / float(old_max)) if old_max > 0 else 1.0
+		new_cur = clampi(int(round(ratio * new_max)), 0, new_max)
+
+	GameState.stats["max_health"] = new_max
+	GameState.stats["current_health"] = new_cur
+	GameState.stats_changed.emit(GameState.stats)
+
+	# ===== Scene berikut berdasarkan counter blackjack =====
+	var next_scene: String = GameState.scene_after_blackjack()
+	GameState.inc_blackjack_played()
+
+	# ===== Anim geser & fade tombol =====
 	var vp_h: float = float(get_viewport_rect().size.y)
 	var target_y: float = vp_h + size.y
 
@@ -24,5 +45,8 @@ func _on_pressed():
 		queue_free()
 	else:
 		visible = false
+
 	await get_tree().create_timer(0.5).timeout
-	get_tree().change_scene_to_file("res://scene/blackjack.tscn")
+	anim.play("fade_in")
+	await get_tree().create_timer(1).timeout
+	get_tree().change_scene_to_file(next_scene)
