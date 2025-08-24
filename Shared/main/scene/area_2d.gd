@@ -1,6 +1,6 @@
 extends Area2D
 
-@onready var fader: AnimationPlayer = $"../main_character/Camera2D2/Faderlayer/AnimationPlayer"
+@onready var fader: AnimationPlayer = $"../main_character/Camera2D/Faderlayer/AnimationPlayer"
 @export var next_scene_path: String = "res://Shared/main/scene/Castle.tscn"
 var _used := false  # biar gak ke-trigger berkali-kali
 

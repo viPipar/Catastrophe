@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://6yet7fun58x6"
+path="res://.godot/imported/surface.dialogue-37c4e7cc37f67d46a117f407787dc286.tres"
+
+[deps]
+
+source_file="res://surface.dialogue"
+dest_files=["res://.godot/imported/surface.dialogue-37c4e7cc37f67d46a117f407787dc286.tres"]
+
+[params]
+
+defaults=true

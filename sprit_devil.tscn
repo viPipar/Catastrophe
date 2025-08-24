@@ -1,0 +1,58 @@
+[gd_scene load_steps=9 format=3 uid="uid://cvtw58bbwxfgd"]
+
+[ext_resource type="Texture2D" uid="uid://cq832t3bfydae" path="res://Spirit Devil (1).png" id="1_adxkr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k1huu"]
+atlas = ExtResource("1_adxkr")
+region = Rect2(0, 0, 1050, 1410)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fc7yt"]
+atlas = ExtResource("1_adxkr")
+region = Rect2(1050, 0, 1050, 1410)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sklqw"]
+atlas = ExtResource("1_adxkr")
+region = Rect2(2100, 0, 1050, 1410)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_12yu0"]
+atlas = ExtResource("1_adxkr")
+region = Rect2(0, 1410, 1050, 1410)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_634nh"]
+atlas = ExtResource("1_adxkr")
+region = Rect2(1050, 1410, 1050, 1410)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4v2bh"]
+atlas = ExtResource("1_adxkr")
+region = Rect2(2100, 1410, 1050, 1410)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_eghhp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k1huu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fc7yt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sklqw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_12yu0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_634nh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4v2bh")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_eghhp")
+autoplay = "default"
+frame_progress = 0.856535

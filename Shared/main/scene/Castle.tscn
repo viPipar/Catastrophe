@@ -3362,7 +3362,7 @@ position = Vector2(14304, 449)
 rotation = -3.14159
 scale = Vector2(2, -2)
 
-[node name="Camera2D2" type="Camera2D" parent="main_character"]
+[node name="Camera2D" type="Camera2D" parent="main_character"]
 position = Vector2(32, -1.78019e-05)
 rotation = 3.14159
 scale = Vector2(0.666667, -0.666667)

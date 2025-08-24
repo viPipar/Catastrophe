@@ -1,10 +1,8 @@
-[gd_scene load_steps=203 format=4 uid="uid://dflh43i41n3fx"]
+[gd_scene load_steps=199 format=4 uid="uid://dflh43i41n3fx"]
 
 [ext_resource type="PackedScene" uid="uid://gx7jt67karci" path="res://Shared/castle_map/scene/castle_map 2.tscn" id="1_lr3fq"]
 [ext_resource type="PackedScene" uid="uid://cxn5ye76bwr53" path="res://Shared/castle_map/scene/castle_map.tscn" id="2_pfod2"]
 [ext_resource type="PackedScene" uid="uid://bo6npwwwietey" path="res://Shared/caveone_map/scene/caveone_map.tscn" id="3_mq8du"]
-[ext_resource type="Texture2D" uid="uid://0253t5odcjyq" path="res://Shared/caveone_map/asset/cave_entrance_0.png" id="4_y0sqh"]
-[ext_resource type="Texture2D" uid="uid://dksbuokrm3fpt" path="res://Shared/caveone_map/asset/cave_entrance_1.png" id="5_vjlrp"]
 [ext_resource type="PackedScene" uid="uid://d1vb3l1q4hj80" path="res://Shared/cavetwo_map/scene/cavetwo_map.tscn" id="6_ibhgj"]
 [ext_resource type="PackedScene" uid="uid://b35cx6stj6wpi" path="res://Shared/cavethree_map/scene/cavethree_map.tscn" id="7_6octq"]
 [ext_resource type="Texture2D" uid="uid://bruweak0a3cok" path="res://Shared/castle_map/asset/Other Tiles1.png" id="8_bfwmk"]
@@ -18,12 +16,11 @@
 [ext_resource type="Texture2D" uid="uid://clvkk3uk04i6y" path="res://Shared/castle_map/asset/Weeping Willow1.png" id="16_eaq4i"]
 [ext_resource type="Texture2D" uid="uid://cc0npgunftx7n" path="res://assets/sprites/Campfire with food sheet.png" id="17_2elt5"]
 [ext_resource type="Texture2D" uid="uid://c2hka72fw7bjp" path="res://assets/sprites/GandalfHardcore Animated Water Tiles.png" id="18_p1brf"]
+[ext_resource type="Script" uid="uid://d2yert83aq5xa" path="res://Shared/main/scene/dialog.gd" id="19_lr3fq"]
+[ext_resource type="Script" uid="uid://c7il2pcas5atf" path="res://Shared/main/scene/area_2d_2.gd" id="19_p8q02"]
 [ext_resource type="PackedScene" uid="uid://bjjjxnrku30bh" path="res://main_character.tscn" id="19_qxoit"]
-[ext_resource type="PackedScene" uid="uid://bk551y5q1tl7q" path="res://enemy_mushi.tscn" id="20_udhl8"]
-[ext_resource type="PackedScene" uid="uid://bdqvhos4h542n" path="res://enemy_barkwing.tscn" id="21_ylx0j"]
-[ext_resource type="Script" uid="uid://y514lfl84te" path="res://Shared/main/scene/area_2d.gd" id="22_pfod2"]
-[ext_resource type="PackedScene" uid="uid://0xr1rjotdfth" path="res://enemy_ctulhu.tscn" id="24_y0sqh"]
-[ext_resource type="PackedScene" uid="uid://n0w0hvvak5is" path="res://enemy_cloverknight.tscn" id="25_vjlrp"]
+[ext_resource type="PackedScene" uid="uid://cvtw58bbwxfgd" path="res://sprit_devil.tscn" id="19_uc56j"]
+[ext_resource type="PackedScene" path="res://DialogueManager.tscn" id="20_lr3fq"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_drqlo"]
 normal = Vector2(0.999822, -0.0188646)
@@ -5123,11 +5120,9 @@ _data = {
 &"fade_out": SubResource("Animation_vjlrp")
 }
 
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_pfod2"]
-a = Vector2(0, -1000)
-b = Vector2(0, 44.9994)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ibhgj"]
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_254xy"]
+a = Vector2(-0.500977, -299.5)
+b = Vector2(0, 60.5)
 
 [node name="main_map" type="Node"]
 
@@ -5138,20 +5133,6 @@ visible = false
 
 [node name="caveone_map" parent="." instance=ExtResource("3_mq8du")]
 visible = false
-
-[node name="caveone_entrance" type="Node2D" parent="."]
-visible = false
-
-[node name="cave_bg" type="Sprite2D" parent="caveone_entrance"]
-position = Vector2(6000, 0)
-texture = ExtResource("4_y0sqh")
-centered = false
-
-[node name="cave_entrance" type="Sprite2D" parent="caveone_entrance"]
-z_index = 1
-position = Vector2(6000, 0)
-texture = ExtResource("5_vjlrp")
-centered = false
 
 [node name="cavetwo_map" parent="." instance=ExtResource("6_ibhgj")]
 visible = false
@@ -5268,51 +5249,51 @@ frame_progress = 0.589033
 [node name="main_character" parent="." instance=ExtResource("19_qxoit")]
 z_index = 100
 z_as_relative = false
-position = Vector2(228, 666)
+position = Vector2(13731, 660)
 rotation = -3.14159
 scale = Vector2(2, -2)
 
-[node name="Camera2D2" type="Camera2D" parent="main_character"]
+[node name="Camera2D" type="Camera2D" parent="main_character"]
 limit_top = -600
 limit_right = 14592
 limit_bottom = 900
 
-[node name="Faderlayer" type="CanvasLayer" parent="main_character/Camera2D2"]
+[node name="Faderlayer" type="CanvasLayer" parent="main_character/Camera2D"]
 
-[node name="Fader" type="ColorRect" parent="main_character/Camera2D2/Faderlayer"]
+[node name="Fader" type="ColorRect" parent="main_character/Camera2D/Faderlayer"]
 modulate = Color(1, 1, 1, 0)
 offset_right = 1284.0
 offset_bottom = 728.0
 color = Color(0, 0, 0, 1)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="main_character/Camera2D2/Faderlayer"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="main_character/Camera2D/Faderlayer"]
 root_node = NodePath("../Fader")
 libraries = {
 &"": SubResource("AnimationLibrary_y0sqh")
 }
 autoplay = "fade_out"
 
-[node name="Enemy_Mushi" parent="." instance=ExtResource("20_udhl8")]
-position = Vector2(1027, 656)
-scale = Vector2(2, 2)
-
-[node name="Enemy_Mushi2" parent="." instance=ExtResource("20_udhl8")]
-position = Vector2(1656, 528)
-scale = Vector2(2, 2)
-
-[node name="Enemy_Barkwing" parent="." instance=ExtResource("21_ylx0j")]
-position = Vector2(1400, 384)
-scale = Vector2(2, 2)
-
-[node name="Area2D" type="Area2D" parent="."]
-position = Vector2(360, 792)
+[node name="Area2D2" type="Area2D" parent="."]
+position = Vector2(14555, 645)
 rotation = 3.14159
 scale = Vector2(2, -2)
-script = ExtResource("22_pfod2")
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("19_p8q02")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-6972, 16.0177)
-shape = SubResource("SegmentShape2D_pfod2")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+shape = SubResource("SegmentShape2D_254xy")
+
+[node name="Dialog" type="Area2D" parent="."]
+position = Vector2(13995, 650)
+rotation = 3.14159
+scale = Vector2(2, -2)
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("19_lr3fq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Dialog"]
+shape = SubResource("SegmentShape2D_254xy")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -5320,20 +5301,15 @@ shape = SubResource("SegmentShape2D_pfod2")
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="TestArea" type="Area2D" parent="."]
-position = Vector2(288, 686)
-collision_mask = 2
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TestArea"]
-shape = SubResource("RectangleShape2D_ibhgj")
+[node name="DialogueManager" parent="CanvasLayer2" instance=ExtResource("20_lr3fq")]
 
-[node name="Enemy_CloverKnight" parent="." instance=ExtResource("25_vjlrp")]
-z_index = 10
-position = Vector2(2114, 658)
-scale = Vector2(0.15, 0.15)
+[node name="Spirit" parent="." instance=ExtResource("19_uc56j")]
+modulate = Color(1, 1, 1, 0.415686)
+position = Vector2(13997, 576)
+scale = Vector2(0.202856, 0.202856)
 
-[node name="Enemy_Ctulhu" parent="." instance=ExtResource("24_y0sqh")]
-z_index = 10
-position = Vector2(897, 619)
-
-[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
+[connection signal="body_entered" from="Area2D2" to="Area2D2" method="_on_body_entered"]
+[connection signal="body_entered" from="Dialog" to="Dialog" method="_on_body_entered"]
+[connection signal="body_exited" from="Dialog" to="Dialog" method="_on_body_exited"]

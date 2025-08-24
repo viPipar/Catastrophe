@@ -1,8 +1,8 @@
 extends Area2D
 
 @export var speed: float = 80.0
-@export var detection_range: float = 300.0
-@export var max_health: int = 20
+@export var detection_range: float = 500.0
+@export var max_health: int = 60
 
 var health: int
 var velocity: Vector2 = Vector2.ZERO
@@ -67,58 +67,92 @@ func _process(delta: float) -> void:
 
 # This handler is called when ANY Area2D overlaps this Area2D (including AttackArea)
 # We will react only when the entering area is named "AttackArea" (or its parent).
+
+# ===== Helpers jenis serangan =====
+func _is_melee(area: Area2D) -> bool:
+	return area.name == "AttackArea" \
+		or (area.get_parent() != null and str(area.get_parent().name) == "AttackArea")
+
+func _is_parry(area: Area2D) -> bool:
+	return area.name == "ParryStun"
+
+func _is_projectile(area: Area2D) -> bool:
+	if area.name == "CardProjectile":
+		return true
+	if area.get_parent() != null and str(area.get_parent().name) == "CardProjectile":
+		return true
+	return area.is_in_group("projectile")  # kalau kamu pakai group
+
+func _projectile_root(area: Area2D) -> Node:
+	# balikin node pelurunya (bukan child Area-nya) supaya gampang dihapus
+	if area.name == "CardProjectile":
+		return area
+	if area.get_parent() != null and str(area.get_parent().name) == "CardProjectile":
+		return area.get_parent()
+	# kalau pakai group, asumsi area itu child dari node peluru
+	if area.is_in_group("projectile") and area.get_parent() != null:
+		return area.get_parent()
+	return null
+
+func _damage_from_area(area: Area2D) -> int:
+	# Prioritas: kalau area bawa meta "damage", pakai itu
+	if area.has_meta("damage"):
+		return int(area.get_meta("damage"))
+
+	# Kalau tidak, ambil dari GameState per jenis
+	if _is_melee(area):
+		return GameState.damage_for("melee")
+	elif _is_projectile(area):
+		return GameState.damage_for("projectile")
+	elif _is_parry(area):
+		return GameState.damage_for("parry")
+	return 0
+
 func _on_hurtbox_area_entered(area: Area2D) -> void:
-	# ignore self overlaps
-	if area == null:
-		return
-	# ignore if currently invulnerable
-	if invulnerable:
+	if area == null or invulnerable:
 		return
 
-	# Accept either the area itself named AttackArea or its parent named AttackArea
-	var area_is_attack_area := false
-	if area.name in ["AttackArea", "ParryStun"]:
-		area_is_attack_area = true
-	elif area.get_parent() != null and str(area.get_parent().name) == "AttackArea":
-		area_is_attack_area = true
-
-	if not area_is_attack_area:
+	# cegah self-hit tanpa menyebut hit_area/parry_area
+	if area.get_parent() == self or area.owner == self:
 		return
 
-	# Source (closest meaningful node): prefer area's parent if available
-	var source_node: Node = area.get_parent() if area.get_parent() != null else area
+	# terima hanya melee / projectile / parry
+	if not (_is_melee(area) or _is_projectile(area) or _is_parry(area)):
+		return
 
-	# Apply damage = 3
-	var dmg: int = 3
-	health -= dmg
-	if health < 0:
-		health = 0
+	var dmg: int = _damage_from_area(area)
+	if dmg <= 0:
+		return
 
-	# Play onhit animation if exists
-	if anim:
-		if anim.sprite_frames.has_animation("onhit"):
-			hurtsfx.play()
-			anim.play("onhit")
+	# sumber untuk arah knockback (pakai root projectile kalau peluru)
+	var source_node: Node = _projectile_root(area) if _is_projectile(area) \
+		else (area.get_parent() if area.get_parent() != null else area)
 
-	# Start small knockback away from the source
-	var kb_dir = 1
+	health = max(health - dmg, 0)
+
+	if anim and anim.sprite_frames.has_animation("onhit"):
+		hurtsfx.play()
+		anim.play("onhit")
+
+	var kb_dir := 1
 	if source_node is Node2D:
 		kb_dir = sign(global_position.x - (source_node as Node2D).global_position.x - 60)
-		if kb_dir == 0:
-			kb_dir = 1
+		if kb_dir == 0: kb_dir = 1
 	else:
-		# fallback: push opposite of current movement
 		kb_dir = -sign(velocity.x) if velocity.x != 0 else 1
 
 	knockback_velocity = Vector2(kb_dir * knockback_force, knockback_up)
 	knockback_timer = knockback_duration
-
-	# set invulnerability for a short window to avoid multi-hit spam
 	invulnerable = true
-	# use a deferred timer to clear invulnerability (non-blocking)
 	_clear_invulnerability_after(invuln_time)
 
-	# If health is zero -> die
+	# hapus / trigger peluru
+	if _is_projectile(area):
+		var proj := _projectile_root(area)
+		if proj:
+			if proj.has_method("on_hit"): proj.call("on_hit")
+			else: proj.queue_free()
+
 	if health <= 0:
 		_die()
 
@@ -144,4 +178,7 @@ func _die() -> void:
 			queue_free()
 	)
 
-# (removed _take_damage() per request)
+func _player_damage() -> int:
+	# Ambil damage pemain dari GameState (autoload)
+	# fallback ke 10 kalau belum ada
+	return int(GameState.damage_for("melee"))

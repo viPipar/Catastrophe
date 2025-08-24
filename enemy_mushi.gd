@@ -11,7 +11,7 @@ extends CharacterBody2D
 @export var chase_stop_distance: float = 20.0
 @export var attack_range: float = 64.0
 
-@export var max_health: int = 24
+@export var max_health: int = 300
 @export var knockback_force: float = 200.0
 @export var hitstun_time: float = 0.4
 @export var knockback_decel: float = 1200.0
@@ -279,23 +279,65 @@ func _set_state(new_state: String, force: bool = false) -> void:
 
 	state = new_state
 
+
+func _is_melee(area: Area2D) -> bool:
+	return area.name == "AttackArea" \
+		or (area.get_parent() != null and str(area.get_parent().name) == "AttackArea")
+
+func _is_projectile(area: Area2D) -> bool:
+	if area.name == "CardProjectile":
+		return true
+	if area.get_parent() != null and str(area.get_parent().name) == "CardProjectile":
+		return true
+	return area.is_in_group("projectile")  # kalau pakai group
+
+func _is_parry(area: Area2D) -> bool:
+	return area.name == "ParryStun"
+
+func _projectile_root(area: Area2D) -> Node:
+	if area.name == "CardProjectile":
+		return area
+	if area.get_parent() != null and str(area.get_parent().name) == "CardProjectile":
+		return area.get_parent()
+	if area.is_in_group("projectile") and area.get_parent() != null:
+		return area.get_parent()
+	return null
+
+func _damage_from_area(area: Area2D) -> int:
+	# pakai angka dari area kalau ada
+	if area.has_meta("damage"):
+		return int(area.get_meta("damage"))
+	# default ke GameState per jenis serangan
+	if _is_melee(area):      return GameState.damage_for("melee")
+	if _is_projectile(area): return GameState.damage_for("projectile")
+	if _is_parry(area):      return GameState.damage_for("parry")
+	return 0
 # ==================== DAMAGE ====================
 func _on_hurtbox_area_entered(area: Area2D) -> void:
-	if invulnerable or state == "death":
+	if invulnerable or state == "death" or area == null:
 		return
-	# hanya abaikan hitarea sendiri
-	if area == hit_area or area == parry_area:
+	# cegah self-hit
+	if area == hit_area or area == parry_area or area.get_parent() == self or area.owner == self:
+		return
+	# hanya proses serangan valid
+	if not (_is_melee(area) or _is_projectile(area) or _is_parry(area)):
 		return
 
-	var dmg: int = 0
-	if area.name == "AttackArea":
-		dmg = 2
-	elif area.name in ["CardProjectile", "ParryStun"]:
-		dmg = 1
-	else:
+	var dmg := _damage_from_area(area)
+	if dmg <= 0:
 		return
 
 	_take_damage(dmg, area)
+
+	# kalau dari projectile, hapus/trigger on_hit
+	if _is_projectile(area):
+		var proj := _projectile_root(area)
+		if proj:
+			if proj.has_method("on_hit"):
+				proj.call("on_hit")
+			else:
+				proj.queue_free()
+
 
 
 func _take_damage(amount: int, area: Area2D) -> void:

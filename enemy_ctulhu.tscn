@@ -408,6 +408,7 @@ animations = [{
 }]
 
 [node name="Enemy_Ctulhu" type="CharacterBody2D"]
+z_index = 50
 scale = Vector2(2, 2)
 collision_layer = 8
 script = ExtResource("1_15kj3")

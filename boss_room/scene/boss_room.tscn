@@ -1,0 +1,792 @@
+[gd_scene load_steps=41 format=3 uid="uid://x043dx4gljig"]
+
+[ext_resource type="Texture2D" uid="uid://df7p4eycnpxvp" path="res://Shared/boss_room/asset/boss_room_0.jpg" id="1_cscpj"]
+[ext_resource type="Script" uid="uid://cs0hora45fx67" path="res://Shared/boss_room/scene/parallax_layer.gd" id="2_1d563"]
+[ext_resource type="Texture2D" uid="uid://ilu4pnjasyxn" path="res://Shared/boss_room/asset/boss_room_1.png" id="2_8dfmu"]
+[ext_resource type="Texture2D" uid="uid://dsgusit3kusrf" path="res://Shared/boss_room/asset/boss_room_2.png" id="3_1d563"]
+[ext_resource type="Script" uid="uid://ci8esbcrgd7hm" path="res://Shared/boss_room/scene/parallax_layer_2.gd" id="4_u0kol"]
+[ext_resource type="Texture2D" uid="uid://bbc3o3i5k121t" path="res://Shared/boss_room/asset/boss_room_3.png" id="4_y8dpc"]
+[ext_resource type="Texture2D" uid="uid://cxy7pt1n45pyf" path="res://Shared/boss_room/asset/boss_room_4.png" id="5_u0kol"]
+[ext_resource type="Script" uid="uid://bs6mmdsnpoyxi" path="res://Shared/boss_room/scene/parallax_layer_3.gd" id="6_6gdj8"]
+[ext_resource type="Texture2D" uid="uid://cgf3qfhsgttld" path="res://Shared/boss_room/asset/boss_room_5.png" id="6_6yucl"]
+[ext_resource type="Script" uid="uid://ctupck51e2vax" path="res://Shared/boss_room/scene/parallax_layer_4.gd" id="8_2wu4j"]
+[ext_resource type="Texture2D" uid="uid://c8mhn3v7ey7lb" path="res://boss_room/asset/kucing.png" id="10_6yucl"]
+[ext_resource type="Texture2D" uid="uid://d0oh0tnfkcbs" path="res://boss_room/asset/vines.png" id="10_oacbw"]
+[ext_resource type="Texture2D" uid="uid://bsaya1dqr5r1e" path="res://boss_room/asset/kucing_hit_1.png" id="10_s37gd"]
+[ext_resource type="Texture2D" uid="uid://dfmy8ornnoq0e" path="res://boss_room/asset/vines_attack.png" id="11_8uv7w"]
+[ext_resource type="Texture2D" uid="uid://cfe5701ifxxw0" path="res://boss_room/asset/kucing_hit_2.png" id="11_oacbw"]
+[ext_resource type="Texture2D" uid="uid://cv3ch5siwgihu" path="res://boss_room/asset/kucing_tangan.png" id="12_6gdj8"]
+[ext_resource type="Texture2D" uid="uid://bpyrpg33b46b" path="res://boss_room/asset/kucing_tangan_hit_1.png" id="14_8uv7w"]
+[ext_resource type="Texture2D" uid="uid://byh7a258iwhih" path="res://boss_room/asset/kucing_tangan_hit_2.png" id="15_qswdd"]
+[ext_resource type="PackedScene" uid="uid://bjjjxnrku30bh" path="res://main_character.tscn" id="19_4upvy"]
+
+[sub_resource type="Animation" id="Animation_qswdd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(686, 608)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../ekor_2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(550, 519)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../ekor_3:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(634, 686)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../ekor_4:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(668, 713)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../../ekor_attack/ekor_attack_1:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1045, 423)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../../ekor_attack/ekor_attack_2:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2338, 420)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../../ekor_attack/ekor_attack_3:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1044, -742)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("../../ekor_attack/ekor_attack_4:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2341, -711)]
+}
+
+[sub_resource type="Animation" id="Animation_oacbw"]
+resource_name = "ekor_down_attack"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.6, 5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(686, 608), Vector2(1014, 93), Vector2(743, 444), Vector2(686, 608)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../ekor_2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 1.6, 5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(550, 519), Vector2(170, 127), Vector2(439, 382), Vector2(550, 519)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../../ekor_attack/ekor_attack_1:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1, 1.6, 5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-1045, 423), Vector2(286, 423), Vector2(-788, 423), Vector2(-1045, 423)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../../ekor_attack/ekor_attack_2:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1, 1.6, 5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(2338, 420), Vector2(992, 420), Vector2(2046, 420), Vector2(2338, 420)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../ekor_3:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 2, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(634, 686), Vector2(599, 608), Vector2(634, 686)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../ekor_4:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 2, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(668, 713), Vector2(697, 618), Vector2(668, 713)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../../ekor_attack/ekor_attack_3:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 2, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-1044, -742), Vector2(-961, -680), Vector2(-1044, -742)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("../../ekor_attack/ekor_attack_4:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 2, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(2341, -711), Vector2(2235, -624), Vector2(2341, -711)]
+}
+
+[sub_resource type="Animation" id="Animation_8uv7w"]
+resource_name = "ekor_idle"
+length = 5.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.56667, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(686, 608), Vector2(731, 520), Vector2(686, 608)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../ekor_2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2.58, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(550, 519), Vector2(468, 445), Vector2(550, 519)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../ekor_3:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(634, 686), Vector2(599, 608), Vector2(634, 686)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../ekor_4:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 2, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(668, 713), Vector2(697, 618), Vector2(668, 713)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../../ekor_attack/ekor_attack_1:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 2.6, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-1045, 423), Vector2(-981, 423), Vector2(-1045, 423)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../../ekor_attack/ekor_attack_2:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 2.61, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(2338, 420), Vector2(2265, 420), Vector2(2338, 420)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../../ekor_attack/ekor_attack_3:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 2, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-1044, -742), Vector2(-961, -680), Vector2(-1044, -742)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("../../ekor_attack/ekor_attack_4:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 2, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(2341, -711), Vector2(2235, -624), Vector2(2341, -711)]
+}
+
+[sub_resource type="Animation" id="Animation_ra6bb"]
+resource_name = "ekor_up_attack"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../ekor_3:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(634, 686), Vector2(480, 228), Vector2(634, 686)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../ekor_4:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(668, 713), Vector2(794, 245), Vector2(668, 713)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../../ekor_attack/ekor_attack_3:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-1044, -742), Vector2(-558, -381), Vector2(-1044, -742)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../../ekor_attack/ekor_attack_4:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(2341, -711), Vector2(1829, -309), Vector2(2341, -711)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 2.51, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(686, 608), Vector2(731, 520), Vector2(686, 608)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../ekor_2:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 2.5, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(550, 519), Vector2(468, 445), Vector2(550, 519)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../../ekor_attack/ekor_attack_1:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 2.52, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-1045, 423), Vector2(-981, 423), Vector2(-1045, 423)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("../../ekor_attack/ekor_attack_2:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 2.53, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(2338, 420), Vector2(2265, 420), Vector2(2338, 420)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ra6bb"]
+_data = {
+&"RESET": SubResource("Animation_qswdd"),
+&"ekor_down_attack": SubResource("Animation_oacbw"),
+&"ekor_idle": SubResource("Animation_8uv7w"),
+&"ekor_up_attack": SubResource("Animation_ra6bb")
+}
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6gdj8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_s37gd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_oacbw")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_6yucl")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_vyuf3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_2wu4j"]
+resource_name = "move"
+length = 12.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.98, 5.98, 9, 12),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(30, 0), Vector2(0, 0), Vector2(-30, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2a2gj"]
+_data = {
+&"RESET": SubResource("Animation_vyuf3"),
+&"move": SubResource("Animation_2wu4j")
+}
+
+[sub_resource type="Animation" id="Animation_6yucl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_u0kol"]
+resource_name = "jatuh"
+length = 5.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 5),
+"transitions": PackedFloat32Array(1, 1, 2.46229),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 15), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6gdj8"]
+_data = {
+&"RESET": SubResource("Animation_6yucl"),
+&"jatuh": SubResource("Animation_u0kol")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6gdj8"]
+size = Vector2(20.1261, 20)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2wu4j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_8uv7w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_qswdd")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_6gdj8")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8uv7w"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qswdd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ra6bb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q3vpm"]
+
+[sub_resource type="Animation" id="Animation_mqci6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_4upvy"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mqci6"]
+_data = {
+&"RESET": SubResource("Animation_mqci6"),
+&"fade_out": SubResource("Animation_4upvy")
+}
+
+[node name="boss_room" type="ParallaxBackground"]
+
+[node name="background" type="Sprite2D" parent="."]
+texture = ExtResource("1_cscpj")
+centered = false
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0, 0)
+motion_mirroring = Vector2(0, 720)
+script = ExtResource("2_1d563")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer"]
+texture = ExtResource("2_8dfmu")
+centered = false
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0, 0)
+motion_mirroring = Vector2(0, 720)
+script = ExtResource("4_u0kol")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer2"]
+texture = ExtResource("3_1d563")
+centered = false
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0, 0)
+motion_mirroring = Vector2(0, 720)
+script = ExtResource("6_6gdj8")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer3"]
+texture = ExtResource("4_y8dpc")
+centered = false
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0, 0)
+motion_mirroring = Vector2(0, 2160)
+script = ExtResource("8_2wu4j")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer4"]
+texture = ExtResource("5_u0kol")
+centered = false
+
+[node name="ekor" type="Node2D" parent="."]
+
+[node name="ekor_1" type="Sprite2D" parent="ekor"]
+position = Vector2(686, 608)
+rotation = -0.95021
+scale = Vector2(2, 2)
+texture = ExtResource("10_oacbw")
+
+[node name="ekor_2" type="Sprite2D" parent="ekor"]
+position = Vector2(550, 519)
+rotation = 0.782167
+scale = Vector2(2, 2)
+texture = ExtResource("10_oacbw")
+
+[node name="ekor_3" type="Sprite2D" parent="ekor"]
+position = Vector2(634, 686)
+rotation = -1.89309
+scale = Vector2(2, 2)
+texture = ExtResource("10_oacbw")
+
+[node name="ekor_4" type="Sprite2D" parent="ekor"]
+position = Vector2(668, 713)
+rotation = -1.34074
+scale = Vector2(2, 2)
+texture = ExtResource("10_oacbw")
+
+[node name="gerakan_ekor_animation" type="AnimationPlayer" parent="ekor"]
+root_node = NodePath("../ekor_1")
+libraries = {
+&"": SubResource("AnimationLibrary_ra6bb")
+}
+autoplay = "ekor_idle"
+
+[node name="badan" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_6gdj8")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.00652349
+centered = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="badan"]
+libraries = {
+&"": SubResource("AnimationLibrary_2a2gj")
+}
+autoplay = "move"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+texture = ExtResource("6_6yucl")
+centered = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="StaticBody2D/Sprite2D"]
+libraries = {
+&"": SubResource("AnimationLibrary_6gdj8")
+}
+autoplay = "jatuh"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(643.918, 505)
+rotation = -3.14159
+scale = Vector2(48.8835, -3.551)
+shape = SubResource("RectangleShape2D_6gdj8")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(1140, 243)
+rotation = -4.70765
+scale = Vector2(24.6697, -3.50687)
+shape = SubResource("RectangleShape2D_6gdj8")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(140, 254)
+rotation = -4.70765
+scale = Vector2(-25.4639, -3.35964)
+shape = SubResource("RectangleShape2D_6gdj8")
+
+[node name="tangan" type="AnimatedSprite2D" parent="StaticBody2D"]
+sprite_frames = SubResource("SpriteFrames_2wu4j")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.276697
+centered = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="StaticBody2D/tangan"]
+libraries = {
+&"": SubResource("AnimationLibrary_6gdj8")
+}
+autoplay = "jatuh"
+
+[node name="ekor_attack" type="Node2D" parent="."]
+
+[node name="ekor_attack_1" type="Sprite2D" parent="ekor_attack"]
+position = Vector2(-1045, 423)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("11_8uv7w")
+
+[node name="left_attack_area" type="Area2D" parent="ekor_attack/ekor_attack_1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ekor_attack/ekor_attack_1/left_attack_area"]
+scale = Vector2(76.2448, -0.818058)
+shape = SubResource("RectangleShape2D_8uv7w")
+
+[node name="ekor_attack_2" type="Sprite2D" parent="ekor_attack"]
+position = Vector2(2338, 420)
+rotation = -3.14159
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("11_8uv7w")
+
+[node name="right_attack_area" type="Area2D" parent="ekor_attack/ekor_attack_2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ekor_attack/ekor_attack_2/right_attack_area"]
+scale = Vector2(76.4749, 0.764612)
+shape = SubResource("RectangleShape2D_qswdd")
+
+[node name="ekor_attack_3" type="Sprite2D" parent="ekor_attack"]
+position = Vector2(-1044, -742)
+rotation = 0.667018
+scale = Vector2(1.8, 1.8)
+texture = ExtResource("11_8uv7w")
+
+[node name="leftup_attack_area" type="Area2D" parent="ekor_attack/ekor_attack_3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ekor_attack/ekor_attack_3/leftup_attack_area"]
+scale = Vector2(76.3872, 1.6192)
+shape = SubResource("RectangleShape2D_ra6bb")
+
+[node name="ekor_attack_4" type="Sprite2D" parent="ekor_attack"]
+position = Vector2(2341, -711)
+rotation = -3.73301
+scale = Vector2(1.8, 1.8)
+texture = ExtResource("11_8uv7w")
+
+[node name="rightup_attack_area" type="Area2D" parent="ekor_attack/ekor_attack_4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ekor_attack/ekor_attack_4/rightup_attack_area"]
+scale = Vector2(76.5539, -1.74806)
+shape = SubResource("RectangleShape2D_q3vpm")
+
+[node name="main_character" parent="." instance=ExtResource("19_4upvy")]
+position = Vector2(675, 19)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/ColorRect"]
+libraries = {
+&"": SubResource("AnimationLibrary_mqci6")
+}
+autoplay = "fade_out"

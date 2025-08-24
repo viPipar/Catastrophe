@@ -27,7 +27,7 @@
 script/source = "extends CharacterBody2D
 
 # ========== CORE MOVEMENT / STATE ==========
-@export var speed: float = 1000.0
+@export var speed: float = 500.0
 @export var jump_velocity: float = -450.0
 @export var gravity: float = 900.0
 @export var dash_speed: float = 900.0
@@ -45,10 +45,40 @@ var is_parrying = false
 var is_jumping = false
 var is_shooting = false
 var facing_dir: int = -1
-
+var can_move := true
+var is_frozen: bool = false
 # ========== HEALTH ==========
-@export var max_health: int = 100
-var current_health: int = max_health
+var max_health: int:
+	get: return int(GameState.stats.get(\"max_health\", 100))
+	set(value):
+		GameState.stats[\"max_health\"] = int(value)
+		# jaga agar current_health tidak > max
+		GameState.stats[\"current_health\"] = min(
+			int(GameState.stats.get(\"current_health\", value)),
+			int(value)
+		)
+		GameState.stats_changed.emit(GameState.stats)
+
+var current_health: int:
+	get: return int(GameState.stats.get(\"current_health\", max_health))
+	set(value):
+		GameState.stats[\"current_health\"] = clampi(
+			int(value), 0, int(GameState.stats.get(\"max_health\", 100))
+		)
+		GameState.stats_changed.emit(GameState.stats)
+
+var damage: int:
+	get: return int(GameState.stats.get(\"damage\", 10))
+	set(value):
+		GameState.stats[\"damage\"] = int(value)
+		GameState.stats_changed.emit(GameState.stats)
+
+var dash_cooldown: float:
+	get: return float(GameState.stats.get(\"dash_cooldown\", 0.6))
+	set(value):
+		GameState.stats[\"dash_cooldown\"] = float(value)
+		GameState.stats_changed.emit(GameState.stats)
+		
 @onready var health_bar: TextureProgressBar = get_tree().current_scene.get_node(\"CanvasLayer/TextureProgressBar\")
 
 
@@ -78,7 +108,7 @@ var projectile_spawned: bool = false
 @onready var attack_timer: Timer = $StateMachine/AttackTimer
 @onready var attack_cooldown_timer: Timer = $StateMachine/AttackCooldownTimer
 @onready var attack_combo_timer: Timer = $StateMachine/AttackComboTimer
-@onready var camera: Camera2D = $Camera2D2
+@onready var camera: Camera2D = $Camera2D
 
 # Sprite + nodes
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -149,6 +179,28 @@ func _process(delta: float) -> void:
 		if has_node(\"Camera2D2\"):
 			$Camera2D2.offset = Vector2.ZERO
 
+func freeze(reason: String = \"dialog\") -> void:
+	is_frozen = true
+	can_move = false
+	# matikan semua state aksi
+	is_attacking = false
+	is_dashing = false
+	is_parrying = false
+	is_shooting = false
+	lunge_timer = 0.0
+	velocity = Vector2.ZERO
+	# matikan SFX jalan biar gak nyangkut
+	if walksfx and walksfx.playing:
+		walksfx.stop()
+	# anim diam (opsional)
+	if sprite and sprite.animation != \"idle\":
+		sprite.play(\"idle\")
+
+func unfreeze() -> void:
+	is_frozen = false
+	can_move = true
+
+
 func _ready():
 	if attack_area:
 		attack_area_offset = attack_area.position
@@ -191,7 +243,16 @@ func _ready():
 func _physics_process(delta: float) -> void:
 	if current_health <= 0:
 		return
-
+		
+	if is_frozen:
+		# tetap apply gravitasi supaya mendarat wajar
+		if not is_on_floor():
+			velocity.y += gravity * delta
+		else:
+			velocity.y = 0
+		velocity.x = 0
+		move_and_slide()
+		return
 	if is_hurt:
 		if not is_on_floor():
 			velocity.y += gravity * delta
@@ -566,6 +627,10 @@ func _disable_hurtbox_temporarily(duration: float) -> void:
 	hurtbox.set_deferred(\"monitoring\", true)
 
 	_hurtbox_disabled_active = false
+
+
+func _on_dialog_body_entered(body: Node2D) -> void:
+	pass # Replace with function body.
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kdubu"]
@@ -1444,6 +1509,7 @@ radius = 116.0
 scale = Vector2(-1.5, 1.5)
 collision_layer = 2
 script = SubResource("GDScript_wtcfe")
+speed = 350.0
 projectile_scene = ExtResource("1_qthh5")
 
 [node name="StateMachine" type="Node2D" parent="."]

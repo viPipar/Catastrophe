@@ -1,13 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://bsydugi0cv631"]
+[gd_scene load_steps=14 format=3 uid="uid://bsydugi0cv631"]
 
 [ext_resource type="Script" uid="uid://dpua21bbs8x1v" path="res://scene/blackjack.gd" id="1_f2mig"]
+[ext_resource type="PackedScene" uid="uid://bsps7tsl6fhb5" path="res://blackjack_background/scene/blackjack_background_2.tscn" id="2_f2mig"]
 [ext_resource type="PackedScene" uid="uid://bxsnmv7mw4pmw" path="res://scene/blackjack_background_2.tscn" id="2_yqphp"]
 [ext_resource type="PackedScene" uid="uid://ckophae3oal2x" path="res://scene/card.tscn" id="4_gbj04"]
 [ext_resource type="TileSet" uid="uid://clsaov0f3inaj" path="res://assets/tilemap/tileset.tres" id="5_1sjef"]
 [ext_resource type="FontFile" uid="uid://dphd0was5qchn" path="res://asset/press_start_2p (1)/PressStart2P.ttf" id="6_hfiib"]
 [ext_resource type="FontFile" uid="uid://dbee7gu4vinb7" path="res://asset/press_start_2p (1)/Minecraft.ttf" id="7_jr8fg"]
-[ext_resource type="Texture2D" uid="uid://dkv6kectptg2" path="res://assets/tilemap/wp2436045-violet-evergarden-wallpapers.jpg" id="8_e23hb"]
-[ext_resource type="Texture2D" uid="uid://inkxvvlsgyei" path="res://assets/tilemap/Waguri.jpeg" id="9_g3yiv"]
+[ext_resource type="Texture2D" uid="uid://b7cuhf3618f7v" path="res://Photo MC.png" id="8_f2mig"]
+[ext_resource type="Texture2D" uid="uid://csfxflhnkr87r" path="res://Photo Jungara.png" id="9_yqphp"]
 
 [sub_resource type="Animation" id="Animation_ql8fe"]
 length = 0.001
@@ -64,7 +65,12 @@ _data = {
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_f2mig")
 
+[node name="blackjack_background_3" parent="." instance=ExtResource("2_f2mig")]
+position = Vector2(-961, -543)
+scale = Vector2(1.5, 1.5)
+
 [node name="blackjack_background_2" parent="." instance=ExtResource("2_yqphp")]
+visible = false
 position = Vector2(-961, -543)
 scale = Vector2(1.5, 1.5)
 
@@ -83,6 +89,7 @@ scale = Vector2(289590, 385618)
 zoom = Vector2(0.67, 0.67)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Camera2D"]
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="Camera2D/CanvasLayer"]
 offset_right = 2029.0
@@ -175,31 +182,28 @@ offset_right = 942.5
 offset_bottom = 190.0
 theme_override_fonts/font = ExtResource("6_hfiib")
 theme_override_font_sizes/font_size = 110
-text = "OOO"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Life_Dealer" type="Label" parent="Visible_Label"]
 offset_left = -936.0
-offset_top = -225.0
+offset_top = -151.0
 offset_right = -598.5
-offset_bottom = -74.0
 theme_override_font_sizes/font_size = 110
-text = "OOO"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Wp2436045-violet-evergarden-wallpapers" type="Sprite2D" parent="."]
-position = Vector2(773, 343)
-scale = Vector2(0.75, 0.75)
-texture = ExtResource("8_e23hb")
+position = Vector2(755, 343)
+scale = Vector2(0.391732, 0.391732)
+texture = ExtResource("8_f2mig")
 region_enabled = true
-region_rect = Rect2(280, 32, 450, 450)
+region_rect = Rect2(8, 128, 1040, 1016)
 
 [node name="Waguri" type="Sprite2D" parent="."]
-position = Vector2(-768, -348)
-scale = Vector2(1.5, 1.5)
-texture = ExtResource("9_g3yiv")
+position = Vector2(-759, -339)
+scale = Vector2(0.299998, 0.299998)
+texture = ExtResource("9_yqphp")
 
 [node name="Invisible_Button" type="Node2D" parent="."]
 position = Vector2(1601, 0)
@@ -224,7 +228,6 @@ offset_right = 586.0
 offset_bottom = -275.0
 theme_override_fonts/font = ExtResource("7_jr8fg")
 theme_override_font_sizes/font_size = 50
-text = "adwad"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

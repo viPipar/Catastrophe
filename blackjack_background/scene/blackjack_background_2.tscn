@@ -1,0 +1,141 @@
+[gd_scene load_steps=11 format=3 uid="uid://bsps7tsl6fhb5"]
+
+[ext_resource type="Texture2D" uid="uid://c0dp1t8w3dodr" path="res://Shared/blackjack_background/asset/blackjack_rev.png" id="1_k5hus"]
+[ext_resource type="Texture2D" uid="uid://db7e4oh0dtyug" path="res://Shared/blackjack_background/asset/blackjack_rev_11.png" id="2_k5hus"]
+[ext_resource type="Texture2D" uid="uid://vyovxjcuckda" path="res://Shared/blackjack_background/asset/blackjack_rev_2.png" id="2_pindt"]
+[ext_resource type="Texture2D" uid="uid://boy74wadlxk67" path="res://Shared/blackjack_background/asset/vines ring.png" id="3_pindt"]
+
+[sub_resource type="Animation" id="Animation_k5hus"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_pindt"]
+resource_name = "light"
+length = 8.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.13333, 2.76667, 3.33333, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.576471), Color(1, 1, 1, 0), Color(1, 1, 1, 0.635294), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nh041"]
+_data = {
+&"RESET": SubResource("Animation_k5hus"),
+&"light": SubResource("Animation_pindt")
+}
+
+[sub_resource type="Animation" id="Animation_nh041"]
+resource_name = "wheel"
+length = 10.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D2:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D3:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -6.28319]
+}
+
+[sub_resource type="Animation" id="Animation_jqjir"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D2:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D3:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g5414"]
+_data = {
+&"RESET": SubResource("Animation_jqjir"),
+&"wheel": SubResource("Animation_nh041")
+}
+
+[node name="blackjack_background_2" type="Node2D"]
+
+[node name="background" type="Sprite2D" parent="."]
+texture = ExtResource("1_k5hus")
+centered = false
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_k5hus")
+centered = false
+
+[node name="light" type="Sprite2D" parent="Sprite2D"]
+modulate = Color(1, 1, 1, 0)
+texture = ExtResource("2_pindt")
+centered = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D/light"]
+libraries = {
+&"": SubResource("AnimationLibrary_nh041")
+}
+autoplay = "light"
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(-244, -53)
+texture = ExtResource("3_pindt")
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+position = Vector2(1508, 769)
+texture = ExtResource("3_pindt")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_g5414")
+}
+autoplay = "wheel"

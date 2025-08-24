@@ -13,7 +13,7 @@ extends CharacterBody2D
 @export var attack_range: float = 64.0
 
 # === STAT & DAMAGE ===
-@export var max_health: int = 50
+@export var max_health: int = 300
 @export var knockback_force: float = 200.0
 @export var hitstun_time: float = 0.3
 @export var knockback_decel: float = 1200.0
@@ -270,7 +270,20 @@ func _set_state(new_state: String, force: bool = false) -> void:
 		_attack_lock = false
 		_attack_timer = -1.0
 	state = new_state
+func _damage_from_area(area: Area2D) -> int:
+	# kalau area kasih angka damage spesifik, pakai itu
+	if area.has_meta("damage"):
+		return int(area.get_meta("damage"))
 
+	match area.name:
+		"AttackArea":
+			return GameState.damage_for("melee")
+		"CardProjectile":
+			return GameState.damage_for("projectile")
+		"ParryStun":
+			return GameState.damage_for("parry")
+		_:
+			return 0
 # ================== DAMAGE ==================
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	if invulnerable or state == "death":
@@ -278,16 +291,9 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 	if area == hit_area or area == parry_area or area.get_parent() == self or area.owner == self:
 		return
 
-	var dmg: int = 0
-	if area.name == "AttackArea":
-		dmg = 3
-	elif area.name == "CardProjectile":
-		dmg = 2
-	elif area.name == "ParryStun":
-		dmg = 4
-	else:
+	var dmg: int = _damage_from_area(area)
+	if dmg <= 0:
 		return
-
 	_take_damage(dmg, area)
 
 func _take_damage(amount: int, area: Area2D) -> void:

@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://du60q3du3tvn7"]
+
+[ext_resource type="Texture2D" path="res://asset/boss_room_0.jpg" id="1_q2dnh"]
+[ext_resource type="Texture2D" path="res://asset/boss_room_1.png" id="2_qh1pa"]
+[ext_resource type="Texture2D" path="res://asset/boss_room_2.png" id="3_nuyop"]
+[ext_resource type="Texture2D" path="res://asset/boss_room_3.png" id="4_qmmq0"]
+[ext_resource type="Texture2D" path="res://asset/boss_room_4.png" id="5_ep317"]
+
+[node name="boss_jatuh" type="ParallaxBackground"]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0, 0)
+motion_mirroring = Vector2(1280, 720)
+
+[node name="background_1" type="Sprite2D" parent="ParallaxLayer"]
+texture = ExtResource("1_q2dnh")
+centered = false
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0, 0)
+motion_mirroring = Vector2(1280, 720)
+
+[node name="background_2" type="Sprite2D" parent="ParallaxLayer2"]
+texture = ExtResource("2_qh1pa")
+centered = false
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0, 0)
+motion_mirroring = Vector2(1280, 720)
+
+[node name="background_3" type="Sprite2D" parent="ParallaxLayer3"]
+texture = ExtResource("3_nuyop")
+centered = false
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0, 0)
+motion_mirroring = Vector2(1280, 720)
+
+[node name="background_4" type="Sprite2D" parent="ParallaxLayer4"]
+texture = ExtResource("4_qmmq0")
+centered = false
+
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="."]
+motion_scale = Vector2(0, 0)
+motion_mirroring = Vector2(1280, 720)
+
+[node name="background_5" type="Sprite2D" parent="ParallaxLayer5"]
+texture = ExtResource("5_ep317")
+centered = false
