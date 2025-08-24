@@ -1,9 +1,10 @@
-[gd_scene load_steps=34 format=3 uid="uid://bdqvhos4h542n"]
+[gd_scene load_steps=35 format=3 uid="uid://bdqvhos4h542n"]
 
 [ext_resource type="Script" uid="uid://sx532aayp1r" path="res://enemy_barkwing.gd" id="1_clcyb"]
 [ext_resource type="Texture2D" uid="uid://cm7dywv3ghe56" path="res://assets/sprites/enemy/barkwing/Attack.png" id="2_hdp0k"]
 [ext_resource type="Texture2D" uid="uid://pfrskb0jixxc" path="res://assets/sprites/enemy/barkwing/Death.png" id="3_owo3o"]
 [ext_resource type="Texture2D" uid="uid://vtf3ia3ewofi" path="res://assets/sprites/enemy/barkwing/Take Hit.png" id="4_erv8i"]
+[ext_resource type="AudioStream" uid="uid://b8ftaetnrelbf" path="res://assets/audio/Barkwing/sword-blade-slicing-flesh-352708.mp3" id="5_hdp0k"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_prf1x"]
 atlas = ExtResource("2_hdp0k")
@@ -231,6 +232,7 @@ position = Vector2(5, 3)
 shape = SubResource("RectangleShape2D_fn8il")
 
 [node name="HitArea" type="Area2D" parent="."]
+z_index = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea"]
 position = Vector2(5, 3)
@@ -241,3 +243,9 @@ shape = SubResource("RectangleShape2D_clcyb")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(5, 3)
 shape = SubResource("RectangleShape2D_hdp0k")
+
+[node name="Audio" type="Node" parent="."]
+
+[node name="Hurt" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("5_hdp0k")
+volume_db = 8.0

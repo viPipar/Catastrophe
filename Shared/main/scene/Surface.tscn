@@ -1,4 +1,4 @@
-[gd_scene load_steps=202 format=4 uid="uid://dflh43i41n3fx"]
+[gd_scene load_steps=203 format=4 uid="uid://dflh43i41n3fx"]
 
 [ext_resource type="PackedScene" uid="uid://gx7jt67karci" path="res://Shared/castle_map/scene/castle_map 2.tscn" id="1_lr3fq"]
 [ext_resource type="PackedScene" uid="uid://cxn5ye76bwr53" path="res://Shared/castle_map/scene/castle_map.tscn" id="2_pfod2"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://bk551y5q1tl7q" path="res://enemy_mushi.tscn" id="20_udhl8"]
 [ext_resource type="PackedScene" uid="uid://bdqvhos4h542n" path="res://enemy_barkwing.tscn" id="21_ylx0j"]
 [ext_resource type="Script" uid="uid://y514lfl84te" path="res://Shared/main/scene/area_2d.gd" id="22_pfod2"]
+[ext_resource type="PackedScene" uid="uid://0xr1rjotdfth" path="res://enemy_ctulhu.tscn" id="24_y0sqh"]
 [ext_resource type="PackedScene" uid="uid://n0w0hvvak5is" path="res://enemy_cloverknight.tscn" id="25_vjlrp"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_drqlo"]
@@ -5327,7 +5328,12 @@ collision_mask = 2
 shape = SubResource("RectangleShape2D_ibhgj")
 
 [node name="Enemy_CloverKnight" parent="." instance=ExtResource("25_vjlrp")]
+z_index = 10
 position = Vector2(2114, 658)
 scale = Vector2(0.15, 0.15)
+
+[node name="Enemy_Ctulhu" parent="." instance=ExtResource("24_y0sqh")]
+z_index = 10
+position = Vector2(897, 619)
 
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]

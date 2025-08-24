@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://n0w0hvvak5is"]
+[gd_scene load_steps=59 format=3 uid="uid://n0w0hvvak5is"]
 
 [ext_resource type="Script" uid="uid://bx3b1nxlmu83d" path="res://enemy_cloverknight.gd" id="1_d0rkd"]
 [ext_resource type="Texture2D" uid="uid://cv8fqilrkvqbu" path="res://assets/sprites/enemy/cloverknight/ATTACK 1_Clover Knight.png" id="2_oiwja"]
@@ -7,6 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://cqn1y0v7wir6p" path="res://assets/sprites/enemy/cloverknight/IDLE.png" id="5_4ux18"]
 [ext_resource type="Texture2D" uid="uid://b556dwlfg8no" path="res://assets/sprites/enemy/cloverknight/HURT.png" id="6_symn5"]
 [ext_resource type="Texture2D" uid="uid://bokar453tvt2b" path="res://assets/sprites/enemy/cloverknight/RUN.png" id="7_17b55"]
+[ext_resource type="AudioStream" uid="uid://do4q8iah6w8xc" path="res://assets/audio/CloverKnight/hit-flesh-02-266309.mp3" id="8_oiwja"]
+[ext_resource type="AudioStream" uid="uid://c002pxbvos05l" path="res://assets/audio/CloverKnight/WalkSFX.MP3" id="9_1ueuj"]
+[ext_resource type="AudioStream" uid="uid://jr37r5a2g20c" path="res://assets/audio/CloverKnight/AttackSFX.MP3" id="10_jupjx"]
+[ext_resource type="AudioStream" uid="uid://b14tpwmy7eakm" path="res://assets/audio/CloverKnight/DeathSFX.MP3" id="11_4ux18"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tm73b"]
 size = Vector2(223, 444)
@@ -381,14 +385,17 @@ position = Vector2(22.5, 62)
 shape = SubResource("RectangleShape2D_tm73b")
 
 [node name="HitArea" type="Area2D" parent="."]
+z_index = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea"]
 position = Vector2(288, 80)
 shape = SubResource("RectangleShape2D_ex21c")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
-position = Vector2(145, 201)
+z_index = 10
+position = Vector2(139, 284)
 scale = Vector2(15, 15)
+target_position = Vector2(0, 20)
 
 [node name="Hurtbox" type="Area2D" parent="."]
 
@@ -408,3 +415,21 @@ position = Vector2(10, 36)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ParryAttack"]
 position = Vector2(264.5, 42)
 shape = SubResource("RectangleShape2D_d0rkd")
+
+[node name="Audio" type="Node" parent="."]
+
+[node name="Hurt" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("8_oiwja")
+volume_db = 5.0
+
+[node name="Walk" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("9_1ueuj")
+volume_db = -8.387
+
+[node name="Attack" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("10_jupjx")
+volume_db = -4.0
+
+[node name="Death" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("11_4ux18")
+volume_db = 10.0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=129 format=3 uid="uid://bjjjxnrku30bh"]
+[gd_scene load_steps=140 format=3 uid="uid://bjjjxnrku30bh"]
 
 [ext_resource type="Texture2D" uid="uid://cy27knyrsv4tp" path="res://assets/sprites/main_character/Main Character (Combo Attack).png" id="1_2v62t"]
 [ext_resource type="PackedScene" uid="uid://dbx0cw5vp2n52" path="res://card_projectile.tscn" id="1_qthh5"]
@@ -11,6 +11,17 @@
 [ext_resource type="Texture2D" uid="uid://b1be5ush0lv6r" path="res://assets/sprites/main_character/Main Character (Walk).png" id="7_k7f46"]
 [ext_resource type="Texture2D" uid="uid://1agkpsopg74k" path="res://assets/sprites/main_character/Main Character (Parry).png" id="7_wcpx6"]
 [ext_resource type="Texture2D" uid="uid://map5f2ut1m6d" path="res://assets/sprites/main_character/Main Character (Projectile).png" id="9_5q0wt"]
+[ext_resource type="AudioStream" uid="uid://b2ldxgqwaxos4" path="res://assets/audio/Jaeger/ParrySFX.MP3" id="12_dypn8"]
+[ext_resource type="AudioStream" uid="uid://ckbk721d8gcq1" path="res://assets/audio/Jaeger/Attack1SFX.MP3" id="13_07ek2"]
+[ext_resource type="AudioStream" uid="uid://hwx8xj6tjfmw" path="res://assets/audio/Jaeger/Attack2SFX.MP3" id="14_kg3iu"]
+[ext_resource type="AudioStream" uid="uid://rcby6fu3kag5" path="res://assets/audio/Jaeger/Attack3SFX.MP3" id="15_mjyag"]
+[ext_resource type="AudioStream" uid="uid://07ilxmgqu2mm" path="res://assets/audio/Jaeger/HurtSFX.mp3" id="16_kg3iu"]
+[ext_resource type="AudioStream" uid="uid://btkf066m1dw1m" path="res://assets/audio/Jaeger/ProjectileSFX.MP3" id="17_mjyag"]
+[ext_resource type="AudioStream" uid="uid://dis2ptoxido8y" path="res://assets/audio/Jaeger/DashSFX.MP3" id="18_mjyag"]
+[ext_resource type="AudioStream" uid="uid://cx6abb4txmw7y" path="res://assets/audio/Jaeger/DrawSFX.MP3" id="19_wtyc1"]
+[ext_resource type="AudioStream" uid="uid://dcarmlfdu1dua" path="res://assets/audio/Jaeger/WalkSFX.MP3" id="20_wevls"]
+[ext_resource type="AudioStream" uid="uid://iaejir76ucuq" path="res://assets/audio/Jaeger/JumpSFX.mp3" id="21_8013f"]
+[ext_resource type="AudioStream" uid="uid://bi04i3hun1yh1" path="res://assets/audio/Jaeger/DoubleJumpSFX.mp3" id="22_y5ku0"]
 
 [sub_resource type="GDScript" id="GDScript_wtcfe"]
 script/source = "extends CharacterBody2D
@@ -71,9 +82,20 @@ var projectile_spawned: bool = false
 
 # Sprite + nodes
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var hurtbox: Area2D = $Hurtbox
+@onready var hurtbox: Area2D = $HurtBox
 @onready var parry_area: CollisionShape2D = $ParryArea/CollisionShape2D
 @onready var attack_area: CollisionShape2D = $AttackArea/CollisionShape2D
+@onready var parrysfx: AudioStreamPlayer= $Audio/Parry
+@onready var attack1sfx: AudioStreamPlayer= $Audio/Attack1
+@onready var attack2sfx: AudioStreamPlayer= $Audio/Attack2
+@onready var attack3sfx: AudioStreamPlayer= $Audio/Attack3
+@onready var hurtsfx: AudioStreamPlayer= $Audio/Hurt
+@onready var projectilesfx: AudioStreamPlayer= $Audio/Projectile
+@onready var dashsfx: AudioStreamPlayer = $Audio/Dash
+@onready var drawsfx: AudioStreamPlayer = $Audio/Draw
+@onready var walksfx: AudioStreamPlayer = $Audio/Walk
+@onready var jumpsfx: AudioStreamPlayer = $Audio/Jump
+@onready var doublejumpsfx: AudioStreamPlayer = $Audio/DoubleJump
 
 # store parents for robust world/local conversions
 var attack_parent: Node = null
@@ -142,6 +164,7 @@ func _ready():
 	attack_timer.timeout.connect(_on_attack_timer_timeout)
 	attack_cooldown_timer.timeout.connect(_on_attack_cooldown_timeout)
 	attack_combo_timer.timeout.connect(_on_attack_combo_timeout)
+	walksfx.stream.loop = true
 
 	if hurtbox:
 		hurtbox.area_entered.connect(_on_hurtbox_area_entered)
@@ -203,6 +226,7 @@ func _physics_process(delta: float) -> void:
 		dash_timer -= delta
 		velocity.y = 0
 		velocity.x = facing_dir * dash_speed
+		dashsfx.play()
 		if sprite.animation != \"dash\":
 			sprite.play(\"dash\")
 		if dash_timer <= 0:
@@ -214,6 +238,7 @@ func _physics_process(delta: float) -> void:
 		velocity.y += gravity * delta
 		if velocity.y < 0:
 			if jump_count == 1 and sprite.animation != \"jump\":
+				jumpsfx.play()
 				sprite.play(\"jump\")
 			elif jump_count == 2 and sprite.animation != \"doublejump\":
 				sprite.play(\"doublejump\")
@@ -233,14 +258,16 @@ func _physics_process(delta: float) -> void:
 			if jump_count == 1:
 				sprite.play(\"jump\")
 			else:
+				doublejumpsfx.play()
 				sprite.play(\"doublejump\")
 
 	if Input.is_action_just_pressed(\"parry\") and not is_dashing and not is_attacking and not is_parrying and is_on_floor():
 		is_parrying = true
 		velocity.x = 0
+		drawsfx.play()
 		sprite.play(\"parry\")
 
-	if Input.is_action_just_pressed(\"attack\") and not is_dashing and not is_parrying and not is_shooting:
+	if Input.is_action_just_pressed(\"attack\") and not is_dashing and not is_parrying and not is_shooting and is_on_floor():
 		try_attack()
 
 	if Input.is_action_just_pressed(\"projectile\") and not is_dashing and not is_parrying and not is_attacking and not is_shooting:
@@ -277,9 +304,17 @@ func _physics_process(delta: float) -> void:
 			if dir != 0:
 				if sprite.animation != \"walk\":
 					sprite.play(\"walk\")
+				if not walksfx.playing:   # pastikan tidak dobel
+					walksfx.play()
 			else:
-				if velocity.x == 0 and sprite.animation != \"idle\":
+				if sprite.animation != \"idle\":
 					sprite.play(\"idle\")
+				if walksfx.playing:
+					walksfx.stop()
+		else:
+			# kalau di udara, matikan suara jalan
+			if walksfx.playing:
+				walksfx.stop()
 
 	if dir != 0:
 		sprite.flip_h = (facing_dir < 0)
@@ -333,6 +368,7 @@ func take_damage(amount: int, source: Node = null, from_area_name: String = \"\"
 	if health_bar:
 		health_bar.value = current_health
 	if sprite.animation != \"hurt\":
+		hurtsfx.play()
 		sprite.play(\"hurt\")
 	invulnerable = true
 	invuln_timer = invuln_time
@@ -380,6 +416,19 @@ func try_attack():
 		is_attacking = true
 		lunge_timer = lunge_duration
 		sprite.play(\"attack_%d\" % combo_step)
+
+		# ----- play corresponding attack SFX -----
+		match combo_step:
+			1:
+				if attack1sfx != null:
+					attack1sfx.play()
+			2:
+				if attack2sfx != null:
+					attack2sfx.play()
+			3:
+				if attack3sfx != null:
+					attack3sfx.play()
+
 		attack_timer.start()
 		attack_cooldown_timer.start()
 		attack_combo_timer.start()
@@ -393,6 +442,7 @@ func spawn_projectile():
 		if bullet.has_node(\"AnimatedSprite2D\"):
 			var spr: AnimatedSprite2D = bullet.get_node(\"AnimatedSprite2D\")
 			spr.flip_h = (facing_dir < 0)
+			projectilesfx.play()
 			spr.play(\"default\")
 
 # ========== ANIM / FRAME EVENTS ==========
@@ -455,6 +505,7 @@ func _activate_parry_stun(duration: float = 0.5) -> void:
 
 	# ----- aktifkan slow motion -----
 	Engine.time_scale = 0.3   # 30% kecepatan normal
+	parrysfx.play()
 
 	# simpan zoom awal kamera
 	var original_zoom: Vector2 = camera.zoom
@@ -1387,7 +1438,7 @@ size = Vector2(18.3333, 36.6667)
 size = Vector2(37.3333, 26.6667)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qthh5"]
-radius = 68.0
+radius = 116.0
 
 [node name="main_character" type="CharacterBody2D" groups=["player"]]
 scale = Vector2(-1.5, 1.5)
@@ -1432,10 +1483,10 @@ frame_progress = 1.0
 [node name="SpawnPoint" type="Node2D" parent="."]
 position = Vector2(32, -5.33333)
 
-[node name="Hurtbox" type="Area2D" parent="."]
+[node name="HurtBox" type="Area2D" parent="."]
 collision_mask = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 position = Vector2(32, -5)
 scale = Vector2(0.021, 0.021)
 shape = SubResource("RectangleShape2D_1fr6y")
@@ -1456,3 +1507,39 @@ collision_mask = 65535
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ParryStun"]
 position = Vector2(33.3333, -16)
 shape = SubResource("CircleShape2D_qthh5")
+
+[node name="Audio" type="Node" parent="."]
+
+[node name="Parry" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("12_dypn8")
+
+[node name="Attack1" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("13_07ek2")
+
+[node name="Attack2" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("14_kg3iu")
+
+[node name="Attack3" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("15_mjyag")
+
+[node name="Hurt" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("16_kg3iu")
+
+[node name="Projectile" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("17_mjyag")
+
+[node name="Dash" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("18_mjyag")
+
+[node name="Draw" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("19_wtyc1")
+
+[node name="Walk" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("20_wevls")
+volume_db = 10.065
+
+[node name="Jump" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("21_8013f")
+
+[node name="DoubleJump" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("22_y5ku0")

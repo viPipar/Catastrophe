@@ -9,6 +9,7 @@ var velocity: Vector2 = Vector2.ZERO
 
 @onready var player: Node2D = get_parent().get_node_or_null("main_character")
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
+@onready var hurtsfx = $Audio/Hurt
 
 # --- knockback / hitstun ---
 @export var knockback_force: float = 160.0          # horizontal knockback magnitude
@@ -76,7 +77,7 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 
 	# Accept either the area itself named AttackArea or its parent named AttackArea
 	var area_is_attack_area := false
-	if area.name == "AttackArea":
+	if area.name in ["AttackArea", "ParryStun"]:
 		area_is_attack_area = true
 	elif area.get_parent() != null and str(area.get_parent().name) == "AttackArea":
 		area_is_attack_area = true
@@ -96,14 +97,13 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 	# Play onhit animation if exists
 	if anim:
 		if anim.sprite_frames.has_animation("onhit"):
+			hurtsfx.play()
 			anim.play("onhit")
-		elif anim.sprite_frames.has_animation("hurt"):
-			anim.play("hurt")
 
 	# Start small knockback away from the source
 	var kb_dir = 1
 	if source_node is Node2D:
-		kb_dir = sign(global_position.x - (source_node as Node2D).global_position.x)
+		kb_dir = sign(global_position.x - (source_node as Node2D).global_position.x - 60)
 		if kb_dir == 0:
 			kb_dir = 1
 	else:

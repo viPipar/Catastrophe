@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://bk551y5q1tl7q"]
+[gd_scene load_steps=44 format=3 uid="uid://bk551y5q1tl7q"]
 
 [ext_resource type="Script" uid="uid://cpt2ewb5mb88c" path="res://enemy_mushi.gd" id="1_d5ldx"]
 [ext_resource type="Texture2D" uid="uid://tvb11vxl2uya" path="res://assets/sprites/enemy/mushi/Attack.png" id="2_ip261"]
@@ -6,6 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://b25bl6hsvxo0p" path="res://assets/sprites/enemy/mushi/Idle.png" id="4_cs8ge"]
 [ext_resource type="Texture2D" uid="uid://bkjugbdr83dgm" path="res://assets/sprites/enemy/mushi/Take Hit.png" id="5_tfdl3"]
 [ext_resource type="Texture2D" uid="uid://ct7ooegdcyfna" path="res://assets/sprites/enemy/mushi/Run.png" id="6_ijkjm"]
+[ext_resource type="AudioStream" uid="uid://bshvilllqorac" path="res://assets/audio/Mushi/flesh-impact-266316.mp3" id="7_ip261"]
+[ext_resource type="AudioStream" uid="uid://c0iovmkk5r4qj" path="res://assets/audio/Mushi/WalkSFX.MP3" id="8_sd1x3"]
+[ext_resource type="AudioStream" uid="uid://u3ayc3d0qwmo" path="res://assets/audio/Mushi/AttackSFX.MP3" id="9_cs8ge"]
+[ext_resource type="AudioStream" uid="uid://ny65irqpjape" path="res://assets/audio/Ctulhu/giant-fall-impact-352446.mp3" id="10_tfdl3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pba3b"]
 size = Vector2(19, 42)
@@ -288,7 +292,9 @@ frame = 15
 frame_progress = 1.0
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
+z_index = 10
 position = Vector2(11, 24)
+target_position = Vector2(0, 20)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 4)
@@ -306,3 +312,20 @@ shape = SubResource("RectangleShape2D_ip261")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ParryAttack"]
 position = Vector2(13.5, 4)
 shape = SubResource("RectangleShape2D_sd1x3")
+
+[node name="Audio" type="Node" parent="."]
+
+[node name="Walk" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("8_sd1x3")
+volume_db = -15.096
+
+[node name="Attack" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("9_cs8ge")
+
+[node name="Hurt" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("7_ip261")
+volume_db = 5.0
+
+[node name="Death" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("10_tfdl3")
+volume_db = 5.871

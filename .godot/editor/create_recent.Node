@@ -1,3 +1,5 @@
+AudioStreamPlayer
+Node
 Label
 Button
 Node2D
@@ -10,5 +12,3 @@ Control
 AnimationTree
 Area2D
 CollisionShape2D
-CollisionShape2D
-Area2D

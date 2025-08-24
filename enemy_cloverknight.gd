@@ -10,12 +10,12 @@ extends CharacterBody2D
 @export var chase_speed_mult: float = 1.2
 @export var raycast_ahead: float = 16.0
 @export var chase_stop_distance: float = 20.0
-@export var attack_range: float = 32.0
+@export var attack_range: float = 64.0
 
 # === STAT & DAMAGE ===
 @export var max_health: int = 50
 @export var knockback_force: float = 200.0
-@export var hitstun_time: float = 0.20
+@export var hitstun_time: float = 0.3
 @export var knockback_decel: float = 1200.0
 
 # === ATTACK HANDLING ===
@@ -53,6 +53,11 @@ var _attack_lock: bool = false
 @onready var parry_area: Area2D = $ParryAttack
 @onready var parry_shape: CollisionShape2D = $ParryAttack/CollisionShape2D
 
+@onready var hurtsfx = $Audio/Hurt
+@onready var walksfx = $Audio/Walk
+@onready var attacksfx = $Audio/Attack
+@onready var deathsfx = $Audio/Death
+
 # backup posisi awal hitarea & parry agar mirror konsisten
 var _hitarea_base_pos: Vector2 = Vector2.ZERO
 var _hitshape_base_pos: Vector2 = Vector2.ZERO
@@ -66,6 +71,7 @@ func _ready() -> void:
 	patrol_left_x = patrol_center_x - patrol_distance
 	patrol_right_x = patrol_center_x + patrol_distance
 	current_target_x = patrol_right_x
+	walksfx.stream.loop = true
 
 	# signals
 	if hurtbox:
@@ -124,7 +130,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 # ================== STATE FUNCTIONS ==================
-func _state_patrol_move(delta: float) -> void:
+func _state_patrol_move(_delta: float) -> void:
 	var dir = sign(current_target_x - global_position.x)
 	if dir == 0:
 		dir = 1
@@ -153,12 +159,12 @@ func _state_idle(delta: float) -> void:
 	elif idle_timer <= 0.0:
 		_set_state("patrol_move")
 
-func _state_chase(delta: float) -> void:
+func _state_chase(_delta: float) -> void:
 	if not _can_see_player():
 		_set_state("patrol_move")
 		return
 
-	var dx = player.global_position.x - global_position.x
+	var dx = player.global_position.x - global_position.x - 60
 	var dist_abs = abs(dx)
 	var dir = sign(dx)
 
@@ -204,24 +210,45 @@ func _can_see_player() -> bool:
 	if player == null:
 		return false
 	return global_position.distance_to(player.global_position) <= detection_range
-
+  
 func _update_anim() -> void:
 	match state:
 		"idle":
 			anim.play("idle")
+			if walksfx.playing:
+				walksfx.stop()
+
 		"death":
 			anim.play("death")
+			if walksfx.playing:
+				walksfx.stop()
+
 		"onhit":
 			anim.play("onhit")
+			if walksfx.playing:
+				walksfx.stop()
+
 		"attack":
 			anim.play("attack")
+			if walksfx.playing:
+				walksfx.stop()
+
 		_:
 			anim.play("walk")
+			# play hanya kalau ada gerakan horizontal
+			if abs(velocity.x) > 5.0: 
+				if not walksfx.playing:
+					walksfx.play()
+			else:
+				if walksfx.playing:
+					walksfx.stop()
 
+	# handle flip sprite
 	if velocity.x != 0:
 		anim.flip_h = velocity.x < 0
 	else:
 		anim.flip_h = facing_dir < 0
+
 
 func _set_state(new_state: String, force: bool = false) -> void:
 	if state == new_state:
@@ -230,6 +257,7 @@ func _set_state(new_state: String, force: bool = false) -> void:
 		return
 	if new_state == "attack":
 		state = "attack"
+		attacksfx.play()
 		_attack_lock = true
 		_attack_timer = 0.0
 		if hit_shape:
@@ -275,11 +303,13 @@ func _take_damage(amount: int, area: Area2D) -> void:
 		if dir == 0:
 			dir = 1
 		velocity.x = dir * (knockback_force * 0.5)
+		hurtsfx.play()
 		_set_state("onhit", true)
 	else:
 		_set_state("death", true)
 		invulnerable = true
 		velocity = Vector2.ZERO
+		deathsfx.play()
 		anim.play("death")
 
 # ================== ANIM EVENTS ==================
