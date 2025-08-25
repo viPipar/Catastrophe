@@ -1,6 +1,11 @@
 extends TextureProgressBar
 
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		$".".visible = !$".".visible
+
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	var gs = get_node_or_null("/root/GameState")
 	if not gs:
 		push_error("GameState tidak ditemukan di /root/GameState")

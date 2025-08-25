@@ -1,10 +1,11 @@
-[gd_scene load_steps=80 format=4 uid="uid://cudabg757paye"]
+[gd_scene load_steps=82 format=4 uid="uid://cudabg757paye"]
 
 [ext_resource type="PackedScene" uid="uid://d1vb3l1q4hj80" path="res://Shared/cavetwo_map/scene/cavetwo_map.tscn" id="1_wi8n5"]
 [ext_resource type="Texture2D" uid="uid://2m3oygd4g6g2" path="res://Shared/main/asset/mainlev_build.png" id="2_td4jb"]
 [ext_resource type="Texture2D" uid="uid://cfoyubq17ns70" path="res://Shared/main/asset/props1.png" id="3_y7kmt"]
 [ext_resource type="Texture2D" uid="uid://vx6xq41dbgvv" path="res://Shared/main/asset/props2.png" id="4_cnq07"]
 [ext_resource type="PackedScene" uid="uid://bjjjxnrku30bh" path="res://main_character.tscn" id="5_6mlvh"]
+[ext_resource type="PackedScene" uid="uid://bsx4rndmp1o6m" path="res://pause_menu.tscn" id="6_eswax"]
 [ext_resource type="PackedScene" uid="uid://csnsj765006vr" path="res://Shared/main/scene/moving_platform_cave.tscn" id="6_td4jb"]
 [ext_resource type="Script" uid="uid://c2wyi5m2unr8y" path="res://Shared/main/scene/area_2d_caveone.gd" id="7_y7kmt"]
 [ext_resource type="PackedScene" uid="uid://0xr1rjotdfth" path="res://enemy_ctulhu.tscn" id="8_6mlvh"]
@@ -12,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://bk551y5q1tl7q" path="res://enemy_mushi.tscn" id="9_bvokh"]
 [ext_resource type="Texture2D" uid="uid://hhkjmolxw80g" path="res://assets/hpbar/HealthBar DARKP.png" id="9_srw6q"]
 [ext_resource type="Script" uid="uid://c46852mh0mlp0" path="res://Shared/main/scene/hpbar.gd" id="10_eswax"]
+[ext_resource type="PackedScene" uid="uid://bdqvhos4h542n" path="res://enemy_barkwing.tscn" id="13_srw6q"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bvokh"]
 texture = ExtResource("2_td4jb")
@@ -20442,6 +20444,12 @@ libraries = {
 }
 autoplay = "fade_out"
 
+[node name="PauseMenu" parent="main_character/Camera2D/Faderlayer" instance=ExtResource("6_eswax")]
+offset_left = 635.0
+offset_top = 685.0
+offset_right = 635.0
+offset_bottom = 685.0
+
 [node name="Moving Platform" type="Node2D" parent="."]
 position = Vector2(216, 16)
 
@@ -20676,5 +20684,74 @@ position = Vector2(12596, 1244)
 
 [node name="Enemy_Ctulhu12" parent="." instance=ExtResource("8_6mlvh")]
 position = Vector2(13130, 782)
+
+[node name="enemy_barkwing" parent="." instance=ExtResource("13_srw6q")]
+position = Vector2(1262, 66)
+
+[node name="enemy_barkwing2" parent="." instance=ExtResource("13_srw6q")]
+position = Vector2(1630, -147)
+
+[node name="enemy_barkwing3" parent="." instance=ExtResource("13_srw6q")]
+position = Vector2(2048, -295)
+
+[node name="enemy_barkwing4" parent="." instance=ExtResource("13_srw6q")]
+position = Vector2(563, 808)
+
+[node name="enemy_barkwing5" parent="." instance=ExtResource("13_srw6q")]
+position = Vector2(1250, 701)
+
+[node name="enemy_barkwing6" parent="." instance=ExtResource("13_srw6q")]
+position = Vector2(3908, 152)
+
+[node name="enemy_barkwing7" parent="." instance=ExtResource("13_srw6q")]
+position = Vector2(3656, 515)
+
+[node name="enemy_barkwing8" parent="." instance=ExtResource("13_srw6q")]
+position = Vector2(3877, 791)
+
+[node name="enemy_barkwing9" parent="." instance=ExtResource("13_srw6q")]
+position = Vector2(3970, 1046)
+
+[node name="enemy_barkwing10" parent="." instance=ExtResource("13_srw6q")]
+position = Vector2(4755, 1008)
+
+[node name="enemy_barkwing11" parent="." instance=ExtResource("13_srw6q")]
+position = Vector2(5176, 788)
+
+[node name="enemy_barkwing12" parent="." instance=ExtResource("13_srw6q")]
+position = Vector2(5594, 621)
+
+[node name="enemy_barkwing13" parent="." instance=ExtResource("13_srw6q")]
+position = Vector2(4641, 454)
+
+[node name="enemy_barkwing14" parent="." instance=ExtResource("13_srw6q")]
+position = Vector2(5062, 381)
+
+[node name="enemy_barkwing15" parent="." instance=ExtResource("13_srw6q")]
+position = Vector2(5522, 127)
+
+[node name="enemy_barkwing16" parent="." instance=ExtResource("13_srw6q")]
+position = Vector2(4926, -162)
+
+[node name="enemy_barkwing17" parent="." instance=ExtResource("13_srw6q")]
+position = Vector2(5400, -200)
+
+[node name="enemy_barkwing18" parent="." instance=ExtResource("13_srw6q")]
+position = Vector2(5784, -389)
+
+[node name="enemy_barkwing19" parent="." instance=ExtResource("13_srw6q")]
+position = Vector2(9801, 833)
+
+[node name="enemy_barkwing20" parent="." instance=ExtResource("13_srw6q")]
+position = Vector2(9863, 357)
+
+[node name="enemy_barkwing21" parent="." instance=ExtResource("13_srw6q")]
+position = Vector2(9655, 77)
+
+[node name="enemy_barkwing22" parent="." instance=ExtResource("13_srw6q")]
+position = Vector2(9715, -97)
+
+[node name="enemy_barkwing23" parent="." instance=ExtResource("13_srw6q")]
+position = Vector2(9860, -345)
 
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]

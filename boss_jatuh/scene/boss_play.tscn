@@ -1,13 +1,14 @@
-[gd_scene load_steps=18 format=3 uid="uid://uyh06d1octo6"]
+[gd_scene load_steps=19 format=3 uid="uid://uyh06d1octo6"]
 
-[ext_resource type="Script" uid="uid://d1hm0op77k5q6" path="res://boss_jatuh/script/boss_play.gd" id="1_gcte3"]
-[ext_resource type="Texture2D" uid="uid://d15pitn4tr4us" path="res://boss_jatuh/asset/boss_room_0.jpg" id="1_hk3n8"]
-[ext_resource type="PackedScene" uid="uid://wr4e8efe1flj" path="res://boss_jatuh/scene/background_boss_jatuh.tscn" id="2_gcte3"]
-[ext_resource type="Texture2D" uid="uid://dyaca8j6svjd4" path="res://boss_jatuh/asset/boss_room_5.png" id="3_e4kew"]
-[ext_resource type="Texture2D" uid="uid://cwqa6uyo0aoe3" path="res://boss_jatuh/asset/kucing jatuh.png" id="4_g0ubo"]
-[ext_resource type="Texture2D" uid="uid://bv3dqfdyd6qg2" path="res://boss_jatuh/asset/tails_long.png" id="5_3yek0"]
+[ext_resource type="Script" uid="uid://d1hm0op77k5q6" path="res://Shared/boss_jatuh/script/boss_play.gd" id="1_gcte3"]
+[ext_resource type="Texture2D" uid="uid://d15pitn4tr4us" path="res://Shared/boss_jatuh/asset/boss_room_0.jpg" id="1_hk3n8"]
+[ext_resource type="PackedScene" uid="uid://wr4e8efe1flj" path="res://Shared/boss_jatuh/scene/background_boss_jatuh.tscn" id="2_gcte3"]
+[ext_resource type="Texture2D" uid="uid://dyaca8j6svjd4" path="res://Shared/boss_jatuh/asset/boss_room_5.png" id="3_e4kew"]
+[ext_resource type="Texture2D" uid="uid://cwqa6uyo0aoe3" path="res://Shared/boss_jatuh/asset/kucing jatuh.png" id="4_g0ubo"]
+[ext_resource type="Texture2D" uid="uid://bv3dqfdyd6qg2" path="res://Shared/boss_jatuh/asset/tails_long.png" id="5_3yek0"]
 [ext_resource type="PackedScene" uid="uid://bjjjxnrku30bh" path="res://main_character.tscn" id="7_3726x"]
 [ext_resource type="Texture2D" uid="uid://bmbo1yjglp3ew" path="res://assets/hpbar/HealthBar DARK - Copy (2) - Copy.png" id="8_12ucp"]
+[ext_resource type="PackedScene" uid="uid://bsx4rndmp1o6m" path="res://pause_menu.tscn" id="8_ry223"]
 [ext_resource type="Texture2D" uid="uid://hhkjmolxw80g" path="res://assets/hpbar/HealthBar DARKP.png" id="9_ry223"]
 [ext_resource type="Script" uid="uid://c46852mh0mlp0" path="res://Shared/main/scene/hpbar.gd" id="10_u8mw0"]
 
@@ -255,6 +256,13 @@ modulate = Color(1, 1, 1, 0)
 offset_right = 1280.0
 offset_bottom = 720.0
 color = Color(0, 0, 0, 1)
+
+[node name="PauseMenu" parent="CanvasLayer3" instance=ExtResource("8_ry223")]
+visible = false
+offset_left = 623.0
+offset_top = 681.0
+offset_right = 623.0
+offset_bottom = 681.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

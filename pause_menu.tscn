@@ -1,0 +1,178 @@
+[gd_scene load_steps=4 format=3 uid="uid://bsx4rndmp1o6m"]
+
+[ext_resource type="Script" uid="uid://dnhus83iqwbi8" path="res://Pause.gd" id="1_05uyy"]
+[ext_resource type="Texture2D" uid="uid://0pquujndir3i" path="res://menu.png" id="2_p81d2"]
+[ext_resource type="FontFile" uid="uid://dphd0was5qchn" path="res://asset/press_start_2p (1)/PressStart2P.ttf" id="3_2nc7s"]
+
+[node name="PauseMenu" type="Control"]
+z_index = 150
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_05uyy")
+
+[node name="Pngtree-game-interface-in-wooden-style-for-mobile-app-png-image2911160" type="Sprite2D" parent="."]
+position = Vector2(0, -321)
+scale = Vector2(1.29063, 1.08222)
+texture = ExtResource("2_p81d2")
+region_rect = Rect2(24, 40, 320, 152)
+
+[node name="Pause" type="Label" parent="."]
+offset_left = -245.0
+offset_top = -636.0
+offset_right = 5.0
+offset_bottom = -536.0
+scale = Vector2(2, 2)
+theme_override_fonts/font = ExtResource("3_2nc7s")
+text = "Pause"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Main Menu" type="Label" parent="."]
+offset_left = -575.0
+offset_top = -116.0
+offset_right = 481.0
+offset_bottom = -16.0
+scale = Vector2(1.0791, 1.0791)
+theme_override_fonts/font = ExtResource("3_2nc7s")
+text = "Note : The game will restart
+ from the start if you go to main menu"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Exit" type="Button" parent="."]
+offset_left = 552.0
+offset_top = -652.0
+offset_right = 576.0
+offset_bottom = -621.0
+scale = Vector2(3.76, 3.76)
+focus_mode = 0
+theme_override_colors/font_hover_color = Color(0.501961, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_2nc7s")
+text = "X"
+flat = true
+
+[node name="Resume Button" type="Button" parent="."]
+offset_left = -153.0
+offset_top = -397.0
+offset_right = 97.0
+offset_bottom = -326.0
+scale = Vector2(1.27349, 1.27349)
+focus_mode = 0
+theme_override_colors/font_hover_color = Color(0.505344, 0.505344, 0.505344, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_2nc7s")
+text = "Resume"
+flat = true
+
+[node name="How to Play Button" type="Button" parent="."]
+offset_left = -153.0
+offset_top = -320.0
+offset_right = 97.0
+offset_bottom = -249.0
+scale = Vector2(1.27349, 1.27349)
+focus_mode = 0
+theme_override_colors/font_hover_color = Color(0.505344, 0.505344, 0.505344, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_2nc7s")
+text = "How to Play"
+flat = true
+
+[node name="Main Menu Button" type="Button" parent="."]
+offset_left = -153.0
+offset_top = -241.0
+offset_right = 97.0
+offset_bottom = -170.0
+scale = Vector2(1.27349, 1.27349)
+focus_mode = 0
+theme_override_colors/font_hover_color = Color(0.505344, 0.505344, 0.505344, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_2nc7s")
+text = "Main Menu"
+flat = true
+
+[node name="Hidden Labels" type="Control" parent="."]
+visible = false
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = -466.0
+offset_top = -439.0
+offset_right = -426.0
+offset_bottom = -399.0
+
+[node name="Backgroundnya" type="ColorRect" parent="Hidden Labels"]
+z_index = 1
+z_as_relative = false
+layout_mode = 0
+offset_left = -190.0
+offset_top = -237.0
+offset_right = 1148.0
+offset_bottom = 502.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Pngtree-game-interface-in-wooden-style-for-mobile-app-png-image2911160" type="Sprite2D" parent="Hidden Labels"]
+position = Vector2(466, 118)
+scale = Vector2(1.29063, 1.08222)
+texture = ExtResource("2_p81d2")
+region_rect = Rect2(24, 40, 320, 152)
+
+[node name="How to Play" type="Label" parent="Hidden Labels"]
+layout_mode = 0
+offset_top = -175.0
+offset_right = 848.0
+offset_bottom = 524.0
+theme_override_fonts/font = ExtResource("3_2nc7s")
+theme_override_font_sizes/font_size = 22
+text = "Movement
+
+A: Move Left
+D: Move Right
+Space: Jump / Double Jump
+Shift: Dash
+
+Combat
+
+J: Attack
+K: Parry
+I: Projectile
+
+Blackjack
+
+Hit untuk ambil kartu
+Stand untuk bertahan
+"
+vertical_alignment = 1
+
+[node name="How to Play2" type="Label" parent="Hidden Labels"]
+layout_mode = 0
+offset_left = 221.0
+offset_top = -197.0
+offset_right = 471.0
+offset_bottom = -97.0
+scale = Vector2(2, 2)
+theme_override_fonts/font = ExtResource("3_2nc7s")
+text = "How to Play"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Exit How to Play" type="Button" parent="Hidden Labels"]
+layout_mode = 0
+offset_left = 1018.0
+offset_top = -213.0
+offset_right = 1042.0
+offset_bottom = -182.0
+scale = Vector2(3.76, 3.76)
+focus_mode = 0
+theme_override_colors/font_hover_color = Color(0.501961, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_2nc7s")
+text = "X"
+flat = true
+
+[connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="Resume Button" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="How to Play Button" to="." method="_on_how_to_play_button_pressed"]
+[connection signal="pressed" from="Main Menu Button" to="." method="_on_main_menu_button_pressed"]
+[connection signal="pressed" from="Hidden Labels/Exit How to Play" to="." method="_on_exit_how_to_play_pressed"]

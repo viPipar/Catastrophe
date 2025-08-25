@@ -1,4 +1,4 @@
-[gd_scene load_steps=204 format=4 uid="uid://dflh43i41n3fx"]
+[gd_scene load_steps=206 format=4 uid="uid://dflh43i41n3fx"]
 
 [ext_resource type="PackedScene" uid="uid://gx7jt67karci" path="res://Shared/castle_map/scene/castle_map 2.tscn" id="1_lr3fq"]
 [ext_resource type="PackedScene" uid="uid://cxn5ye76bwr53" path="res://Shared/castle_map/scene/castle_map.tscn" id="2_pfod2"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://bqlqnmq8378rj" path="res://Shared/castle_map/asset/Pixel Art Wheat.png" id="15_prjfl"]
 [ext_resource type="Texture2D" uid="uid://clvkk3uk04i6y" path="res://Shared/castle_map/asset/Weeping Willow1.png" id="16_eaq4i"]
 [ext_resource type="Texture2D" uid="uid://cc0npgunftx7n" path="res://assets/sprites/Campfire with food sheet.png" id="17_2elt5"]
+[ext_resource type="PackedScene" uid="uid://bsx4rndmp1o6m" path="res://pause_menu.tscn" id="18_6octq"]
 [ext_resource type="Texture2D" uid="uid://c2hka72fw7bjp" path="res://assets/sprites/GandalfHardcore Animated Water Tiles.png" id="18_p1brf"]
 [ext_resource type="Script" uid="uid://d2yert83aq5xa" path="res://Shared/main/scene/dialog.gd" id="19_lr3fq"]
 [ext_resource type="Script" uid="uid://c7il2pcas5atf" path="res://Shared/main/scene/area_2d_2.gd" id="19_p8q02"]
@@ -25,6 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://hhkjmolxw80g" path="res://assets/hpbar/HealthBar DARKP.png" id="21_ibhgj"]
 [ext_resource type="Script" uid="uid://c46852mh0mlp0" path="res://Shared/main/scene/hpbar.gd" id="22_6octq"]
 [ext_resource type="PackedScene" uid="uid://bk551y5q1tl7q" path="res://enemy_mushi.tscn" id="22_pfod2"]
+[ext_resource type="PackedScene" uid="uid://bdqvhos4h542n" path="res://enemy_barkwing.tscn" id="26_ibhgj"]
 
 [sub_resource type="GDScript" id="GDScript_lr3fq"]
 script/source = "extends Node
@@ -5298,6 +5300,12 @@ libraries = {
 }
 autoplay = "fade_out"
 
+[node name="PauseMenu" parent="main_character/Camera2D/Faderlayer" instance=ExtResource("18_6octq")]
+offset_left = 639.0
+offset_top = 645.0
+offset_right = 639.0
+offset_bottom = 645.0
+
 [node name="Area2D2" type="Area2D" parent="."]
 position = Vector2(14555, 645)
 rotation = 3.14159
@@ -5377,6 +5385,30 @@ position = Vector2(8855, 636)
 
 [node name="Enemy_Mushi14" parent="." instance=ExtResource("22_pfod2")]
 position = Vector2(9801, 626)
+
+[node name="enemy_barkwing" parent="." instance=ExtResource("26_ibhgj")]
+position = Vector2(5232, 212)
+
+[node name="enemy_barkwing2" parent="." instance=ExtResource("26_ibhgj")]
+position = Vector2(6110, 597)
+
+[node name="enemy_barkwing3" parent="." instance=ExtResource("26_ibhgj")]
+position = Vector2(6438, -165)
+
+[node name="enemy_barkwing4" parent="." instance=ExtResource("26_ibhgj")]
+position = Vector2(6935, 360)
+
+[node name="enemy_barkwing5" parent="." instance=ExtResource("26_ibhgj")]
+position = Vector2(7842, 346)
+
+[node name="enemy_barkwing6" parent="." instance=ExtResource("26_ibhgj")]
+position = Vector2(8327, 577)
+
+[node name="enemy_barkwing7" parent="." instance=ExtResource("26_ibhgj")]
+position = Vector2(8498, 121)
+
+[node name="enemy_barkwing8" parent="." instance=ExtResource("26_ibhgj")]
+position = Vector2(9520, 617)
 
 [connection signal="body_entered" from="Area2D2" to="Area2D2" method="_on_body_entered"]
 [connection signal="body_entered" from="Dialog" to="Dialog" method="_on_body_entered"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://x043dx4gljig"]
+[gd_scene load_steps=49 format=3 uid="uid://x043dx4gljig"]
 
 [ext_resource type="Script" path="res://boss_room/scene/boss_room.gd" id="1_adiig"]
 [ext_resource type="Texture2D" uid="uid://df7p4eycnpxvp" path="res://Shared/boss_room/asset/boss_room_0.jpg" id="1_cscpj"]
@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://byh7a258iwhih" path="res://boss_room/asset/kucing_tangan_hit_2.png" id="15_qswdd"]
 [ext_resource type="PackedScene" uid="uid://bjjjxnrku30bh" path="res://main_character.tscn" id="19_4upvy"]
 [ext_resource type="AudioStream" uid="uid://bcwwxu1kfwyac" path="res://assets/audio/HurtSFX.MP3" id="22_adiig"]
+[ext_resource type="PackedScene" uid="uid://bsx4rndmp1o6m" path="res://pause_menu.tscn" id="22_ndb4i"]
 [ext_resource type="Texture2D" uid="uid://bmbo1yjglp3ew" path="res://assets/hpbar/HealthBar DARK - Copy (2) - Copy.png" id="23_fqn53"]
 [ext_resource type="Texture2D" uid="uid://hhkjmolxw80g" path="res://assets/hpbar/HealthBar DARKP.png" id="24_ndb4i"]
 [ext_resource type="Script" uid="uid://c46852mh0mlp0" path="res://Shared/main/scene/hpbar.gd" id="25_3yepd"]
@@ -790,7 +791,13 @@ shape = SubResource("RectangleShape2D_q3vpm")
 position = Vector2(675, 19)
 
 [node name="CanvasLayer3" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer3" instance=ExtResource("22_ndb4i")]
 visible = false
+offset_left = 613.0
+offset_top = 674.0
+offset_right = 613.0
+offset_bottom = 674.0
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer3"]
 offset_right = 1280.0

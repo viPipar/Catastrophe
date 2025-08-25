@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=4 uid="uid://6b0h0ob7i2rr"]
+[gd_scene load_steps=60 format=4 uid="uid://6b0h0ob7i2rr"]
 
 [ext_resource type="PackedScene" uid="uid://cxn5ye76bwr53" path="res://Shared/castle_map/scene/castle_map.tscn" id="1_gfjib"]
 [ext_resource type="Texture2D" uid="uid://dfe5u1ludsjlx" path="res://Shared/main/asset/decoration_tileset.png" id="2_enlij"]
@@ -14,12 +14,14 @@
 [ext_resource type="Script" uid="uid://cxnowuvpllt7h" path="res://Shared/main/scene/deathzone.gd" id="11_dv2ty"]
 [ext_resource type="PackedScene" uid="uid://bxi5a758kwtxn" path="res://torch.tscn" id="12_enlij"]
 [ext_resource type="Script" uid="uid://0tyxtcheo3jd" path="res://Shared/main/scene/area_2d_castle.gd" id="12_uqvjl"]
+[ext_resource type="PackedScene" uid="uid://bsx4rndmp1o6m" path="res://pause_menu.tscn" id="13_4gdno"]
 [ext_resource type="Texture2D" uid="uid://0253t5odcjyq" path="res://Shared/caveone_map/asset/cave_entrance_0.png" id="14_08hub"]
 [ext_resource type="Texture2D" uid="uid://dksbuokrm3fpt" path="res://Shared/caveone_map/asset/cave_entrance_1.png" id="15_qrkm8"]
 [ext_resource type="PackedScene" uid="uid://n0w0hvvak5is" path="res://enemy_cloverknight.tscn" id="16_08hub"]
 [ext_resource type="Texture2D" uid="uid://bmbo1yjglp3ew" path="res://assets/hpbar/HealthBar DARK - Copy (2) - Copy.png" id="16_8taqh"]
 [ext_resource type="Texture2D" uid="uid://hhkjmolxw80g" path="res://assets/hpbar/HealthBar DARKP.png" id="17_dv2ty"]
 [ext_resource type="Script" uid="uid://c46852mh0mlp0" path="res://Shared/main/scene/hpbar.gd" id="18_5rmo2"]
+[ext_resource type="PackedScene" uid="uid://bdqvhos4h542n" path="res://enemy_barkwing.tscn" id="21_5rmo2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nri3j"]
 texture = ExtResource("6_08hub")
@@ -3407,6 +3409,12 @@ libraries = {
 }
 autoplay = "fade_out"
 
+[node name="PauseMenu" parent="main_character/Faderlayer" instance=ExtResource("13_4gdno")]
+offset_left = 625.0
+offset_top = 673.0
+offset_right = 625.0
+offset_bottom = 673.0
+
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(18128, 600)
 rotation = 3.14159
@@ -3672,6 +3680,93 @@ position = Vector2(13154, 640)
 
 [node name="Enemy_CloverKnight18" parent="." instance=ExtResource("16_08hub")]
 position = Vector2(15180, 652)
+
+[node name="enemy_barkwing" parent="." instance=ExtResource("21_5rmo2")]
+position = Vector2(4843, -563)
+
+[node name="enemy_barkwing2" parent="." instance=ExtResource("21_5rmo2")]
+position = Vector2(5259, -744)
+
+[node name="enemy_barkwing3" parent="." instance=ExtResource("21_5rmo2")]
+position = Vector2(4774, -923)
+
+[node name="enemy_barkwing4" parent="." instance=ExtResource("21_5rmo2")]
+position = Vector2(5253, -363)
+
+[node name="enemy_barkwing5" parent="." instance=ExtResource("21_5rmo2")]
+position = Vector2(4808, -137)
+
+[node name="enemy_barkwing6" parent="." instance=ExtResource("21_5rmo2")]
+position = Vector2(5285, 52)
+
+[node name="enemy_barkwing7" parent="." instance=ExtResource("21_5rmo2")]
+position = Vector2(4786, 237)
+
+[node name="enemy_barkwing8" parent="." instance=ExtResource("21_5rmo2")]
+position = Vector2(6531, 221)
+
+[node name="enemy_barkwing9" parent="." instance=ExtResource("21_5rmo2")]
+position = Vector2(8326, -815)
+
+[node name="enemy_barkwing10" parent="." instance=ExtResource("21_5rmo2")]
+position = Vector2(8703, -595)
+
+[node name="enemy_barkwing11" parent="." instance=ExtResource("21_5rmo2")]
+position = Vector2(8285, -369)
+
+[node name="enemy_barkwing12" parent="." instance=ExtResource("21_5rmo2")]
+position = Vector2(8709, -218)
+
+[node name="enemy_barkwing13" parent="." instance=ExtResource("21_5rmo2")]
+position = Vector2(8200, -18)
+
+[node name="enemy_barkwing14" parent="." instance=ExtResource("21_5rmo2")]
+position = Vector2(8700, 224)
+
+[node name="enemy_barkwing15" parent="." instance=ExtResource("21_5rmo2")]
+position = Vector2(8266, 381)
+
+[node name="enemy_barkwing16" parent="." instance=ExtResource("21_5rmo2")]
+position = Vector2(9625, 419)
+
+[node name="enemy_barkwing17" parent="." instance=ExtResource("21_5rmo2")]
+position = Vector2(9908, 105)
+
+[node name="enemy_barkwing18" parent="." instance=ExtResource("21_5rmo2")]
+position = Vector2(10074, -146)
+
+[node name="enemy_barkwing19" parent="." instance=ExtResource("21_5rmo2")]
+position = Vector2(10507, -341)
+
+[node name="enemy_barkwing20" parent="." instance=ExtResource("21_5rmo2")]
+position = Vector2(11260, -670)
+
+[node name="enemy_barkwing21" parent="." instance=ExtResource("21_5rmo2")]
+position = Vector2(11540, -849)
+
+[node name="enemy_barkwing22" parent="." instance=ExtResource("21_5rmo2")]
+position = Vector2(11775, -937)
+
+[node name="enemy_barkwing23" parent="." instance=ExtResource("21_5rmo2")]
+position = Vector2(12055, -1009)
+
+[node name="enemy_barkwing24" parent="." instance=ExtResource("21_5rmo2")]
+position = Vector2(14481, -547)
+
+[node name="enemy_barkwing25" parent="." instance=ExtResource("21_5rmo2")]
+position = Vector2(13148, -102)
+
+[node name="enemy_barkwing26" parent="." instance=ExtResource("21_5rmo2")]
+position = Vector2(12784, 308)
+
+[node name="enemy_barkwing27" parent="." instance=ExtResource("21_5rmo2")]
+position = Vector2(13141, 220)
+
+[node name="enemy_barkwing28" parent="." instance=ExtResource("21_5rmo2")]
+position = Vector2(13904, 604)
+
+[node name="Enemy_CloverKnight19" parent="." instance=ExtResource("16_08hub")]
+position = Vector2(13460, 642)
 
 [connection signal="body_entered" from="Area2D2" to="Area2D2" method="_on_body_entered"]
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]

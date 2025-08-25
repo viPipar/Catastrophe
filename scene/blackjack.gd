@@ -77,9 +77,6 @@ var _react_tween: Tween = null
 
 
 var ui_locked: bool = false  # kunci sementara saat dealer lagi aksi/animasi
-signal game_finished(outcome) # outcome: "win" | "lose" | "push"
-
-signal finished(success: bool)  # success: true/false; data: payload bebas
 # ===== Inisialisasi =====
 func _ready():
 	randomize()

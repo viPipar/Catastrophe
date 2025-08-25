@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bsydugi0cv631"]
+[gd_scene load_steps=16 format=3 uid="uid://bsydugi0cv631"]
 
 [ext_resource type="Script" uid="uid://dpua21bbs8x1v" path="res://scene/blackjack.gd" id="1_f2mig"]
 [ext_resource type="PackedScene" uid="uid://bsps7tsl6fhb5" path="res://blackjack_background/scene/blackjack_background_2.tscn" id="2_f2mig"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ckophae3oal2x" path="res://scene/card.tscn" id="4_gbj04"]
 [ext_resource type="TileSet" uid="uid://clsaov0f3inaj" path="res://assets/tilemap/tileset.tres" id="5_1sjef"]
 [ext_resource type="FontFile" uid="uid://dphd0was5qchn" path="res://asset/press_start_2p (1)/PressStart2P.ttf" id="6_hfiib"]
+[ext_resource type="PackedScene" uid="uid://bsx4rndmp1o6m" path="res://pause_menu.tscn" id="6_yqphp"]
 [ext_resource type="FontFile" uid="uid://dbee7gu4vinb7" path="res://asset/press_start_2p (1)/Minecraft.ttf" id="7_jr8fg"]
 [ext_resource type="Texture2D" uid="uid://b7cuhf3618f7v" path="res://Photo MC.png" id="8_f2mig"]
 [ext_resource type="Texture2D" uid="uid://csfxflhnkr87r" path="res://Photo Jungara.png" id="9_yqphp"]
@@ -98,6 +99,12 @@ offset_right = 2029.0
 offset_bottom = 1188.0
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
+
+[node name="PauseMenu" parent="Camera2D/CanvasLayer" instance=ExtResource("6_yqphp")]
+offset_left = 624.0
+offset_top = 674.0
+offset_right = 624.0
+offset_bottom = 674.0
 
 [node name="Visible_Buttons" type="Node2D" parent="."]
 position = Vector2(0, -255)
